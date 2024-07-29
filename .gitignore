@@ -1,4 +1,47 @@
-node_modules/
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Libraries
+node_modules
+
+# Build
+dist
+build
+dist-ssr
+tsconfig.tsbuildinfo
+
+# System files
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing
+coverage
+reports
+
+# Local env files
+*.local
+
+# Sonar
+sonar-project.properties
+.scannerwork
+.sonarlint
+
+# Gatsby
 .cache/
 public
 src/gatsby-types.d.ts
+
+# Cache
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
