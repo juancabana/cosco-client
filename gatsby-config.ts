@@ -1,21 +1,46 @@
+/**
+ * This file can be used to define Gatsby configuration,
+ * more info in https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/
+ */
+
 import type { GatsbyConfig } from "gatsby";
 
+import dotenv from "dotenv";
+
+dotenv.config({
+  path: `.env`,
+});
+
 const config: GatsbyConfig = {
+  plugins: [
+    "gatsby-plugin-postcss",
+    "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    {
+      options: {
+        alias: {
+          "@": "src",
+        },
+      },
+      resolve: "gatsby-plugin-alias-imports",
+    },
+    {
+      options: {
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+      },
+      resolve: "gatsby-source-contentful",
+    },
+  ],
   siteMetadata: {
-    title: `cosco-client`,
-    siteUrl: `https://www.yourdomain.tld`
+    author: "COSCO®",
+    description:
+      "Compra y vende tus cosechas, frutas y verduras en COSCO®. La plataforma de comercio electrónico para agricultores y consumidores.",
+    facebookId: process.env.FACEBOOK_DOMAIN_VERIFICATION,
+    siteUrl: process.env.GATSBY_ECOMMERCE_URL,
+    title: "Compra y vende tus cosechas en COSCO®",
   },
-  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
-  // If you use VSCode you can also use the GraphQL plugin
-  // Learn more at: https://gatsby.dev/graphql-typegen
-  graphqlTypegen: true,
-  plugins: [{
-    resolve: 'gatsby-source-contentful',
-    options: {
-      "accessToken": "VHN7UchjgXDohX4KoW42N5oM5ubU6z6Z3Hw-4-DPaW4",
-      "spaceId": ""
-    }
-  }, "gatsby-plugin-image", "gatsby-plugin-sharp", "gatsby-transformer-sharp", "gatsby-plugin-postcss"]
-};
+} satisfies GatsbyConfig;
 
 export default config;
