@@ -29,7 +29,7 @@ const Header = () => {
             {options.map((option) => (
               <li key={option.name}>
                 <a
-                  className="text-emerald-900 transition font-semibold text-base hover:text-gray-500/75"
+                  className="text-emerald-900 transition font-roboto font-medium text-base leading-6 hover:text-gray-500/75"
                   href={option.href}
                 >
                   {option.name}
