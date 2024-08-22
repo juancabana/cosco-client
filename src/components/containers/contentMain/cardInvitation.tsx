@@ -2,21 +2,22 @@ import React from "react";
 
 import ShapesInverted from "@/assets/ShapesInverted.png";
 import ImgCrop from "@/assets/img_section1.png";
+import Ellipse from "@/assets/Ellipse_2.svg";
 
 const CardInvitation = () => (
-  <section className="flex w-full justify-center bg-white h-section relative overflow-hidden">
+  <section className="flex w-full justify-center bg-emerald-50 h-section relative overflow-hidden">
     <div className="hidden xl:block absolute h-full w-max">
       <img src={ShapesInverted} alt="" className="h-full" />
     </div>
     <div className="flex max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8">
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
-        {/* <img
+        <img
           src={ImgCrop}
           alt=""
           className="h-full 2xl:max-h-[620px] rounded-3xl"
-        /> */}
+        />
       </div>
-      <div className="max-w-xl z-10">
+      <div className="max-w-md z-10">
         <h1 className="font-bold text-4xl text-cosco-primary leading-10">
           Únete a la comunidad
         </h1>
@@ -36,6 +37,7 @@ const CardInvitation = () => (
         </a>
       </div>
     </div>
+    <img src={Ellipse} alt="" className="absolute -bottom-96 -right-80" />
   </section>
 );
 

@@ -8,7 +8,7 @@ const ContentMain = () => (
   <div>
     <CardMain />
     <CardInvitation />
-    {/* <CardHistory /> */}
+    <CardHistory />
   </div>
 );
 
