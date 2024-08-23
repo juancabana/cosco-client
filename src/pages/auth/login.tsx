@@ -6,6 +6,11 @@ import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
 const loginPage: FC<PageProps> = () => {
+
+  const login = (): void => {
+    alert("Logged");
+  }
+
   return (
     <div className="bg-white">
       <div className="flex justify-center h-screen">
@@ -64,8 +69,8 @@ const loginPage: FC<PageProps> = () => {
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Tu correo electrónico"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    placeholder="example@example.com"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
@@ -90,12 +95,12 @@ const loginPage: FC<PageProps> = () => {
                     name="password"
                     id="password"
                     placeholder="********"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
                 </div>
 
                 <div className="mt-6">
-                  <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                  <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50">
                     Iniciar sesión
                   </button>
                 </div>
