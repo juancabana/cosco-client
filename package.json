@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "autoprefixer": "^10.4.19",
     "dotenv": "^16.4.5",
     "gatsby": "^5.13.5",
@@ -28,12 +29,12 @@
     "@types/node": "^20.11.19",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
+    "gatsby-plugin-alias-imports": "1.0.5",
     "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-postcss": "^6.13.1",
     "gatsby-plugin-sharp": "^5.13.1",
     "gatsby-source-contentful": "^8.13.2",
     "gatsby-transformer-sharp": "^5.13.1",
-    "gatsby-plugin-alias-imports": "1.0.5",
     "typescript": "^5.3.3",
     "vitest": "^2.0.4"
   }

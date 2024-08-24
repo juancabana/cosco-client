@@ -8,8 +8,8 @@ export const Head: HeadFC = () => <Seo />;
 const publicationsPage: FC<PageProps> = () => {
   return (
     <Layout>
-      <div className="h-[200vh] w-full">
-        <h1>publicaciones</h1>
+      <div className="h-[200vh] w-full pt-16">
+        <h1>Publicaciones</h1>
       </div>
     </Layout>
   );

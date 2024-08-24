@@ -1,27 +1,33 @@
 import React from "react";
-
 import ShapesInverted from "@/assets/ShapesInverted.png";
 import ImgCrop from "@/assets/img_section1.png";
 import Ellipse from "@/assets/Ellipse_2.svg";
 
 const CardInvitation = () => (
-  <section className="flex w-full justify-center bg-emerald-50 h-section relative overflow-hidden">
-    <div className="hidden xl:block absolute h-full w-max">
-      <img src={ShapesInverted} alt="" className="h-full" />
+  <section className="relative bg-emerald-50 py-12 md:py-20 overflow-hidden">
+    {/* Fondo de formas */}
+    <div className="absolute inset-0 hidden xl:block z-0">
+      <img
+        src={ShapesInverted}
+        alt=""
+        className="w-full h-full object-cover"
+      />
     </div>
-    <div className="flex max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8">
-      <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
+    <div className="relative flex flex-col xl:flex-row max-w-screen-2xl w-full items-center justify-center xl:justify-between font-roboto gap-25 px-4 sm:px-6 lg:px-8 mx-auto z-10">
+      {/* Imagen - Oculta en pantallas pequeñas */}
+      <div className="hidden xl:flex justify-center items-center xl:w-1/2 xl:mr-16 py-6 z-10">
         <img
           src={ImgCrop}
           alt=""
-          className="h-full 2xl:max-h-[620px] rounded-3xl"
+          className="h-auto max-h-[620px] rounded-3xl object-cover"
         />
       </div>
-      <div className="max-w-md z-10">
-        <h1 className="font-bold text-4xl text-cosco-primary leading-10">
+      {/* Contenedor de texto */}
+      <div className="text-center xl:text-left w-full xl:w-1/3 z-10 xl:ml-auto">
+        <h1 className="font-bold text-3xl sm:text-4xl md:text-4xl text-cosco-primary leading-tight">
           Únete a la comunidad
         </h1>
-        <p className="text-lg font-normal text-cosco-secondary mt-5">
+        <p className="text-sm sm:text-base md:text-lg font-normal text-cosco-secondary mt-4 sm:mt-5">
           ¡Sé parte del comienzo de algo grande! "Únete a la Comunidad" te
           invita a formar parte de nuestra plataforma desde sus primeros pasos.
           Al ser parte de los primeros usuarios, tendrás la oportunidad de dar
@@ -30,14 +36,18 @@ const CardInvitation = () => (
           emocionante aventura.
         </p>
         <a
-          className="hidden rounded-full w-fit mt-12 bg-cosco-button px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
+          className="inline-block rounded-full mt-6 bg-cosco-button px-5 py-2.5 text-sm sm:text-base font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
           href="/"
         >
           Explorar
         </a>
       </div>
     </div>
-    <img src={Ellipse} alt="" className="absolute -bottom-96 -right-80" />
+    <img
+      src={Ellipse}
+      alt=""
+      className="absolute -bottom-32 -right-32 md:-bottom-24 md:-right-24 xl:-bottom-16 xl:-right-16 z-0"
+    />
   </section>
 );
 
