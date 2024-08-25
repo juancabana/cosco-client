@@ -5,7 +5,6 @@ import Ellipse from "@/assets/Ellipse_2.svg";
 
 const CardInvitation = () => (
   <section className="relative bg-emerald-50 py-12 md:py-20 overflow-hidden">
-    {/* Fondo de formas */}
     <div className="absolute inset-0 hidden xl:block z-0">
       <img
         src={ShapesInverted}
@@ -14,7 +13,6 @@ const CardInvitation = () => (
       />
     </div>
     <div className="relative flex flex-col xl:flex-row max-w-screen-2xl w-full items-center justify-center xl:justify-between font-roboto gap-25 px-4 sm:px-6 lg:px-8 mx-auto z-10">
-      {/* Imagen - Oculta en pantallas pequeñas */}
       <div className="hidden xl:flex justify-center items-center xl:w-1/2 xl:mr-16 py-6 z-10">
         <img
           src={ImgCrop}
@@ -22,12 +20,11 @@ const CardInvitation = () => (
           className="h-auto max-h-[620px] rounded-3xl object-cover"
         />
       </div>
-      {/* Contenedor de texto */}
       <div className="text-center xl:text-left w-full xl:w-1/3 z-10 xl:ml-auto">
-        <h1 className="font-bold text-3xl sm:text-4xl md:text-4xl text-cosco-primary leading-tight">
+        <h1 className="font-bold text-4xl sm:text-4xl md:text-4xl text-cosco-primary leading-tight">
           Únete a la comunidad
         </h1>
-        <p className="text-sm sm:text-base md:text-lg font-normal text-cosco-secondary mt-4 sm:mt-5">
+        <p className="text-base sm:text-base md:text-lg font-normal text-cosco-secondary mt-4 sm:mt-5">
           ¡Sé parte del comienzo de algo grande! "Únete a la Comunidad" te
           invita a formar parte de nuestra plataforma desde sus primeros pasos.
           Al ser parte de los primeros usuarios, tendrás la oportunidad de dar

@@ -32,71 +32,69 @@ const Header = () => {
         hasScrolled ? "shadow-md" : "shadow-none"
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-10 px-5 sm:px-2 lg:px-5">
+      <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-5 sm:px-10 lg:px-5">
         <Link className="block text-teal-600" to="/">
           <img src={logo} alt="Logo" />
         </Link>
 
-        <div className="flex flex-1 items-center justify-between">
-          <nav aria-label="Global" className="hidden md:block">
-            <ul className="flex items-center gap-8 text-sm">
-              {options.map((option) => (
-                <li key={option.name}>
-                  <Link
-                    className="text-emerald-900 font-roboto font-medium text-base leading-6 hover:font-bold px-2"
-                    activeClassName="border-b-2 border-emerald-800"
-                    to={option.href}
-                  >
-                    {option.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+        <nav aria-label="Global" className="hidden xl:flex xl:flex-1 xl:justify-center">
+          <ul className="flex items-center gap-8 text-sm">
+            {options.map((option) => (
+              <li key={option.name}>
+                <Link
+                  className="text-emerald-900 font-roboto font-medium text-base leading-6 hover:font-bold px-2"
+                  activeClassName="border-b-2 border-emerald-800"
+                  to={option.href}
+                >
+                  {option.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4">
+          <Link
+            className="hidden xl:block rounded-full bg-transparent text-emerald-900 border-2 font-semibold border-emerald-900 px-5 py-2.5 text-sm transition hover:bg-emerald-100"
+            to="/auth/login"
+          >
+            Iniciar sesión
+          </Link>
+
+          <div className="hidden xl:block">
             <Link
-              className="block rounded-full bg-transparent text-emerald-900 border-2 font-semibold border-emerald-900 px-5 py-2.5 text-sm transition hover:bg-emerald-100"
-              to="/auth/login"
+              className="rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+              to="/"
             >
-              Iniciar sesión
+              Registrarme
             </Link>
-
-            <div className="sm:flex sm:gap-4 hidden">
-              <Link
-                className="rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
-                to="/"
-              >
-                Registrarme
-              </Link>
-            </div>
-
-            <button
-              className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden"
-              onClick={toggleMenu}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth=""
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
           </div>
+
+          <button
+            className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 xl:hidden"
+            onClick={toggleMenu}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
         </div>
       </div>
       <div
         className={`fixed inset-0 bg-white z-20 transition-transform ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
-        } md:hidden`}
+        } xl:hidden`}
       >
         <button
           className="absolute top-4 right-4 text-gray-600"
