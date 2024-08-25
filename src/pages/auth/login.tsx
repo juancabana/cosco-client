@@ -7,8 +7,17 @@ import logoWhite from "@/assets/cosco.svg";
 
 import { useForm } from "react-hook-form";
 
-const loginPage: FC<PageProps> = () => {
-  const { register } = useForm();
+interface FormSchema {  
+  email: string;
+  password: string;
+}
+
+const LoginPage: FC<PageProps> = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormSchema>();
 
   const login = (): void => {
     alert("Logged");
@@ -60,7 +69,7 @@ const loginPage: FC<PageProps> = () => {
             </div>
 
             <div className="mt-8">
-              <form>
+              <form onSubmit={handleSubmit(login as Fn)}>
                 <div>
                   <label
                     htmlFor="email"
@@ -69,12 +78,25 @@ const loginPage: FC<PageProps> = () => {
                     Correo electrónico
                   </label>
                   <input
-                    {...register("email")}
-                    type="email"
+                    {...register("email", {
+                      required: "Este campo es requerido",
+                      pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "El e-mail no es valido",
+                      },
+                    })}
                     id="email"
                     placeholder="example@example.com"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className={`block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40 / ${
+                      errors.email &&
+                      "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
+                    } `}
                   />
+                  {errors.email && (
+                    <span className="text-sm text-red-400">
+                      {errors.email.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mt-6">
@@ -94,16 +116,45 @@ const loginPage: FC<PageProps> = () => {
                   </div>
 
                   <input
+                    {...register("password", {
+                      required: "Este campo es requerido",
+                      minLength: {
+                        value: 6,
+                        message:
+                          "La contraseña debe tener al menos 6 caracteres",
+                      },
+                      maxLength: {
+                        value: 50,
+                        message:
+                          "La contraseña debe tener menos de 50 caracteres",
+                      },
+                      pattern: {
+                        value:
+                          /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s]).{6,50}/,
+                        message:
+                          "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
+                      },
+                    })}
                     type="password"
-                    name="password"
                     id="password"
                     placeholder="********"
-                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                    className={`block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40 / ${
+                      errors.password &&
+                      "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
+                    }`}
                   />
+                  {errors.password && (
+                    <span className="text-sm text-red-400">
+                      {errors.password.message}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mt-6">
-                  <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50">
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50"
+                  >
                     Iniciar sesión
                   </button>
                 </div>
@@ -127,4 +178,4 @@ const loginPage: FC<PageProps> = () => {
   );
 };
 
-export default loginPage;
+export default LoginPage;
