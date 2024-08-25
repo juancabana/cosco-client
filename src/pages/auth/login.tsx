@@ -5,11 +5,14 @@ import backgroundImage from "@/assets/login-image.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
+import { useForm } from "react-hook-form";
+
 const loginPage: FC<PageProps> = () => {
+  const { register } = useForm();
 
   const login = (): void => {
     alert("Logged");
-  }
+  };
 
   return (
     <div className="bg-white">
@@ -66,8 +69,8 @@ const loginPage: FC<PageProps> = () => {
                     Correo electrónico
                   </label>
                   <input
+                    {...register("email")}
                     type="email"
-                    name="email"
                     id="email"
                     placeholder="example@example.com"
                     className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -82,12 +85,12 @@ const loginPage: FC<PageProps> = () => {
                     >
                       Contraseña
                     </label>
-                    <a
+                    {/* <a
                       href="#"
                       className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
                     >
                       ¿Olvidaste tu contraseña?
-                    </a>
+                    </a> */}
                   </div>
 
                   <input
@@ -108,12 +111,12 @@ const loginPage: FC<PageProps> = () => {
 
               <p className="mt-6 text-sm text-center text-gray-400">
                 ¿No tienes una cuenta?{" "}
-                <a
+                {/* <a
                   href="#"
                   className="text-blue-500 focus:outline-none focus:underline hover:underline"
                 >
                   Regístrate
-                </a>
+                </a> */}
                 .
               </p>
             </div>
