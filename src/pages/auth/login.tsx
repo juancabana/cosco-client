@@ -5,10 +5,11 @@ import backgroundImage from "@/assets/login-image.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
-import { useForm, type SubmitHandler } from "react-hook-form";
+import { FormProvider, useForm, type SubmitHandler, type ValidationRule } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/services/actions";
 import ScreenLoader from "@/components/ui/screenLoader";
+import TextField from "@/components/ui/textField";
 
 interface FormSchema {
   email: string;
@@ -16,15 +17,11 @@ interface FormSchema {
 }
 
 const LoginPage: FC<PageProps> = () => {
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormSchema>();
+  const methods = useForm<FormSchema>();
 
   const onSubmit: SubmitHandler<FormSchema> = async (data: FormSchema) => {
-    mutate(data);
+    // mutate(data);
+    console.log(methods.formState);
   };
 
   const { mutate, isPending } = useMutation({
@@ -82,102 +79,56 @@ const LoginPage: FC<PageProps> = () => {
             </div>
 
             <div className="mt-8">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm text-gray-600 "
-                  >
-                    Correo electrónico
-                  </label>
-                  <input
-                    {...register("email", {
-                      required: "Este campo es requerido",
-                      pattern: {
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "El e-mail no es valido",
-                      },
-                    })}
-                    id="email"
-                    placeholder="ejemplo@ejemplo.com"
-                    className={`block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40 / ${
-                      errors.email &&
-                      "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
-                    } `}
+              <FormProvider {...methods}>
+                <form onSubmit={methods.handleSubmit(onSubmit) as Fn}>
+                  <TextField
+                    label="Correo electrónico"
+                    name="email"
+                    placeholder="ejemplo@ejemplo.com.co"
+                    required
+                    pattern={{
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "El e-mail no es valido",
+                    }}
                   />
-                  {errors.email && (
-                    <span className="text-sm text-red-400">
-                      {errors.email.message}
-                    </span>
-                  )}
-                </div>
-
-                <div className="mt-6">
-                  <div className="flex justify-between mb-2">
-                    <label
-                      htmlFor="password"
-                      className="text-sm text-gray-600 "
-                    >
-                      Contraseña
-                    </label>
-                    <a
-                      href="#"
-                      className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
-                    >
-                      ¿Olvidaste tu contraseña?
-                    </a>
-                  </div>
-
-                  <input
-                    {...register("password", {
-                      required: "Este campo es requerido",
-                      minLength: {
-                        value: 6,
-                        message:
-                          "La contraseña debe tener al menos 6 caracteres",
-                      },
-                      maxLength: {
-                        value: 50,
-                        message:
-                          "La contraseña debe tener menos de 50 caracteres",
-                      },
-                      pattern: {
-                        value:
-                          /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s]).{6,50}/,
-                        message:
-                          "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
-                      },
-                    })}
+                  <TextField
+                    label="Contraseña"
+                    name="password"
                     type="password"
-                    id="password"
                     placeholder="********"
-                    className={`block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40 / ${
-                      errors.password &&
-                      "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
-                    }`}
+                    required
+                    minLength={{
+                      value: 6,
+                      message: "La contraseña debe tener al menos 6 caracteres",
+                    }}
+                    maxLength={{
+                      value: 50,
+                      message:
+                        "La contraseña debe tener menos de 50 caracteres",
+                    }}
+                    pattern={{
+                      value:
+                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s]).{6,50}/,
+                      message:
+                        "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
+                    }}
                   />
-                  {errors.password && (
-                    <span className="text-sm text-red-400">
-                      {errors.password.message}
-                    </span>
-                  )}
-                </div>
-
-                <div className="mt-6">
-                  <button
-                    type="submit"
-                    disabled={isPending}
-                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    Iniciar sesión
-                  </button>
-                </div>
-              </form>
+                  <div className="mt-6">
+                    <button
+                      type="submit"
+                      disabled={isPending}
+                      className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Iniciar sesión
+                    </button>
+                  </div>
+                </form>
+              </FormProvider>
 
               <p className="mt-6 text-sm text-center text-gray-400">
                 ¿No tienes una cuenta?{" "}
                 <a
-                  href="#"
+                  href="/"
                   className="text-blue-500 focus:outline-none focus:underline hover:underline"
                 >
                   Regístrate
