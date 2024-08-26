@@ -5,26 +5,39 @@ import backgroundImage from "@/assets/login-image.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/services/actions";
+import ScreenLoader from "@/components/ui/screenLoader";
 
-interface FormSchema {  
+interface FormSchema {
   email: string;
   password: string;
 }
 
 const LoginPage: FC<PageProps> = () => {
+  
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormSchema>();
 
-  const login = (): void => {
-    alert("Logged");
+  const onSubmit: SubmitHandler<FormSchema> = async (data: FormSchema) => {
+    mutate(data);
   };
 
+  const { mutate, isPending } = useMutation({
+    mutationKey: ["login"],
+    mutationFn: login,
+    retry: 0,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   return (
-    <div className="bg-white">
+    <section className="bg-white">
       <div className="flex justify-center h-screen">
         <div
           className="hidden lg:block lg:w-2/3 bg-cover bg-center relative"
@@ -69,7 +82,7 @@ const LoginPage: FC<PageProps> = () => {
             </div>
 
             <div className="mt-8">
-              <form onSubmit={handleSubmit(login as Fn)}>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <label
                     htmlFor="email"
@@ -107,12 +120,12 @@ const LoginPage: FC<PageProps> = () => {
                     >
                       Contraseña
                     </label>
-                    {/* <a
+                    <a
                       href="#"
                       className="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
                     >
                       ¿Olvidaste tu contraseña?
-                    </a> */}
+                    </a>
                   </div>
 
                   <input
@@ -153,7 +166,8 @@ const LoginPage: FC<PageProps> = () => {
                 <div className="mt-6">
                   <button
                     type="submit"
-                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50"
+                    disabled={isPending}
+                    className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Iniciar sesión
                   </button>
@@ -162,19 +176,20 @@ const LoginPage: FC<PageProps> = () => {
 
               <p className="mt-6 text-sm text-center text-gray-400">
                 ¿No tienes una cuenta?{" "}
-                {/* <a
+                <a
                   href="#"
                   className="text-blue-500 focus:outline-none focus:underline hover:underline"
                 >
                   Regístrate
-                </a> */}
+                </a>
                 .
               </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <ScreenLoader isVisible={isPending} />
+    </section>
   );
 };
 

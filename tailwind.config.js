@@ -39,7 +39,16 @@ module.exports = {
         'cosco-primary': '#134E4A',
         'cosco-primary-60': 'rgba(15, 118, 110, 0.6)',
         'cosco-secondary': '#115E59',
-      }
+      },
+      animation: {
+        spin: 'spin 4s linear infinite',
+      },
+      keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+      },
     },
   },
   plugins: [],
