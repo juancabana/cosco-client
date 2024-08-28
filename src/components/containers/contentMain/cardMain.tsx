@@ -23,7 +23,7 @@ const CardMain = () => (
           local y sostenible.
         </p>
         <a
-          className="hidden rounded-full w-fit mt-12 bg-cosco-button px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
+          className="hidden rounded-full w-fit mt-12 bg-cosco-button-950 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
           href="/"
         >
           Explorar
