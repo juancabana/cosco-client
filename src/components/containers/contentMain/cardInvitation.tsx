@@ -43,7 +43,7 @@ const CardInvitation = () => (
     <img
       src={Ellipse}
       alt=""
-      className="absolute -bottom-32 -right-32 md:-bottom-24 md:-right-24 xl:-bottom-[40%] xl:-right-[25%]  z-0"
+      className="absolute -bottom-32 -right-32 md:-bottom-[90%] md:-right-[50%] xl:-bottom-[40%] xl:-right-[25%]  z-0"
       
     />
   </section>

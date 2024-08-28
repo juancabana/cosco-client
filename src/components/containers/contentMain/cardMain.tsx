@@ -8,7 +8,7 @@ const CardMain = () => (
         <img
       src={Ellipse}
       alt=""
-      className="absolute -top-[6%] right-0 xl:w-6/12 z-0 md:bottom-[2%] sm:w-4/5"
+      className="absolute -top-[6%] right-0 xl:w-6/12 z-0 md:w-[60%] sm:w-4/5"
     />
     <div className="hidden xl:block absolute inset-0 z-0">
       <img src={Shapes} alt="" className="h-full w-full object-cover" />
