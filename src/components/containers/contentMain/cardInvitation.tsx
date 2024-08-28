@@ -4,7 +4,7 @@ import ImgCrop from "@/assets/img_section1.png";
 import Ellipse from "@/assets/Ellipse_2.svg";
 
 const CardInvitation = () => (
-  <section className="relative bg-emerald-50 py-12 md:py-20 overflow-hidden">
+  <section className="relative bg-emerald-50 py-12 md:py-20 overflow-hidden xl:h-section">
     <div className="absolute inset-0 hidden xl:block z-0">
       <img
         src={ShapesInverted}
@@ -21,10 +21,10 @@ const CardInvitation = () => (
         />
       </div>
       <div className="text-center xl:text-left w-full xl:w-1/3 z-10 xl:ml-auto">
-        <h1 className="font-bold text-4xl sm:text-4xl md:text-4xl text-cosco-primary leading-tight">
+        <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl xl:text-4xl lg:text-7xl text-cosco-primary leading-tight">
           Únete a la comunidad
         </h1>
-        <p className="text-base sm:text-base md:text-lg font-normal text-cosco-secondary mt-4 sm:mt-5">
+        <p className="text-base sm:text-lg md:text-xl font-normal text-cosco-secondary mt-4 sm:mt-5">
           ¡Sé parte del comienzo de algo grande! "Únete a la Comunidad" te
           invita a formar parte de nuestra plataforma desde sus primeros pasos.
           Al ser parte de los primeros usuarios, tendrás la oportunidad de dar
@@ -43,7 +43,8 @@ const CardInvitation = () => (
     <img
       src={Ellipse}
       alt=""
-      className="absolute -bottom-32 -right-32 md:-bottom-24 md:-right-24 xl:-bottom-16 xl:-right-16 z-0"
+      className="absolute -bottom-32 -right-32 md:-bottom-24 md:-right-24 xl:-bottom-[40%] xl:-right-[25%]  z-0"
+      
     />
   </section>
 );

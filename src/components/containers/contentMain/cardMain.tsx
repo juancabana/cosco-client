@@ -1,13 +1,19 @@
 import React from "react";
 import ImgCrop from "@/assets/img_section1.png";
 import Shapes from "@/assets/Shapes.png";
+import Ellipse from "@/assets/Ellipse 21.png"
 
 const CardMain = () => (
-  <section className="relative overflow-hidden bg-white py-12 md:py-20">
+  <section className="relative overflow-hidden bg-white py-12 md:py-20 xl:h-section ">
+        <img
+      src={Ellipse}
+      alt=""
+      className="absolute -top-[6%] right-0 xl:w-6/12 z-0 md:bottom-[2%] sm:w-4/5"
+    />
     <div className="hidden xl:block absolute inset-0 z-0">
       <img src={Shapes} alt="" className="h-full w-full object-cover" />
     </div>
-    <div className="flex flex-col xl:flex-row max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8 mx-auto relative z-10 pt-24 xl:pt-0">
+    <div className="flex flex-col xl:flex-row max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8 mx-auto relative z-10 pt-5 xl:pt-0">
       <div className="text-center xl:text-left max-w-xl">
         <h1 className="font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-cosco-primary leading-tight">
           Publica y compra
