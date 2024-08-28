@@ -30,3 +30,7 @@ export const login = async (credentials: Credentials) => {
   );
   return data;
 };
+
+export const register = async (credentials: any) => {
+  
+};

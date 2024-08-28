@@ -5,7 +5,7 @@ import backgroundImage from "@/assets/login-image.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
-import { FormProvider, useForm, type SubmitHandler, type ValidationRule } from "react-hook-form";
+import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/services/actions";
 import ScreenLoader from "@/components/ui/screenLoader";
@@ -20,8 +20,7 @@ const LoginPage: FC<PageProps> = () => {
   const methods = useForm<FormSchema>();
 
   const onSubmit: SubmitHandler<FormSchema> = async (data: FormSchema) => {
-    // mutate(data);
-    console.log(methods.formState);
+    mutate(data);
   };
 
   const { mutate, isPending } = useMutation({
