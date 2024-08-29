@@ -1,4 +1,4 @@
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import React, { type FC } from "react";
 
 import backgroundImage from "@/assets/login-image.jpg";
@@ -12,7 +12,11 @@ import ScreenLoader from "@/components/ui/screenLoader";
 import TextField from "@/components/ui/textField";
 import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
+import useAuth from "@/hooks/useAuth";
+
 const Login: FC = () => {
+  const { setToken } = useAuth();
+
   const methods = useForm<PayloadLogin>();
 
   const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) => {
@@ -23,8 +27,9 @@ const Login: FC = () => {
     mutationKey: ["login"],
     mutationFn: login,
     retry: 0,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: ({ token }) => {
+      setToken({ key: "token", token });
+      navigate("/publications");
     },
   });
 
@@ -102,8 +107,7 @@ const Login: FC = () => {
                         "La contraseña debe tener menos de 50 caracteres",
                     }}
                     pattern={{
-                      value:
-                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
+                      value: /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
                       message:
                         "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
                     }}
@@ -122,12 +126,12 @@ const Login: FC = () => {
 
               <p className="mt-6 text-sm text-center text-gray-400">
                 ¿No tienes una cuenta?{" "}
-                <a
-                  href="/"
+                <Link
+                  to="/auth/register"
                   className="text-blue-500 focus:outline-none focus:underline hover:underline"
                 >
                   Regístrate
-                </a>
+                </Link>
                 .
               </p>
             </div>

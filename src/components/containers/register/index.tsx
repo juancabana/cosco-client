@@ -15,7 +15,9 @@ import ErrorPopupModal from "@/components/ui/errorPopupModal";
 const Register: FC = () => {
   const methods = useForm<RegisterPayload>();
 
-  const onSubmit: SubmitHandler<RegisterPayload> = async (data: RegisterPayload) => {
+  const onSubmit: SubmitHandler<RegisterPayload> = async (
+    data: RegisterPayload
+  ) => {
     mutate(data);
   };
 
@@ -102,8 +104,7 @@ const Register: FC = () => {
                         "La contraseña debe tener menos de 50 caracteres",
                     }}
                     pattern={{
-                      value:
-                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
+                      value: /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
                       message:
                         "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
                     }}
@@ -122,7 +123,11 @@ const Register: FC = () => {
                       name="lastName"
                       required
                     />
-                    <TextField label="Segundo apellido" name="secondLastName" defaultValue={null} />
+                    <TextField
+                      label="Segundo apellido"
+                      name="secondLastName"
+                      defaultValue={null}
+                    />
                   </div>
                   <TextField
                     label="Teléfono"
@@ -141,7 +146,7 @@ const Register: FC = () => {
                       disabled={isPending}
                       className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Iniciar sesión
+                      Regístrate
                     </button>
                   </div>
                 </form>
@@ -149,12 +154,12 @@ const Register: FC = () => {
 
               <p className="mt-6 text-sm text-center text-gray-400">
                 ¿Ya tienes una cuenta?{" "}
-                <a
-                  href="/auth/login"
+                <Link
+                  to="/auth/login"
                   className="text-blue-500 focus:outline-none focus:underline hover:underline"
                 >
                   Inicia sesión
-                </a>
+                </Link>
                 .
               </p>
             </div>
