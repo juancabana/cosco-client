@@ -6,7 +6,7 @@ export interface PayloadLogin {
   password: string;
 }
 
-export interface RegisterPayload {
+export interface PayloadRegister {
   email: string;
   password: string;
   firstName: string;
@@ -15,12 +15,11 @@ export interface RegisterPayload {
   secondLastName?: string | null;
   phoneNumber: string;
 }
-interface LoginResponse {
+export interface LoginResponse {
   _id: string;
   username: string;
   fullName: string;
   email: string;
-  password: string;
   phoneNumber: string;
   description: string;
   isActive: boolean;
@@ -29,11 +28,10 @@ interface LoginResponse {
   token: string;
 }
 
-interface RegisterResponse {
+export interface RegisterResponse {
   username: string;
   fullName: string;
   email: string;
-  password: string;
   phoneNumber: string;
   description: string;
   isActive: boolean;
@@ -49,7 +47,7 @@ export const login = async (payload: PayloadLogin): Promise<LoginResponse> => {
 };
 
 export const register = async (
-  payload: RegisterPayload
+  payload: PayloadRegister
 ): Promise<RegisterResponse> => {
   const { data } = await coscoApi.post<RegisterResponse>("/user", payload);
   return {...data, };

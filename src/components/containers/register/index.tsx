@@ -8,27 +8,19 @@ import logoWhite from "@/assets/cosco.svg";
 import ScreenLoader from "@/components/ui/screenLoader";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import TextField from "@/components/ui/textField";
-import { useMutation } from "@tanstack/react-query";
-import { register, type RegisterPayload } from "@/services/actions";
+import { type PayloadRegister } from "@/services/actions";
 import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
+import useRegisterMutation from "@/hooks/mutations/useRegisterMutation";
+
 const Register: FC = () => {
-  const methods = useForm<RegisterPayload>();
+  const { mutate, isPending, error } = useRegisterMutation();
 
-  const onSubmit: SubmitHandler<RegisterPayload> = async (
-    data: RegisterPayload
-  ) => {
-    mutate(data);
-  };
+  const methods = useForm<PayloadRegister>();
 
-  const { mutate, isPending, error } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
-    retry: 0,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const onSubmit: SubmitHandler<PayloadRegister> = async (
+    data: PayloadRegister
+  ) => mutate(data);
 
   return (
     <section className="bg-white">

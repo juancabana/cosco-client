@@ -1,4 +1,4 @@
-import { Link, navigate } from "gatsby";
+import { Link } from "gatsby";
 import React, { type FC } from "react";
 
 import backgroundImage from "@/assets/login-image.jpg";
@@ -6,33 +6,21 @@ import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
-import { login, type PayloadLogin } from "@/services/actions";
+import { type PayloadLogin } from "@/services/actions";
 import ScreenLoader from "@/components/ui/screenLoader";
 import TextField from "@/components/ui/textField";
 import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
-import useAuth from "@/hooks/useAuth";
+import useLoginMutation from "@/hooks/mutations/useLoginMutation";
 
 const Login: FC = () => {
-  const { setToken } = useAuth();
+  const { mutate, isPending, error } = useLoginMutation();
 
   const methods = useForm<PayloadLogin>();
 
-  const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) => {
+  const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) =>
     mutate(data);
-  };
-
-  const { mutate, isPending, error } = useMutation({
-    mutationKey: ["login"],
-    mutationFn: login,
-    retry: 0,
-    onSuccess: ({ token }) => {
-      setToken({ key: "token", token });
-      navigate("/publications");
-    },
-  });
-
+  
   return (
     <section className="bg-white">
       <div className="flex justify-center h-screen">
