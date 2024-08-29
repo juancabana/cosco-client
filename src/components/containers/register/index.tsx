@@ -9,45 +9,17 @@ import ScreenLoader from "@/components/ui/screenLoader";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import TextField from "@/components/ui/textField";
 import { useMutation } from "@tanstack/react-query";
-import { register } from "@/services/actions";
-interface FormSchema {
-  email: string;
-  password: string;
-  firstName: string;
-  secondName: string;
-  lastName: string;
-  secondLastName: string;
-  phoneNumber: string;
-}
-
-const capitalize = (word: string) =>
-  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+import { register, type RegisterPayload } from "@/services/actions";
+import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
 const Register: FC = () => {
-  const methods = useForm<FormSchema>();
+  const methods = useForm<RegisterPayload>();
 
-  const onSubmit: SubmitHandler<FormSchema> = async (data: FormSchema) => {
-    const {
-      firstName,
-      lastName,
-      secondLastName,
-      secondName,
-      email,
-      password,
-      phoneNumber,
-    } = data;
-    mutate({
-      username: `${firstName.toLowerCase()}${capitalize(lastName)}`,
-      fullName: `${capitalize(firstName)} ${capitalize(
-        secondName
-      )} ${capitalize(lastName)} ${capitalize(secondLastName)}`,
-      email,
-      password,
-      phoneNumber,
-    });
+  const onSubmit: SubmitHandler<RegisterPayload> = async (data: RegisterPayload) => {
+    mutate(data);
   };
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationKey: ["register"],
     mutationFn: register,
     retry: 0,
@@ -131,7 +103,7 @@ const Register: FC = () => {
                     }}
                     pattern={{
                       value:
-                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s]).{6,50}/,
+                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
                       message:
                         "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
                     }}
@@ -150,7 +122,7 @@ const Register: FC = () => {
                       name="lastName"
                       required
                     />
-                    <TextField label="Segundo apellido" name="secondLastName" />
+                    <TextField label="Segundo apellido" name="secondLastName" defaultValue={null} />
                   </div>
                   <TextField
                     label="Teléfono"
@@ -190,6 +162,11 @@ const Register: FC = () => {
         </div>
       </div>
       <ScreenLoader isVisible={isPending} />
+      <ErrorPopupModal
+        isShow={!!error}
+        tittle="Upss"
+        message="Algo salió mal, por favor intenta de nuevo"
+      />
     </section>
   );
 };

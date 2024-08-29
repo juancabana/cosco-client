@@ -10,6 +10,7 @@ interface Props {
   pattern?: ValidationRule<RegExp>;
   minLength?: ValidationRule<number>;
   maxLength?: ValidationRule<number>;
+  defaultValue?: string | number | null;
 }
 
 export const TextField: FC<Props> = ({
@@ -21,6 +22,7 @@ export const TextField: FC<Props> = ({
   pattern,
   maxLength,
   minLength,
+  defaultValue,
 }) => {
   const {
     register,
@@ -34,6 +36,7 @@ export const TextField: FC<Props> = ({
       </label>
       <input
         {...register(name, {
+          value: defaultValue,
           required: required && "Este campo es requerido",
           minLength,
           maxLength,

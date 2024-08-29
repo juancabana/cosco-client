@@ -7,13 +7,13 @@ export interface PayloadLogin {
 }
 
 export interface RegisterPayload {
-  username: string;
-  fullName: string;
   email: string;
   password: string;
+  firstName: string;
+  secondName?: string | null;	
+  lastName: string;
+  secondLastName?: string | null;
   phoneNumber: string;
-  description?: string;
-  role?: Role;
 }
 interface LoginResponse {
   _id: string;
@@ -43,28 +43,14 @@ interface RegisterResponse {
   id: string;
 }
 
-export const login = async (
-  payload: PayloadLogin
-): Promise<LoginResponse> => {
-  // TODO: Implement the login function with email and password
-  const newCredentials = {
-    _id: "66821719afb0f14f96ada214",
-    password: "Password123",
-  };
-  const { data } = await coscoApi.post<LoginResponse>(
-    "/auth/login",
-    newCredentials
-  );
+export const login = async (payload: PayloadLogin): Promise<LoginResponse> => {
+  const { data } = await coscoApi.post<LoginResponse>("/auth/login",  payload);
   return data;
 };
 
 export const register = async (
   payload: RegisterPayload
 ): Promise<RegisterResponse> => {
-  const { data } = await coscoApi.post<RegisterResponse>("/user", {
-    ...payload,
-    description: "Default description",
-    role: "CUSTOMER",
-  });
-  return data;
+  const { data } = await coscoApi.post<RegisterResponse>("/user", payload);
+  return {...data, };
 };

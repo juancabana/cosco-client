@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { login, type PayloadLogin } from "@/services/actions";
 import ScreenLoader from "@/components/ui/screenLoader";
 import TextField from "@/components/ui/textField";
+import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
 const Login: FC = () => {
   const methods = useForm<PayloadLogin>();
@@ -18,7 +19,7 @@ const Login: FC = () => {
     mutate(data);
   };
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending, error } = useMutation({
     mutationKey: ["login"],
     mutationFn: login,
     retry: 0,
@@ -102,7 +103,7 @@ const Login: FC = () => {
                     }}
                     pattern={{
                       value:
-                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s]).{6,50}/,
+                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
                       message:
                         "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
                     }}
@@ -134,6 +135,11 @@ const Login: FC = () => {
         </div>
       </div>
       <ScreenLoader isVisible={isPending} />
+      <ErrorPopupModal
+        isShow={!!error}
+        tittle="Upss"
+        message="Ocurrió un error al iniciar sesión, por favor intenta de nuevo"
+      />
     </section>
   );
 };
