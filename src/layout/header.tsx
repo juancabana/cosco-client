@@ -64,7 +64,7 @@ const Header = () => {
 
             <div className="hidden xl:block">
               <Link
-                className="rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+                className="hidden rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
                 to="/"
               >
                 Registrarme

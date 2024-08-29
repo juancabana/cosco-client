@@ -33,7 +33,7 @@ const CardInvitation = () => (
           emocionante aventura.
         </p>
         <a
-          className="inline-block rounded-full mt-6 bg-cosco-button px-5 py-2.5 text-sm sm:text-base font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+          className="hidden rounded-full w-fit mt-12 bg-cosco-button px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
           href="/"
         >
           Explorar
