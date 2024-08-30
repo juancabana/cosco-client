@@ -16,6 +16,7 @@ interface Props {
   className?: string;
   accept?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean; // Nueva prop para deshabilitar el campo
 }
 
 export const TextField: FC<Props> = ({
@@ -31,6 +32,7 @@ export const TextField: FC<Props> = ({
   className,
   accept,
   onChange,
+  disabled = false, // Valor por defecto en false
 }) => {
   const {
     register,
@@ -63,7 +65,6 @@ export const TextField: FC<Props> = ({
         return;
       }
       saveImage(file);
-     
     }
     if (onChange) onChange(e);
   };
@@ -79,6 +80,7 @@ export const TextField: FC<Props> = ({
               errors[name]?.message &&
               "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
             }
+            ${disabled && "cursor-not-allowed opacity-50"}
             `}
         >
           <Camera className="h-5 w-5 mr-2" />
@@ -92,6 +94,7 @@ export const TextField: FC<Props> = ({
             accept={accept}
             className="hidden"
             onChange={handleFileChange}
+            disabled={disabled} // Deshabilita el campo de archivo
           />
         </label>
       ) : (
@@ -113,12 +116,18 @@ export const TextField: FC<Props> = ({
             className={`block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-green-400 focus:border-green-400 focus:outline-none focus:ring focus:ring-opacity-40 ${
               errors[name]?.message &&
               "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
-            } `}
+            } ${disabled && "cursor-not-allowed opacity-50"}`}
+            disabled={disabled} // Deshabilita el campo de texto
           />
           {errors[name]?.message && (
             <span className="text-sm text-red-400">
               {errors[name]?.message.toString()}
             </span>
+          )}
+          {disabled && (
+            <small className="block mt-1 text-sm text-red-400">
+              Este campo no se puede editar.
+            </small>
           )}
         </>
       )}

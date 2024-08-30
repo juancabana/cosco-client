@@ -21,29 +21,41 @@ import { TextField } from "@/components/ui/textField";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 
 interface FormValues {
+  image: string;
   firstName: string;
-  middleName: string;
+  secondName: string;
   lastName: string;
   secondLastName: string;
   email: string;
   phone: string;
   bio: string;
-  image: string;
 }
 
 const MyPerfil: FC = () => {
   const methods = useForm<FormValues>();
 
-  // const [user, setUser] = useState({
-  //   firstName: "Juan",
-  //   middleName: "David",
-  //   lastName: "Cabana",
-  //   secondLastName: "Trejos",
-  //   email: "juan@example.com",
-  //   phone: "+57 300 123 4567",
-  //   bio: "Agricultor apasionado por los cultivos orgánicos y la sostenibilidad.",
-  //   image: "/placeholder.svg",
-  // });
+  const [
+    {
+      image,
+      firstName,
+      secondName,
+      lastName,
+      secondLastName,
+      email,
+      phone,
+      bio,
+    },
+    setUser,
+  ] = useState({
+    image: "/placeholder.svg",
+    firstName: "Juan",
+    secondName: "David",
+    lastName: "Cabana",
+    secondLastName: "Trejos",
+    email: "juan@example.com",
+    phone: "+57 300 123 4567",
+    bio: "Agricultor apasionado por los cultivos orgánicos y la sostenibilidad.",
+  });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -101,7 +113,7 @@ const MyPerfil: FC = () => {
                     <AvatarImage
                       src="../../../assets/img_section1.png"
                       className="pb-0"
-                      // alt={`${user.firstName} ${user.lastName}`}
+                      alt={`${firstName} ${lastName}`}
                     />
                     <AvatarFallback>{getInitials()}</AvatarFallback>
                   </Avatar>
@@ -114,23 +126,22 @@ const MyPerfil: FC = () => {
                     className="!mt-2"
                   />
                 </div>
+                <div className="space-y-2">
+                  <TextField name="bio" label="Biografía" required />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <TextField
                       name="firstName"
                       label="Primer nombre"
                       required
-                      pattern={{
-                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: "El e-mail no es valido",
-                      }}
                       placeholder="Juan"
                       className="!mt-2"
                     />
                   </div>
                   <div className="space-y-2">
                     <TextField
-                      name="middleName"
+                      name="secondName"
                       label="Segundo nombre"
                       required
                       className="!mt-2"
@@ -154,13 +165,10 @@ const MyPerfil: FC = () => {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <TextField name="email" label="Correo electrónico" required />
+                  <TextField name="email" label="Correo electrónico" disabled />
                 </div>
                 <div className="space-y-2">
-                  <TextField name="phone" label="Teléfono" required />
-                </div>
-                <div className="space-y-2">
-                  <TextField name="bio" label="Biografía" required />
+                  <TextField name="phone" label="Teléfono" disabled />
                 </div>
               </div>
               <button
