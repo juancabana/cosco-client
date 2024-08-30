@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import React, { type FC } from "react";
 
-import backgroundImage from "@/assets/login-image.jpg";
+import backgroundImage from "@/assets/img_login.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
@@ -12,6 +12,7 @@ import TextField from "@/components/ui/textField";
 import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
 import useLoginMutation from "@/hooks/mutations/useLoginMutation";
+import { StaticImage } from "gatsby-plugin-image";
 
 const Login: FC = () => {
   const { mutate, isPending, error } = useLoginMutation();
@@ -20,7 +21,7 @@ const Login: FC = () => {
 
   const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) =>
     mutate(data);
-  
+
   return (
     <section className="bg-white">
       <div className="flex justify-center h-screen">
@@ -30,6 +31,13 @@ const Login: FC = () => {
             backgroundImage: `url(${backgroundImage})`,
           }}
         >
+          <StaticImage
+            src="../../../assets/img_login.jpg"
+            alt="Background"
+            loading="eager"
+            className="absolute h-full"
+            formats={["webp"]}
+          />
           <div className="absolute inset-0 bg-black opacity-15"></div>
 
           <div className="flex items-center h-full px-20 relative z-10">

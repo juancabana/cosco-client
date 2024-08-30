@@ -1,7 +1,6 @@
 import React, { type FC } from "react";
 import { Link } from "gatsby";
 
-import backgroundImage from "@/assets/login-image.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
@@ -12,6 +11,7 @@ import { type PayloadRegister } from "@/services/actions";
 import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
 import useRegisterMutation from "@/hooks/mutations/useRegisterMutation";
+import { StaticImage } from "gatsby-plugin-image";
 
 const Register: FC = () => {
   const { mutate, isPending, error } = useRegisterMutation();
@@ -23,15 +23,17 @@ const Register: FC = () => {
   ) => mutate(data);
 
   return (
-    <section className="bg-white">
+    <section className="bg-white h-screen">
       <div className="flex justify-center h-screen">
-        <div
-          className="hidden lg:block lg:w-2/3 bg-cover bg-center relative"
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-15"></div>
+        <div className="hidden lg:block lg:w-2/3 bg-cover bg-center relative">
+          <StaticImage
+            src="../../../assets/img_register.jpg"
+            alt="Background"
+            loading="eager"
+            className="absolute h-full"
+            formats={["webp"]}
+          />
+          <div className="absolute inset-0 bg-black opacity-50"></div>
 
           <div className="flex items-center h-full px-20 relative z-10">
             <div>
@@ -52,7 +54,7 @@ const Register: FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+        <div className="flex items-center w-full h-full max-w-md px-6 mx-auto lg:w-2/6">
           <div className="flex-1">
             <div className="text-center">
               <Link
@@ -62,17 +64,18 @@ const Register: FC = () => {
                 <span className="sr-only">Home</span>
                 <img className="h-full" src={logoWhite} alt="" />
               </Link>
-              <h2 className="mt-10 text-center text-xl font-semibold leading-9 tracking-tight text-gray-900">
+              <h2 className="mt-10 xl:mt-4 2xl:mt-10  text-center md:text-base 2xl:text-xl font-semibold leading-9 tracking-tight text-gray-900">
                 Crea tu cuenta para unirte a nuestra comunidad
               </h2>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 md:mt-5 2xl:mt-8">
               <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit) as Fn}>
                   <TextField
                     label="Correo electrónico"
                     name="email"
+                    className="xl:mt-0 2xl:mt-6"
                     placeholder="ejemplo@ejemplo.com.co"
                     required
                     pattern={{
@@ -84,6 +87,7 @@ const Register: FC = () => {
                     label="Contraseña"
                     name="password"
                     type="password"
+                    className="xl:mt-1.5 2xl:mt-6"
                     placeholder="********"
                     required
                     minLength={{
@@ -105,19 +109,26 @@ const Register: FC = () => {
                     <TextField
                       label="Primer nombre"
                       name="firstName"
+                      className="xl:mt-1.5 2xl:mt-6"
                       required
                     />
-                    <TextField label="Segundo nombre" name="secondName" />
+                    <TextField
+                      label="Segundo nombre"
+                      name="secondName"
+                      className="xl:mt-1.5 2xl:mt-6"
+                    />
                   </div>
                   <div className="flex gap-4">
                     <TextField
                       label="Primer apellido"
                       name="lastName"
+                      className="xl:mt-1.5 2xl:mt-6"
                       required
                     />
                     <TextField
                       label="Segundo apellido"
                       name="secondLastName"
+                      className="xl:mt-1.5 2xl:mt-6"
                       defaultValue={null}
                     />
                   </div>
@@ -126,6 +137,7 @@ const Register: FC = () => {
                     name="phoneNumber"
                     type="tel"
                     required
+                    className="xl:mt-1.5 2xl:mt-6"
                     placeholder="Agregar número de teléfono"
                     pattern={{
                       value: /^\d{10}$/,

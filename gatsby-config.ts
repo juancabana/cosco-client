@@ -25,19 +25,13 @@ const config: GatsbyConfig = {
       },
       resolve: "gatsby-plugin-alias-imports",
     },
-    {
-      options: {
-        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
-        spaceId: process.env.CONTENTFUL_SPACE_ID,
-      },
-      resolve: "gatsby-source-contentful",
-    },
   ],
   siteMetadata: {
     author: "COSCO®",
     description:
       "Compra y vende tus cosechas, frutas y verduras en COSCO®. La plataforma de comercio electrónico para agricultores y consumidores.",
     facebookId: process.env.FACEBOOK_DOMAIN_VERIFICATION,
+    // TODO: Add the correct URL
     siteUrl: process.env.GATSBY_ECOMMERCE_URL,
     title: "Compra y vende tus cosechas en COSCO®",
   },

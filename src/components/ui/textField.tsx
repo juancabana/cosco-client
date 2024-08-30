@@ -11,6 +11,7 @@ interface Props {
   minLength?: ValidationRule<number>;
   maxLength?: ValidationRule<number>;
   defaultValue?: string | number | null;
+  className?: string;
 }
 
 export const TextField: FC<Props> = ({
@@ -23,6 +24,7 @@ export const TextField: FC<Props> = ({
   maxLength,
   minLength,
   defaultValue,
+  className,
 }) => {
   const {
     register,
@@ -30,7 +32,7 @@ export const TextField: FC<Props> = ({
   } = useFormContext();
 
   return (
-    <div className="mt-6">
+    <div className={`mt-6 ${className}`}>
       <label htmlFor={name} className="block mb-2 text-sm text-gray-600 ">
         {label}
       </label>
