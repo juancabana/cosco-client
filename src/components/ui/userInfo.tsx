@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu";
 import { useAuth } from "@/providers/auth/index";
+import { navigate } from "gatsby";
 
 export const UserInfo = () => {
   const { removeToken } = useAuth();
@@ -48,7 +49,7 @@ export const UserInfo = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate('/perfil')}>
             <User className="mr-2 h-4 w-4" />
             <span>Perfil</span>
           </DropdownMenuItem>
