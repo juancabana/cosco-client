@@ -18,7 +18,7 @@ import { useAuth } from "@/providers/auth/index";
 import { navigate } from "gatsby";
 
 export const UserInfo = () => {
-  const { removeToken, removeUser } = useAuth();
+  const { removeToken, removeUser, user } = useAuth();
 
   return (
     <div className="flex items-center space-x-4">
@@ -33,15 +33,15 @@ export const UserInfo = () => {
             <div className="flex items-center space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage
-                  src="/placeholder.svg?height=32&width=32"
+                  src={user?.image ?? "/placeholder.svg?height=32&width=32"}
                   alt="CabanaJuan"
                 />
                 <AvatarFallback>CJ</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
-                <span className="text-sm font-medium">CabanaJuan</span>
+                <span className="text-sm font-medium">{`${user?.firstName} ${user?.lastName}`}</span>
                 <span className="text-xs text-muted-foreground">
-                  juan@example.com
+                  {user?.email}
                 </span>
               </div>
               <ChevronDown className="h-4 w-4" />
