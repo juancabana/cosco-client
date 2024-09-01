@@ -1,71 +1,39 @@
 import React, { type FC } from "react";
 import { Link } from "gatsby";
 
-import backgroundImage from "@/assets/login-image.jpg";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
 import ScreenLoader from "@/components/ui/screenLoader";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import TextField from "@/components/ui/textField";
-import { useMutation } from "@tanstack/react-query";
-import { register } from "@/services/actions";
-interface FormSchema {
-  email: string;
-  password: string;
-  firstName: string;
-  secondName: string;
-  lastName: string;
-  secondLastName: string;
-  phoneNumber: string;
-}
+import { type PayloadRegister } from "@/services/actions";
+import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
-const capitalize = (word: string) =>
-  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+import useRegisterMutation from "@/hooks/mutations/useRegisterMutation";
+import { StaticImage } from "gatsby-plugin-image";
 
 const Register: FC = () => {
-  const methods = useForm<FormSchema>();
+  const { mutate, isPending, error } = useRegisterMutation();
 
-  const onSubmit: SubmitHandler<FormSchema> = async (data: FormSchema) => {
-    const {
-      firstName,
-      lastName,
-      secondLastName,
-      secondName,
-      email,
-      password,
-      phoneNumber,
-    } = data;
-    mutate({
-      username: `${firstName.toLowerCase()}${capitalize(lastName)}`,
-      fullName: `${capitalize(firstName)} ${capitalize(
-        secondName
-      )} ${capitalize(lastName)} ${capitalize(secondLastName)}`,
-      email,
-      password,
-      phoneNumber,
-    });
-  };
+  const methods = useForm<PayloadRegister>();
 
-  const { mutate, isPending } = useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
-    retry: 0,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const onSubmit: SubmitHandler<PayloadRegister> = async (
+    data: PayloadRegister
+  ) => mutate(data);
 
   return (
-    <section className="bg-white">
+    <section className="bg-white h-screen">
       <div className="flex justify-center h-screen">
-        <div
-          className="hidden lg:block lg:w-2/3 bg-cover bg-center relative"
-          style={{
-            backgroundImage: `url(${backgroundImage})`,
-          }}
-        >
-          <div className="absolute inset-0 bg-black opacity-15"></div>
+        <div className="hidden lg:block lg:w-2/3 bg-cover bg-center relative">
+          <StaticImage
+            src="../../../assets/img_register.jpg"
+            alt="Background"
+            loading="eager"
+            className="absolute h-full"
+            formats={["webp"]}
+          />
+          <div className="absolute inset-0 bg-black opacity-50"></div>
 
           <div className="flex items-center h-full px-20 relative z-10">
             <div>
@@ -86,7 +54,7 @@ const Register: FC = () => {
           </div>
         </div>
 
-        <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+        <div className="flex items-center w-full h-full max-w-md px-6 mx-auto lg:w-2/6">
           <div className="flex-1">
             <div className="text-center">
               <Link
@@ -96,17 +64,18 @@ const Register: FC = () => {
                 <span className="sr-only">Home</span>
                 <img className="h-full" src={logoWhite} alt="" />
               </Link>
-              <h2 className="mt-10 text-center text-xl font-semibold leading-9 tracking-tight text-gray-900">
+              <h2 className="mt-10 xl:mt-4 2xl:mt-10  text-center md:text-base 2xl:text-xl font-semibold leading-9 tracking-tight text-gray-900">
                 Crea tu cuenta para unirte a nuestra comunidad
               </h2>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 md:mt-5 2xl:mt-8">
               <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit(onSubmit) as Fn}>
                   <TextField
                     label="Correo electrónico"
                     name="email"
+                    className="xl:mt-0 2xl:mt-6"
                     placeholder="ejemplo@ejemplo.com.co"
                     required
                     pattern={{
@@ -118,6 +87,7 @@ const Register: FC = () => {
                     label="Contraseña"
                     name="password"
                     type="password"
+                    className="xl:mt-1.5 2xl:mt-6"
                     placeholder="********"
                     required
                     minLength={{
@@ -130,8 +100,7 @@ const Register: FC = () => {
                         "La contraseña debe tener menos de 50 caracteres",
                     }}
                     pattern={{
-                      value:
-                        /(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\s]).{6,50}/,
+                      value: /(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{6,50}/,
                       message:
                         "La contraseña debe tener al menos una mayúscula, una minúscula y un número",
                     }}
@@ -140,23 +109,35 @@ const Register: FC = () => {
                     <TextField
                       label="Primer nombre"
                       name="firstName"
+                      className="xl:mt-1.5 2xl:mt-6"
                       required
                     />
-                    <TextField label="Segundo nombre" name="secondName" />
+                    <TextField
+                      label="Segundo nombre"
+                      name="secondName"
+                      className="xl:mt-1.5 2xl:mt-6"
+                    />
                   </div>
                   <div className="flex gap-4">
                     <TextField
                       label="Primer apellido"
                       name="lastName"
+                      className="xl:mt-1.5 2xl:mt-6"
                       required
                     />
-                    <TextField label="Segundo apellido" name="secondLastName" />
+                    <TextField
+                      label="Segundo apellido"
+                      name="secondLastName"
+                      className="xl:mt-1.5 2xl:mt-6"
+                      defaultValue={null}
+                    />
                   </div>
                   <TextField
                     label="Teléfono"
                     name="phoneNumber"
                     type="tel"
                     required
+                    className="xl:mt-1.5 2xl:mt-6"
                     placeholder="Agregar número de teléfono"
                     pattern={{
                       value: /^\d{10}$/,
@@ -169,7 +150,7 @@ const Register: FC = () => {
                       disabled={isPending}
                       className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Iniciar sesión
+                      Regístrate
                     </button>
                   </div>
                 </form>
@@ -177,12 +158,12 @@ const Register: FC = () => {
 
               <p className="mt-6 text-sm text-center text-gray-400">
                 ¿Ya tienes una cuenta?{" "}
-                <a
-                  href="/auth/login"
+                <Link
+                  to="/auth/login"
                   className="text-blue-500 focus:outline-none focus:underline hover:underline"
                 >
                   Inicia sesión
-                </a>
+                </Link>
                 .
               </p>
             </div>
@@ -190,6 +171,11 @@ const Register: FC = () => {
         </div>
       </div>
       <ScreenLoader isVisible={isPending} />
+      <ErrorPopupModal
+        isShow={!!error}
+        tittle="Upss"
+        message="Algo salió mal, por favor intenta de nuevo"
+      />
     </section>
   );
 };

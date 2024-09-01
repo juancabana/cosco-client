@@ -1,11 +1,17 @@
 import React from "react";
-import ImgCrop from "@/assets/img_section1.png";
-import Shapes from "@/assets/Shapes.png";
+import { StaticImage } from "gatsby-plugin-image";
 
 const CardMain = () => (
   <section className="flex w-full justify-center bg-white h-section relative overflow-hidden">
     <div className="hidden xl:block absolute h-full w-max">
-      <img src={Shapes} alt="" className="h-full" />
+      <StaticImage
+        src="../../../assets/Shapes.png"
+        alt="Lineas"
+        loading="eager"
+        className="h-full"
+        formats={["webp"]}
+        quality={100}
+      />
     </div>
     <div className="flex max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-xl z-10">
@@ -23,17 +29,20 @@ const CardMain = () => (
           local y sostenible.
         </p>
         <a
-          className="hidden rounded-full w-fit mt-12 bg-cosco-button-950 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
+          className="hidden rounded-full w-fit mt-12 bg-cosco-500 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
           href="/"
         >
           Explorar
         </a>
       </div>
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
-        <img
-          src={ImgCrop}
-          alt=""
-          className="h-full 2xl:max-h-[620px] rounded-3xl"
+        <StaticImage
+          src="../../../assets/img_section1.png"
+          alt="imagen principal"
+          loading="eager"
+          className="h-full max-w-md 2xl:max-h-[620px] rounded-3xl"
+          formats={["webp"]}
+          quality={100}
         />
       </div>
     </div>

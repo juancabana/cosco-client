@@ -15,7 +15,6 @@ interface Props {
 /**
  * Renders a customizable screenLoader component.
  */
-// TODO: Quitar bg-mundial
 const ScreenLoader: FC<Props> = ({ isVisible }) => (
   <Screen isVisible={isVisible}>
     <div className="fixed h-full w-full bg-cosco-500 opacity-30" />

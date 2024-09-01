@@ -109,6 +109,7 @@
     "traceResolution": false,
 
     // ------------ PROJECTS ------------ //
+    "baseUrl": ".",
     "paths": { "@/*": ["./src/*"] },
     "composite": true,
     "disableReferencedProjectLoad": false,

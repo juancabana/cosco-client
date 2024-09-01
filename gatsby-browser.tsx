@@ -5,10 +5,17 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { WrapPageElementBrowserArgs } from "gatsby";
 
 import "./src/styles/global.css";
+import { AuthProvider } from "@/providers/auth";
+import { Toaster } from "@/components/shadcn/ui/toaster";
 
-export const wrapRootElement: FC<WrapPageElementBrowserArgs> = ({ element }) => (
+export const wrapRootElement: FC<WrapPageElementBrowserArgs> = ({
+  element,
+}) => (
+  <AuthProvider>
     <ServicesProvider>
-        <ReactQueryDevtools />
-        {element}
+      <ReactQueryDevtools />
+      {element}
+      <Toaster />
     </ServicesProvider>
+  </AuthProvider>
 );

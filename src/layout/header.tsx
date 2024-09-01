@@ -4,6 +4,8 @@ import logo from "@/assets/cosco.svg";
 
 import { useLocation } from "@reach/router";
 import { Link } from "gatsby";
+import UserInfo from "@/components/ui/userInfo";
+import { useAuth } from "@/providers/auth/index";
 
 const options = [
   { name: "Inicio", href: "/" },
@@ -13,6 +15,7 @@ const options = [
 ];
 
 const Header = () => {
+  const { isLogged } = useAuth();
   const location = useLocation();
 
   console.log(location.pathname);
@@ -25,6 +28,7 @@ const Header = () => {
         </Link>
 
         <div className="flex flex-1 items-center justify-end md:justify-between">
+          {/* Pages */}
           <nav aria-label="Global" className="hidden md:block">
             <ul className="flex items-center gap-8 text-sm">
               {options.map((option) => (
@@ -42,23 +46,27 @@ const Header = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <div className="sm:flex sm:gap-4">
-              <Link
-                className="block rounded-full bg-transparent text-emerald-900 border-2 font-semibold  border-emerald-900 px-5 py-2.5 text-sm transition hover:bg-emerald-100"
-                to="/auth/login"
-              >
-                Iniciar sesión
-              </Link>
+            {isLogged ? (
+              <UserInfo />
+            ) : (
+              <div className="sm:flex sm:gap-4">
+                <Link
+                  className="block rounded-full bg-transparent text-emerald-900 border-2 font-semibold  border-emerald-900 px-5 py-2.5 text-sm transition hover:bg-emerald-100"
+                  to="/auth/login"
+                >
+                  Iniciar sesión
+                </Link>
 
-              <Link
-                className="hidden rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-                to="/auth/register"
-              >
-                Registrarme
-              </Link>
-            </div>
+                <Link
+                  className="hidden rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
+                  to="/auth/register"
+                >
+                  Registrarme
+                </Link>
+              </div>
+            )}
 
-            <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
+            {/* <button className="block rounded bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
               <span className="sr-only">Toggle menu</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +82,7 @@ const Header = () => {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
