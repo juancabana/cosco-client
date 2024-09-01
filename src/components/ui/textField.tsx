@@ -14,7 +14,7 @@ interface Props {
   maxLength?: ValidationRule<number>;
   defaultValue?: string | number | null;
   className?: string;
-  accept?: string;
+  accept?: InputHTMLAttributes<HTMLInputElement>["accept"];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean; // Nueva prop para deshabilitar el campo
 }
@@ -52,21 +52,21 @@ export const TextField: FC<Props> = ({
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      if (file.size > 5 * 1024 * 1024) {
-        // 5 MB en bytes
-        toast({
-          title: "Error",
-          description: "La imagen no debe superar los 5MB",
-          variant: "destructive",
-        });
-        e.target.value = "";
-        return;
-      }
-      saveImage(file);
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      // 5 MB en bytes
+      toast({
+        title: "Error",
+        description: "La imagen no debe superar los 5MB",
+        variant: "destructive",
+      });
+      e.target.value = "";
+      return;
     }
-    if (onChange) onChange(e);
+    saveImage(file);
+    onChange?.(e);
   };
 
   return (

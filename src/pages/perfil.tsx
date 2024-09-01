@@ -7,12 +7,10 @@ import Layout from "@/layout";
 
 export const Head: HeadFC = () => <Seo />;
 
-const Perfil: FC<PageProps> = () => {
-  return (
-    <Layout>
-      <MyPerfil />
-    </Layout>
-  );
-};
+const Perfil: FC<PageProps> = () => (
+  <Layout>
+    <MyPerfil />
+  </Layout>
+);
 
 export default Perfil;

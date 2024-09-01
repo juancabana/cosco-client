@@ -10,21 +10,19 @@ export interface PayloadRegister {
   email: string;
   password: string;
   firstName: string;
-  secondName?: string | null;	
+  secondName?: string | null;
   lastName: string;
   secondLastName?: string | null;
   phoneNumber: string;
 }
 export interface LoginResponse {
   _id: string;
-  username: string;
-  fullName: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  secondLastName: string;
   email: string;
-  phoneNumber: string;
-  description: string;
   isActive: boolean;
-  roles: string[];
-  __v: number;
   token: string;
 }
 
@@ -41,8 +39,23 @@ export interface RegisterResponse {
   id: string;
 }
 
+export interface UserResponse {
+  _id: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  secondLastName: string;
+  email: string;
+  phoneNumber: string;
+  image: string;
+  description: string;
+  isActive: boolean;
+  roles: string[];
+  __v: number;
+}
+
 export const login = async (payload: PayloadLogin): Promise<LoginResponse> => {
-  const { data } = await coscoApi.post<LoginResponse>("/auth/login",  payload);
+  const { data } = await coscoApi.post<LoginResponse>("/auth/login", payload);
   return data;
 };
 
@@ -50,5 +63,10 @@ export const register = async (
   payload: PayloadRegister
 ): Promise<RegisterResponse> => {
   const { data } = await coscoApi.post<RegisterResponse>("/user", payload);
-  return {...data, };
+  return { ...data };
+};
+
+export const getUser = async (id: string): Promise<UserResponse> => {
+  const { data } = await coscoApi.get<UserResponse>(`/user/${id}`);
+  return data;
 };

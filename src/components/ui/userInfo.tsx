@@ -18,7 +18,7 @@ import { useAuth } from "@/providers/auth/index";
 import { navigate } from "gatsby";
 
 export const UserInfo = () => {
-  const { removeToken } = useAuth();
+  const { removeToken, removeUser } = useAuth();
 
   return (
     <div className="flex items-center space-x-4">
@@ -49,7 +49,7 @@ export const UserInfo = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => navigate('/perfil')}>
+          <DropdownMenuItem onClick={() => navigate("/perfil")}>
             <User className="mr-2 h-4 w-4" />
             <span>Perfil</span>
           </DropdownMenuItem>
@@ -58,7 +58,12 @@ export const UserInfo = () => {
             <span>Configuración</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => removeToken()}>
+          <DropdownMenuItem
+            onClick={() => {
+              removeUser();
+              removeToken();
+            }}
+          >
             <LogOut className="mr-2 h-4 w-4" />
             <span>Cerrar sesión</span>
           </DropdownMenuItem>

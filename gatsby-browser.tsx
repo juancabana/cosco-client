@@ -11,11 +11,11 @@ import { Toaster } from "@/components/shadcn/ui/toaster";
 export const wrapRootElement: FC<WrapPageElementBrowserArgs> = ({
   element,
 }) => (
-  <AuthProvider>
-    <ServicesProvider>
+  <ServicesProvider>
+    <AuthProvider>
       <ReactQueryDevtools />
       {element}
       <Toaster />
-    </ServicesProvider>
-  </AuthProvider>
+    </AuthProvider>
+  </ServicesProvider>
 );
