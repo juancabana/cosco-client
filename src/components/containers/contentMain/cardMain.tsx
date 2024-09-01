@@ -1,14 +1,14 @@
 import React from "react";
 import ImgCrop from "@/assets/img_section1.png";
 import Shapes from "@/assets/Shapes.png";
-import Ellipse from "@/assets/Ellipse 21.png"
+import Ellipse from "@/assets/Ellipse 21.png";
 
 const CardMain = () => (
-  <section className="relative overflow-hidden bg-white py-12 md:py-20 xl:h-section ">
-        <img
+  <section className="relative overflow-hidden bg-white pb-28 pt-12 md:py-20 xl:h-section">
+    <img
       src={Ellipse}
       alt=""
-      className="absolute -top-[6%] right-0 xl:w-6/12 z-0 md:w-[60%] sm:w-4/5"
+      className="absolute -top-[6%] right-0 xl:w-6/12 z-0 md:w-[60%] sm:w-4/5 hidden xl:block"
     />
     <div className="hidden xl:block absolute inset-0 z-0">
       <img src={Shapes} alt="" className="h-full w-full object-cover" />
@@ -29,12 +29,14 @@ const CardMain = () => (
           de quienes los cultivan. Únete a nuestra comunidad y apoya el comercio
           local y sostenible.
         </p>
-        <a
-          className="hidden rounded-full w-fit mt-12 bg-cosco-button px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-          href="/"
-        >
-          Explorar
-        </a>
+        <div className="flex justify-center xl:justify-start mt-12">
+          <a
+            className="rounded-full w-fit bg-cosco-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+            href="/"
+          >
+            Explorar
+          </a>
+        </div>
       </div>
       <div className="hidden xl:flex justify-center items-center w-full xl:w-auto py-6 z-10">
         <img

@@ -14,12 +14,14 @@ const CardHistory = () => (
         entre agricultores y consumidores. ¡Acompáñanos en este emocionante
         recorrido!
       </p>
-      <a
-        className="hidden rounded-full w-fit mt-4 bg-cosco-button px-5 py-2.5 text-xl font-medium  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-        href="/"
-      >
-        Explorar
-      </a>
+      <div className="flex justify-center xl:justify-start mt-12">
+          <a
+            className="rounded-full w-fit bg-cosco-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+            href="/"
+          >
+            Explorar
+          </a>
+        </div>
     </div>
   </div>
 );

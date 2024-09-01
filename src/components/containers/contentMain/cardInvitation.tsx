@@ -4,7 +4,7 @@ import ImgCrop from "@/assets/img_section1.png";
 import Ellipse from "@/assets/Ellipse_2.svg";
 
 const CardInvitation = () => (
-  <section className="relative bg-emerald-50 py-12 md:py-20 overflow-hidden xl:h-section">
+  <section className="relative bg-emerald-50 py-40 md:py-40 overflow-hidden xl:h-section">
     <div className="absolute inset-0 hidden xl:block z-0">
       <img
         src={ShapesInverted}
@@ -32,18 +32,20 @@ const CardInvitation = () => (
           agricultura local y sostenible. Únete ahora y sé un pionero en esta
           emocionante aventura.
         </p>
-        <a
-          className="hidden rounded-full w-fit mt-12 bg-cosco-button px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-          href="/"
-        >
-          Explorar
-        </a>
+        <div className="flex justify-center xl:justify-start mt-12">
+          <a
+            className="rounded-full w-fit bg-cosco-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+            href="/"
+          >
+            Explorar
+          </a>
+        </div>
       </div>
     </div>
     <img
       src={Ellipse}
       alt=""
-      className="absolute -bottom-32 -right-32 md:-bottom-[90%] md:-right-[50%] xl:-bottom-[40%] xl:-right-[25%]  z-0"
+      className="absolute -bottom-32 -right-32 md:-bottom-[90%] md:-right-[50%] xl:-bottom-[40%] xl:-right-[25%]  z-0 hidden xl:block"
       
     />
   </section>
