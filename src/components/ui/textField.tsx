@@ -16,7 +16,7 @@ interface Props {
   className?: string;
   accept?: InputHTMLAttributes<HTMLInputElement>["accept"];
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean; // Nueva prop para deshabilitar el campo
+  disabled?: boolean;
 }
 
 export const TextField: FC<Props> = ({
@@ -32,40 +32,31 @@ export const TextField: FC<Props> = ({
   className,
   accept,
   onChange,
-  disabled = false, // Valor por defecto en false
+  disabled = false,
 }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const saveImage = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      // Guarda la imagen en la carpeta de assets
-
-      toast({
-        title: "Éxito",
-        description: "La imagen de perfil ha sido actualizada",
-      });
-    };
-  };
-
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) {
-      // 5 MB en bytes
+    const maxSize = 1024 * 1024; // 1 MB en bytes
+    if (file.size > maxSize) {
       toast({
         title: "Error",
-        description: "La imagen no debe superar los 5MB",
+        description: "La imagen no debe superar el tamaño de 1MB",
         variant: "destructive",
       });
       e.target.value = "";
       return;
     }
-    saveImage(file);
+    toast({
+      title: "Éxito",
+      description: "La imagen de perfil ha sido actualizada",
+    });
     onChange?.(e);
   };
 
@@ -94,7 +85,7 @@ export const TextField: FC<Props> = ({
             accept={accept}
             className="hidden"
             onChange={handleFileChange}
-            disabled={disabled} // Deshabilita el campo de archivo
+            disabled={disabled}
           />
         </label>
       ) : (
@@ -117,7 +108,7 @@ export const TextField: FC<Props> = ({
               errors[name]?.message &&
               "!ring-rose-400 !border-rose-400 !outline-none !ring !ring-opacity-40"
             } ${disabled && "cursor-not-allowed opacity-50"}`}
-            disabled={disabled} // Deshabilita el campo de texto
+            disabled={disabled}
           />
           {errors[name]?.message && (
             <span className="text-sm text-red-400">

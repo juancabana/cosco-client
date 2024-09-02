@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Bell, ChevronDown, LogOut, Settings, User } from "lucide-react";
+import { ChevronDown, LogOut, Settings, User } from "lucide-react";
 import {
   Avatar,
   AvatarFallback,
@@ -22,11 +22,6 @@ export const UserInfo = () => {
 
   return (
     <div className="flex items-center space-x-4">
-      {/* <Button variant="ghost" size="icon" className="relative">
-        <Bell className="h-5 w-5" />
-        <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-primary" />
-        <span className="sr-only">Notificaciones</span>
-      </Button> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="p-1 h-auto">
@@ -36,7 +31,9 @@ export const UserInfo = () => {
                   src={user?.image ?? "/placeholder.svg?height=32&width=32"}
                   alt="CabanaJuan"
                 />
-                <AvatarFallback>CJ</AvatarFallback>
+                <AvatarFallback>{`${user?.firstName[0] ?? "U"}${
+                  user?.lastName[0] ?? "D"
+                }`}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium">{`${user?.firstName} ${user?.lastName}`}</span>

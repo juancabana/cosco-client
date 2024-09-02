@@ -54,6 +54,16 @@ export interface UserResponse {
   __v: number;
 }
 
+export interface PayloadUpdateUser {
+  _id: string;
+  image?: string | ArrayBuffer | null;
+  description?: string | null;
+  firstName?: string | null;
+  secondName?: string | null;
+  lastName?: string | null;
+  secondLastName?: string | null;
+}
+
 export const login = async (payload: PayloadLogin): Promise<LoginResponse> => {
   const { data } = await coscoApi.post<LoginResponse>("/auth/login", payload);
   return data;
@@ -68,5 +78,16 @@ export const register = async (
 
 export const getUser = async (id: string): Promise<UserResponse> => {
   const { data } = await coscoApi.get<UserResponse>(`/user/${id}`);
+  return data;
+};
+
+export const updateUser = async (
+  payload: PayloadUpdateUser
+): Promise<UserResponse> => {
+  const { _id, ...updatePayload } = payload;
+  const { data } = await coscoApi.patch<UserResponse>(
+    `/user/${_id}`,
+    updatePayload
+  );
   return data;
 };

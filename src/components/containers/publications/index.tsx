@@ -3,12 +3,14 @@ import { useAuth } from "@/providers/auth";
 import React, { useEffect, type FC } from "react";
 
 const Publications: FC = () => {
-  const { isLogged, userId, setUser } = useAuth();
-  const { data } = useGetUserQuery(userId ?? "");
+  const { userId, setUser } = useAuth();
+  const { data, isSuccess } = useGetUserQuery(userId);
 
   useEffect(() => {
-    if (isLogged && userId && data) setUser(data);
-  }, [isLogged, userId, data]);
+    if (isSuccess) {
+      setUser(data);
+    }
+  }, [isSuccess]);
 
   return (
     <div className="h-[200vh] w-full">

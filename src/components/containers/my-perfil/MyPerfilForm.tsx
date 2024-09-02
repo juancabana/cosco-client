@@ -12,10 +12,11 @@ import { toast } from "@/components/shadcn/ui/use-toast";
 import { TextField } from "@/components/ui/textField";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useAuth } from "@/providers/auth";
+import useUpdateUserMutation from "@/hooks/mutations/useUpdateUserMutation";
 
 interface FormValues {
-  image: string | ArrayBuffer | null;
-  bio: string | null;
+  image: string | null;
+  description: string | null;
   firstName: string | null;
   secondName: string | null;
   lastName: string | null;
@@ -23,26 +24,49 @@ interface FormValues {
 }
 
 const MyPerfilForm: FC = () => {
-  const methods = useForm<FormValues>();
   const { user } = useAuth();
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      image: user?.image ?? null,
+      description: user?.description ?? null,
+      firstName: user?.firstName ?? null,
+      secondName: user?.secondName ?? null,
+      lastName: user?.lastName ?? null,
+      secondLastName: user?.secondLastName ?? null,
+    },
+  });
+  const { isDirty, dirtyFields } = methods.formState;
 
   const [file, setFile] = useState<File | null>(null);
   const [fileDataURL, setFileDataURL] = useState<string | ArrayBuffer | null>(
     null
   );
 
+  const { mutate, isPending, error } = useUpdateUserMutation();
+
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = ({
     target,
-  }) => setFile(target.files![0]!);
+  }) => {
+    const file = target.files![0];
+    if (file) {
+      setFile(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        setFileDataURL(result);
+        methods.setValue("image", result, { shouldDirty: true }); // Aquí se notifica a RHF del cambio
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-    // Aquí iría la lógica para enviar los datos actualizados al servidor
-    alert("Datos actualizados: " + JSON.stringify(data, null, 2));
-    console.log("Datos actualizados:", data);
-    // toast({
-    //   title: "Perfil actualizado",
-    //   description: "Tus cambios han sido guardados con éxito",
-    // });
+    const dataToSubmit: Partial<FormValues> = {};
+    Object.keys(dirtyFields).forEach((key) => {
+      dataToSubmit[key as keyof FormValues] = data[key as keyof FormValues];
+    });
+
+    mutate({...dataToSubmit, _id: user!._id});
   };
 
   const getInitials = () => "Juan"[0] + "Cabana"[0]!.toUpperCase();
@@ -50,7 +74,7 @@ const MyPerfilForm: FC = () => {
   useEffect(() => {
     if (!file) return;
     const fileReader = new FileReader();
-    fileReader.onload = (e) => setFileDataURL(e.target!.result);
+    fileReader.onload = (e) => setFileDataURL(e.target!.result as string);
 
     fileReader.readAsDataURL(file);
 
@@ -65,6 +89,19 @@ const MyPerfilForm: FC = () => {
       }
     };
   }, [file]);
+
+  useEffect(() => {
+    if (user) {
+      methods.reset({
+        image: user.image,
+        description: user.description,
+        firstName: user.firstName,
+        secondName: user.secondName,
+        lastName: user.lastName,
+        secondLastName: user.secondLastName,
+      });
+    }
+  }, [user, methods]);
 
   return (
     <FormProvider {...methods}>
@@ -91,7 +128,7 @@ const MyPerfilForm: FC = () => {
             </div>
             <div className="space-y-2">
               <TextField
-                name="bio"
+                name="description"
                 label="Biografía"
                 defaultValue={user?.description}
                 required
@@ -151,6 +188,7 @@ const MyPerfilForm: FC = () => {
           </div>
           <button
             type="submit"
+            disabled={!isDirty || isPending}
             className="w-full mt-10 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Guardar cambios
