@@ -24,7 +24,11 @@ interface FormValues {
 }
 
 const MyPerfilForm: FC = () => {
+  const [fileDataURL, setFileDataURL] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+
   const { user } = useAuth();
+
   const methods = useForm<FormValues>({
     defaultValues: {
       image: user?.image ?? null,
@@ -35,30 +39,10 @@ const MyPerfilForm: FC = () => {
       secondLastName: user?.secondLastName ?? null,
     },
   });
+
+  const { mutate, isPending, error, isSuccess,  } = useUpdateUserMutation();
+
   const { isDirty, dirtyFields } = methods.formState;
-
-  const [file, setFile] = useState<File | null>(null);
-  const [fileDataURL, setFileDataURL] = useState<string | ArrayBuffer | null>(
-    null
-  );
-
-  const { mutate, isPending, error } = useUpdateUserMutation();
-
-  const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = ({
-    target,
-  }) => {
-    const file = target.files![0];
-    if (file) {
-      setFile(file);
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        setFileDataURL(result);
-        methods.setValue("image", result, { shouldDirty: true }); // Aquí se notifica a RHF del cambio
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
     const dataToSubmit: Partial<FormValues> = {};
@@ -66,10 +50,26 @@ const MyPerfilForm: FC = () => {
       dataToSubmit[key as keyof FormValues] = data[key as keyof FormValues];
     });
 
-    mutate({...dataToSubmit, _id: user!._id});
+    mutate({ ...dataToSubmit, _id: user!._id });
   };
 
   const getInitials = () => "Juan"[0] + "Cabana"[0]!.toUpperCase();
+
+
+  const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = ({
+    target,
+  }) => {
+    const file = target.files![0];
+    if (!file) return;
+    setFile(file);
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      setFileDataURL(result);
+      methods.setValue("image", result, { shouldDirty: true }); // Aquí se notifica a RHF del cambio
+    };
+    reader.readAsDataURL(file);
+  };
 
   useEffect(() => {
     if (!file) return;
@@ -77,11 +77,6 @@ const MyPerfilForm: FC = () => {
     fileReader.onload = (e) => setFileDataURL(e.target!.result as string);
 
     fileReader.readAsDataURL(file);
-
-    toast({
-      title: "Imagen cargada",
-      description: "Tu nueva foto de perfil ha sido cargada con éxito",
-    });
 
     return () => {
       if (fileReader.readyState === 1) {
@@ -91,17 +86,18 @@ const MyPerfilForm: FC = () => {
   }, [file]);
 
   useEffect(() => {
-    if (user) {
+    if (isSuccess) {
       methods.reset({
-        image: user.image,
-        description: user.description,
-        firstName: user.firstName,
-        secondName: user.secondName,
-        lastName: user.lastName,
-        secondLastName: user.secondLastName,
-      });
-    }
-  }, [user, methods]);
+      image: user?.image ?? null,
+      description: user?.description ?? null,
+      firstName: user?.firstName ?? null,
+      secondName: user?.secondName ?? null,
+      lastName: user?.lastName ?? null,
+      secondLastName: user?.secondLastName ?? null,
+    }, { keepDirtyValues: true });
+   
+  }
+  }, [isSuccess]);
 
   return (
     <FormProvider {...methods}>
@@ -131,7 +127,6 @@ const MyPerfilForm: FC = () => {
                 name="description"
                 label="Biografía"
                 defaultValue={user?.description}
-                required
               />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -7,11 +7,6 @@ import { useMutation } from "@tanstack/react-query";
 import { navigate } from "gatsby";
 import { useAuth } from "@/providers/auth/index";
 
-interface userInfoFetch {
-  enabled: boolean;
-  id: string;
-}
-
 const useLoginMutation = () => {
   const { setToken, setIdUser } = useAuth();
 

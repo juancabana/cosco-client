@@ -20,7 +20,6 @@ const useUpdateUserMutation = () => {
         title: "Perfil actualizado",
         description: "Tus cambios han sido guardados con éxito",
       });
-      console.log(data);
     },
   });
 
