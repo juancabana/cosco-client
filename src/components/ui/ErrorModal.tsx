@@ -28,13 +28,13 @@ const ErrorModalComponent: FC<ErrorModalProps> = ({ title, errorMessage, isOpen,
       <div className="w-full bg-white max-w-md rounded-lg bg-background p-6 shadow-lg md:p-8">
         <div className="space-y-4">
           <div className="space-y-2 flex flex-col items-center">
-            <h3 className="text-2xl font-bold">{title ?? "¡Ups!"}</h3>
-            <p className="text-muted-foreground">
+            <h3 className="text-2xl text-cosco-primary font-bold">{title ?? "¡Ups!"}</h3>
+            <p className="text-muted-foreground text-cosco-primary">
               {errorMessage ?? "Algo salió mal, por favor inténtalo de nuevo"}
             </p>
             <CircleAlertIcon className="h-8 w-8 text-red-500" />
           </div>
-          <Button onClick={closeModal} className="w-full bg-red-500 text-white">
+          <Button onClick={closeModal} className="w-full bg-red-500 text-white hover:bg-cosco-800">
             Cerrar
           </Button>
         </div>

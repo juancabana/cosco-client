@@ -17,7 +17,12 @@ const RegisterForm: FC = () => {
 
   const onSubmit: SubmitHandler<PayloadRegister> = async (
     data: PayloadRegister
-  ) => mutate(data);
+  ) => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+    mutate(data);
+  };
 
   useEffect(() => {
     if (error) {

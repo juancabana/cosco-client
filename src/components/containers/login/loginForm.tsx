@@ -15,8 +15,13 @@ const LoginForm: FC = () => {
 
   const methods = useForm<PayloadLogin>();
 
-  const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) =>
+  const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) => {
     mutate(data);
+    // Remover el foco del botón después de enviar
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
 
   useEffect(() => {
     if (error) {
