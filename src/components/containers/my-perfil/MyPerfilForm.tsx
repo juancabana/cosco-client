@@ -40,7 +40,7 @@ const MyPerfilForm: FC = () => {
     },
   });
 
-  const { mutate, isPending, error, isSuccess,  } = useUpdateUserMutation();
+  const { mutate, isPending, error, isSuccess } = useUpdateUserMutation();
 
   const { isDirty, dirtyFields } = methods.formState;
 
@@ -54,7 +54,6 @@ const MyPerfilForm: FC = () => {
   };
 
   const getInitials = () => "Juan"[0] + "Cabana"[0]!.toUpperCase();
-
 
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = ({
     target,
@@ -87,16 +86,18 @@ const MyPerfilForm: FC = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      methods.reset({
-      image: user?.image ?? null,
-      description: user?.description ?? null,
-      firstName: user?.firstName ?? null,
-      secondName: user?.secondName ?? null,
-      lastName: user?.lastName ?? null,
-      secondLastName: user?.secondLastName ?? null,
-    }, { keepDirtyValues: true });
-   
-  }
+      methods.reset(
+        {
+          image: user?.image ?? null,
+          description: user?.description ?? null,
+          firstName: user?.firstName ?? null,
+          secondName: user?.secondName ?? null,
+          lastName: user?.lastName ?? null,
+          secondLastName: user?.secondLastName ?? null,
+        },
+        { keepDirtyValues: true }
+      );
+    }
   }, [isSuccess]);
 
   return (
