@@ -3,6 +3,7 @@ import React, {
   createContext,
   useContext,
   useState,
+  useMemo,
   type ReactNode,
 } from "react";
 
@@ -24,10 +25,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setTokenState] = useState<string | null>(() =>
     localStorage.getItem("token")
   );
-  const [user, setUserState] = useState<UserResponse | null>(
-    () => JSON.parse(localStorage.getItem("user") || "null")
+  
+  const [user, setUserState] = useState<UserResponse | null>(() =>
+    JSON.parse(localStorage.getItem("user") ?? "null")
   );
-
   const [userId, setUserId] = useState<string | null>(null);
 
   const setToken = (newToken: string) => {
@@ -39,28 +40,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setTokenState(null);
     localStorage.removeItem("token");
   };
+
   const setUser = (data: UserResponse) => {
     localStorage.setItem("user", JSON.stringify(data));
     setUserState(data);
-  }
+  };
 
   const removeUser = () => {
     localStorage.removeItem("user");
     setUserState(null);
-  }
+  };
 
   const setIdUser = (newId: string) => {
     setUserId(newId);
-  }
+  };
 
-
-  return (
-    <AuthContext.Provider
-      value={{ token, setToken, removeToken, isLogged: !!token, user, setUser, userId, setIdUser, removeUser }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo(
+    () => ({
+      token,
+      setToken,
+      removeToken,
+      isLogged: !!token,
+      user,
+      setUser,
+      userId,
+      setIdUser,
+      removeUser,
+    }),
+    [token, user, userId]
   );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {

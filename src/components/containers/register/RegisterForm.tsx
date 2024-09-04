@@ -1,22 +1,29 @@
-import React, { type FC } from "react";
+import React, { useEffect, type FC } from "react";
 import { Link } from "gatsby";
 
 import ScreenLoader from "@/components/ui/screenLoader";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import TextField from "@/components/ui/textField";
 import { type PayloadRegister } from "@/services/actions";
-import ErrorPopupModal from "@/components/ui/errorPopupModal";
 
 import useRegisterMutation from "@/hooks/mutations/useRegisterMutation";
+import { useErrorModal } from "@/components/ui/ErrorModal";
 
 const RegisterForm: FC = () => {
   const { mutate, isPending, error } = useRegisterMutation();
+  const { openModal, RenderedModal } = useErrorModal();
 
   const methods = useForm<PayloadRegister>();
 
   const onSubmit: SubmitHandler<PayloadRegister> = async (
     data: PayloadRegister
   ) => mutate(data);
+
+  useEffect(() => {
+    if (error) {
+      openModal();
+    }
+  }, [error]);
 
   return (
     <>
@@ -116,11 +123,7 @@ const RegisterForm: FC = () => {
         .
       </p>
       <ScreenLoader isVisible={isPending} />
-      <ErrorPopupModal
-        isShow={!!error}
-        tittle="Upss"
-        message="Algo salió mal, por favor intenta de nuevo"
-      />
+      <RenderedModal title="¡Ups!" errorMessage="Error al registrar usuario" />
     </>
   );
 };
