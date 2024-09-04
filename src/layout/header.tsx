@@ -2,7 +2,6 @@ import React from "react";
 
 import logo from "@/assets/cosco.svg";
 
-import { useLocation } from "@reach/router";
 import { Link } from "gatsby";
 import UserInfo from "@/components/ui/userInfo";
 import { useAuth } from "@/providers/auth/index";
@@ -16,9 +15,7 @@ const options = [
 
 const Header = () => {
   const { isLogged } = useAuth();
-  const location = useLocation();
 
-  console.log(location.pathname);
   return (
     <header className="bg-white">
       <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">

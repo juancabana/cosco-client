@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Bell, ChevronDown, LogOut, Settings, User } from "lucide-react";
+import { ChevronDown, LogOut, Settings, User } from "lucide-react";
 import {
   Avatar,
   AvatarFallback,
@@ -18,30 +18,27 @@ import { useAuth } from "@/providers/auth/index";
 import { navigate } from "gatsby";
 
 export const UserInfo = () => {
-  const { removeToken } = useAuth();
+  const { removeToken, removeUser, user } = useAuth();
 
   return (
     <div className="flex items-center space-x-4">
-      {/* <Button variant="ghost" size="icon" className="relative">
-        <Bell className="h-5 w-5" />
-        <span className="absolute top-0 right-0 h-2 w-2 rounded-full bg-primary" />
-        <span className="sr-only">Notificaciones</span>
-      </Button> */}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="p-1 h-auto">
             <div className="flex items-center space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage
-                  src="/placeholder.svg?height=32&width=32"
+                  src={user?.image ?? "/placeholder.svg?height=32&width=32"}
                   alt="CabanaJuan"
                 />
-                <AvatarFallback>CJ</AvatarFallback>
+                <AvatarFallback>{`${user?.firstName[0] ?? "U"}${
+                  user?.lastName[0] ?? "D"
+                }`}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
-                <span className="text-sm font-medium">CabanaJuan</span>
+                <span className="text-sm font-medium">{`${user?.firstName} ${user?.lastName}`}</span>
                 <span className="text-xs text-muted-foreground">
-                  juan@example.com
+                  {user?.email}
                 </span>
               </div>
               <ChevronDown className="h-4 w-4" />
@@ -49,7 +46,7 @@ export const UserInfo = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => navigate('/perfil')}>
+          <DropdownMenuItem onClick={() => navigate("/perfil")}>
             <User className="mr-2 h-4 w-4" />
             <span>Perfil</span>
           </DropdownMenuItem>
@@ -58,7 +55,12 @@ export const UserInfo = () => {
             <span>Configuración</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => removeToken()}>
+          <DropdownMenuItem
+            onClick={() => {
+              removeUser();
+              removeToken();
+            }}
+          >
             <LogOut className="mr-2 h-4 w-4" />
             <span>Cerrar sesión</span>
           </DropdownMenuItem>

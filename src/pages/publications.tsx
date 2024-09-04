@@ -1,3 +1,4 @@
+import Publications from "@/components/containers/publications";
 import Layout from "@/layout";
 import Seo from "@/layout/seo";
 import type { HeadFC, PageProps } from "gatsby";
@@ -7,9 +8,7 @@ export const Head: HeadFC = () => <Seo />;
 
 const publicationsPage: FC<PageProps> = () => (
   <Layout>
-    <div className="h-[200vh] w-full">
-      <h1>publicaciones</h1>
-    </div>
+    <Publications />    
   </Layout>
 );
 
