@@ -1,11 +1,8 @@
+import React, { useState, createContext, useContext, useMemo } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import type { UserResponse } from "@/services/actions";
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useMemo,
-  type ReactNode,
-} from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "@/components/shadcn/ui/toaster";
 
 interface AuthContextType {
   token: string | null;
@@ -17,15 +14,18 @@ interface AuthContextType {
   userId: string | null;
   setIdUser: (id: string) => void;
   removeUser: () => void;
+  closeSession: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: JSX.Element }) => {
+  const queryClient = useQueryClient();
+
   const [token, setTokenState] = useState<string | null>(() =>
     localStorage.getItem("token")
   );
-  
+
   const [user, setUserState] = useState<UserResponse | null>(() =>
     JSON.parse(localStorage.getItem("user") ?? "null")
   );
@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const setUser = (data: UserResponse) => {
     localStorage.setItem("user", JSON.stringify(data));
     setUserState(data);
+    queryClient.invalidateQueries({ queryKey: ["userInfo", data._id] });
   };
 
   const removeUser = () => {
@@ -51,11 +52,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUserState(null);
   };
 
-  const setIdUser = (newId: string) => {
-    setUserId(newId);
+  const closeSession = () => {
+    removeToken();
+    removeUser();
+    queryClient.clear();
   };
 
-  const value = useMemo(
+  const contextValue = useMemo(
     () => ({
       token,
       setToken,
@@ -64,18 +67,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       user,
       setUser,
       userId,
-      setIdUser,
+      setIdUser: setUserId,
       removeUser,
+      closeSession,
     }),
-    [token, user, userId]
+    [token, user, userId] // Dependencias que cambian el contexto
   );
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>
+      {children}
+      <ReactQueryDevtools />
+      <Toaster />
+    </AuthContext.Provider>
+  );
 };
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;

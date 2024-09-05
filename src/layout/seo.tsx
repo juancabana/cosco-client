@@ -1,5 +1,5 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import React, { type FC } from 'react';
+import { graphql, useStaticQuery } from "gatsby";
+import React, { type FC } from "react";
 
 interface Props {
   author?: string;

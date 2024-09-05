@@ -6,16 +6,14 @@ import isSSR from "@/utils/isSSR";
 import { useAuth } from "@/providers/auth";
 
 const RegisterPage: FC<PageProps> = () => {
-    const { user, isLogged } = useAuth();
+  const { user, isLogged } = useAuth();
 
-    if (user && isLogged) {
-      navigate("/publications");
-      return null;
-    }
-    
-    if (isSSR()) return null;
-    return <Register />;
-    
+  if (user && isLogged) {
+    navigate("/publications");
+    return null;
+  }
+
+  if (!isSSR()) return <Register />;
 };
 
 export default RegisterPage;

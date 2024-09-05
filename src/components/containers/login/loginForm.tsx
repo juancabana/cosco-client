@@ -2,7 +2,7 @@ import { Link } from "gatsby";
 import React, { useEffect, type FC } from "react";
 
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
-import { type PayloadLogin } from "@/services/actions";
+import { type LoginPayload } from "@/services/actions";
 import ScreenLoader from "@/components/ui/screenLoader";
 import TextField from "@/components/ui/textField";
 
@@ -13,10 +13,14 @@ const LoginForm: FC = () => {
   const { mutate, isPending, error } = useLoginMutation();
   const { openModal, RenderedModal } = useErrorModal();
 
-  const methods = useForm<PayloadLogin>();
+  const methods = useForm<LoginPayload>();
 
-  const onSubmit: SubmitHandler<PayloadLogin> = async (data: PayloadLogin) =>
+  const onSubmit: SubmitHandler<LoginPayload> = async (data: LoginPayload) => {
     mutate(data);
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
 
   useEffect(() => {
     if (error) {

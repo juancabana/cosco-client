@@ -8,7 +8,7 @@ export const Head: HeadFC = () => <Seo />;
 
 const publicationsPage: FC<PageProps> = () => (
   <Layout>
-    <Publications />    
+    <Publications />
   </Layout>
 );
 

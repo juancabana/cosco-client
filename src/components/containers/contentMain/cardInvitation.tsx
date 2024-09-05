@@ -1,7 +1,5 @@
 import React from "react";
 
-import ShapesInverted from "@/assets/ShapesInverted.png";
-import ImgCrop from "@/assets/img_section1.png";
 import Ellipse from "@/assets/Ellipse_2.svg";
 import { StaticImage } from "gatsby-plugin-image";
 
@@ -19,7 +17,7 @@ const CardInvitation = () => (
     </div>
     <div className="flex max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8">
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
-      <StaticImage
+        <StaticImage
           src="../../../assets/img_section1.png"
           alt="imagen principal"
           loading="eager"
