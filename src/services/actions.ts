@@ -70,6 +70,20 @@ export interface UpdateUserPayload {
   secondLastName?: string | null;
 }
 
+export interface UploadPostPayload {
+  title: string;
+  product: string;
+  department: string;
+  city: string;
+  stock: number;
+  massUnit: string;
+  price: number;
+  category: string;
+  description: string;
+  images: string[];
+
+};
+
 export interface UpdateUserResponse {
   _id: string;
   firstName: string;
@@ -116,3 +130,8 @@ export const updateUser = async (
   );
   return data;
 };
+
+export const uploasPost = async (id: string, payload: UploadPostPayload) => {
+  const { data } = await coscoApi.post(`/post/${id}`, payload);
+  return data;
+}

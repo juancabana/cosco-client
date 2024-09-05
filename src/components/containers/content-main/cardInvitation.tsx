@@ -15,7 +15,7 @@ const CardInvitation = () => (
         quality={100}
       />
     </div>
-    <div className="flex max-w-screen-xl w-full items-center justify-between font-roboto gap-8 px-4 sm:px-6 lg:px-8">
+    <div className="flex max-w-screen-xl w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
         <StaticImage
           src="../../../assets/img_section1.png"
@@ -27,10 +27,10 @@ const CardInvitation = () => (
         />
       </div>
       <div className="max-w-md z-10">
-        <h1 className="font-bold text-4xl text-cosco-primary leading-10">
+        <h1 className="font-bold text-4xl text-cosco-700 leading-10">
           Únete a la comunidad
         </h1>
-        <p className="text-lg font-normal text-cosco-secondary mt-5">
+        <p className="text-lg font-normal text-cosco-600 mt-5">
           ¡Sé parte del comienzo de algo grande! "Únete a la Comunidad" te
           invita a formar parte de nuestra plataforma desde sus primeros pasos.
           Al ser parte de los primeros usuarios, tendrás la oportunidad de dar

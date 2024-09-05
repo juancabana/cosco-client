@@ -37,10 +37,10 @@ const ErrorModalComponent: FC<ErrorModalProps> = ({
       <div className="w-full bg-white max-w-md rounded-lg bg-background p-6 shadow-lg md:p-8">
         <div className="space-y-4">
           <div className="space-y-2 flex flex-col items-center">
-            <h3 className="text-2xl text-cosco-primary font-bold">
+            <h3 className="text-2xl text-cosco-700 font-bold">
               {title ?? "¡Ups!"}
             </h3>
-            <p className="text-muted-foreground text-cosco-primary">
+            <p className="text-muted-foreground text-cosco-700">
               {errorMessage ?? "Algo salió mal, por favor inténtalo de nuevo"}
             </p>
             <CircleAlertIcon className="h-8 w-8 text-red-500" />
