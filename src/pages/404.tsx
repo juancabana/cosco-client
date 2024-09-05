@@ -1,6 +1,6 @@
-import React, { type FC } from "react"
-import { Link, type HeadFC, type PageProps } from "gatsby"
-import Seo from "@/layout/seo"
+import React, { type FC } from "react";
+import { Link, type HeadFC, type PageProps } from "gatsby";
+import Seo from "@/layout/seo";
 
 export const Head: HeadFC = () => <Seo />;
 
@@ -14,7 +14,11 @@ const NotFoundPage: FC<PageProps> = () => {
         {process.env.NODE_ENV === "development" ? (
           <>
             <br />
-            Try creating a page in <code className="text-[#8A6534] p-1 bg-[#FFF4DB] text-[1.25rem] rounded">src/pages/</code>.
+            Try creating a page in{" "}
+            <code className="text-[#8A6534] p-1 bg-[#FFF4DB] text-[1.25rem] rounded">
+              src/pages/
+            </code>
+            .
             <br />
           </>
         ) : null}

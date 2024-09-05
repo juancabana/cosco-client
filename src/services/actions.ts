@@ -1,20 +1,12 @@
 import { coscoApi } from "@/api/cosco.api";
+import { useAuth } from "@/providers/auth";
 
 type Role = "CUSTOMER" | "OWNER";
-export interface PayloadLogin {
+export interface LoginPayload {
   email: string;
   password: string;
 }
 
-export interface PayloadRegister {
-  email: string;
-  password: string;
-  firstName: string;
-  secondName?: string | null;
-  lastName: string;
-  secondLastName?: string | null;
-  phoneNumber: string;
-}
 export interface LoginResponse {
   _id: string;
   firstName: string;
@@ -26,11 +18,24 @@ export interface LoginResponse {
   token: string;
 }
 
+export interface RegisterPayload {
+  firstName: string;
+  secondName?: string | null;
+  lastName: string;
+  secondLastName?: string | null;
+  email: string;
+  password: string;
+  phoneNumber: string;
+}
+
 export interface RegisterResponse {
-  username: string;
-  fullName: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  secondLastName: string;
   email: string;
   phoneNumber: string;
+  image: string;
   description: string;
   isActive: boolean;
   roles: Role[];
@@ -46,15 +51,16 @@ export interface UserResponse {
   lastName: string;
   secondLastName: string;
   email: string;
+  password: string;
   phoneNumber: string;
   image: string;
   description: string;
   isActive: boolean;
-  roles: string[];
+  roles: Role[];
   __v: number;
 }
 
-export interface PayloadUpdateUser {
+export interface UpdateUserPayload {
   _id: string;
   image?: string | ArrayBuffer | null;
   description?: string | null;
@@ -64,28 +70,47 @@ export interface PayloadUpdateUser {
   secondLastName?: string | null;
 }
 
-export const login = async (payload: PayloadLogin): Promise<LoginResponse> => {
+export interface UpdateUserResponse {
+  _id: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  secondLastName: string;
+  email: string;
+  password: string;
+  phoneNumber: string;
+  image: string;
+  description: string;
+  isActive: boolean;
+  roles: Role[];
+  __v: number;
+}
+export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
   const { data } = await coscoApi.post<LoginResponse>("/auth/login", payload);
   return data;
 };
 
 export const register = async (
-  payload: PayloadRegister
+  payload: RegisterPayload
 ): Promise<RegisterResponse> => {
   const { data } = await coscoApi.post<RegisterResponse>("/user", payload);
   return { ...data };
 };
 
-export const getUser = async (id: string): Promise<UserResponse> => {
+export const getUser = async (
+  id: string,
+  callback: (user: UserResponse) => void
+): Promise<UserResponse> => {
   const { data } = await coscoApi.get<UserResponse>(`/user/${id}`);
+  callback(data);
   return data;
 };
 
 export const updateUser = async (
-  payload: PayloadUpdateUser
-): Promise<UserResponse> => {
+  payload: UpdateUserPayload
+): Promise<UpdateUserResponse> => {
   const { _id, ...updatePayload } = payload;
-  const { data } = await coscoApi.patch<UserResponse>(
+  const { data } = await coscoApi.patch<UpdateUserResponse>(
     `/user/${_id}`,
     updatePayload
   );

@@ -4,7 +4,7 @@ import { Link } from "gatsby";
 import ScreenLoader from "@/components/ui/screenLoader";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import TextField from "@/components/ui/textField";
-import { type PayloadRegister } from "@/services/actions";
+import { type RegisterPayload } from "@/services/actions";
 
 import useRegisterMutation from "@/hooks/mutations/useRegisterMutation";
 import { useErrorModal } from "@/components/ui/ErrorModal";
@@ -13,10 +13,10 @@ const RegisterForm: FC = () => {
   const { mutate, isPending, error } = useRegisterMutation();
   const { openModal, RenderedModal } = useErrorModal();
 
-  const methods = useForm<PayloadRegister>();
+  const methods = useForm<RegisterPayload>();
 
-  const onSubmit: SubmitHandler<PayloadRegister> = async (
-    data: PayloadRegister
+  const onSubmit: SubmitHandler<RegisterPayload> = async (
+    data: RegisterPayload
   ) => {
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();

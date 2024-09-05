@@ -13,6 +13,8 @@ import { TextField } from "@/components/ui/textField";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useAuth } from "@/providers/auth";
 import useUpdateUserMutation from "@/hooks/mutations/useUpdateUserMutation";
+import TrashIcon from "@/assets/img_trash.svg";
+import { useErrorModal } from "@/components/ui/ErrorModal";
 
 interface FormValues {
   image: string | null;
@@ -24,6 +26,7 @@ interface FormValues {
 }
 
 const MyPerfilForm: FC = () => {
+  const { openModal, RenderedModal } = useErrorModal();
   const [fileDataURL, setFileDataURL] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
@@ -53,7 +56,12 @@ const MyPerfilForm: FC = () => {
     mutate({ ...dataToSubmit, _id: user!._id });
   };
 
-  const getInitials = () => "Juan"[0] + "Cabana"[0]!.toUpperCase();
+  const getInitials = () => {
+    if (user?.firstName && user?.lastName) {
+      return user.firstName[0] + user.lastName[0]!.toUpperCase();
+    }
+    return "";
+  };
 
   const handleImageUpload: React.ChangeEventHandler<HTMLInputElement> = ({
     target,
@@ -68,6 +76,17 @@ const MyPerfilForm: FC = () => {
       methods.setValue("image", result, { shouldDirty: true }); // Aquí se notifica a RHF del cambio
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleImageRemove = () => {
+    setFile(null);
+    setFileDataURL(null);
+
+    // Resetear el campo "image" a su valor inicial (null) y eliminarlo de dirtyFields
+    methods.resetField("image", { defaultValue: null });
+
+    // Se fuerza la validación para recalcular dirtyFields y actualizar isDirty
+    methods.trigger("image");
   };
 
   useEffect(() => {
@@ -95,10 +114,17 @@ const MyPerfilForm: FC = () => {
           lastName: user?.lastName ?? null,
           secondLastName: user?.secondLastName ?? null,
         },
-        { keepDirtyValues: true }
+        { keepDirtyValues: false }
       );
+      setFileDataURL(null);
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    if (error) {
+      openModal();
+    }
+  }, [error]);
 
   return (
     <FormProvider {...methods}>
@@ -106,13 +132,26 @@ const MyPerfilForm: FC = () => {
         <form onSubmit={methods.handleSubmit(onSubmit) as Fn}>
           <div className="space-y-6">
             <div className="flex flex-col items-center">
-              <Avatar className="h-32 w-32 mb-4">
+              <Avatar className="h-32 w-32 mb-4 relative overflow-visible">
                 <AvatarImage
                   src={(fileDataURL as string) ?? user?.image}
-                  className="pb-0"
+                  className="pb-0 rounded-full"
                   alt="JC"
                 />
                 <AvatarFallback>{getInitials()}</AvatarFallback>
+                {fileDataURL && (
+                  <button
+                    type="button"
+                    onClick={() => handleImageRemove()}
+                    className="mt-2 text-red-500"
+                  >
+                    <img
+                      src={TrashIcon}
+                      alt="Quitar imagen"
+                      className="w-9 h-9 p-1.5 rounded-full bg-red-500 absolute top-0 right-0 z-10 border-2 border-white hover:bg-red-600"
+                    />
+                  </button>
+                )}
               </Avatar>
               <TextField
                 name="image"
@@ -184,13 +223,17 @@ const MyPerfilForm: FC = () => {
           </div>
           <button
             type="submit"
-            disabled={!isDirty || isPending}
+            disabled={!isDirty || isPending || !Object.keys(dirtyFields).length}
             className="w-full mt-10 px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-cosco-500 rounded-md hover:bg-cosco-400 focus:outline-none focus:bg-cosco-400 focus:ring focus:ring-cosco-300 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Guardar cambios
           </button>
         </form>
       </CardContent>
+      <RenderedModal
+        title="¡Ups!"
+        errorMessage="Algo salió mal, por favor inténtalo de nuevo"
+      />
     </FormProvider>
   );
 };

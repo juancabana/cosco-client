@@ -1,16 +1,17 @@
 import {
   login,
   type LoginResponse,
-  type PayloadLogin,
+  type LoginPayload,
 } from "@/services/actions";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { navigate } from "gatsby";
-import { useAuth } from "@/providers/auth/index";
+import { useAuth } from "@/providers/auth";
 
 const useLoginMutation = () => {
   const { setToken, setIdUser } = useAuth();
+  const queryCache= useQueryClient();
 
-  const mutation = useMutation<LoginResponse, unknown, PayloadLogin>({
+  const mutation = useMutation<LoginResponse, unknown, LoginPayload>({
     mutationKey: ["login"],
     mutationFn: login,
     retry: 0,
@@ -18,7 +19,8 @@ const useLoginMutation = () => {
       if (data) {
         setToken(data.token);
         setIdUser(data._id);
-        navigate("/publications");
+        queryCache.invalidateQueries({queryKey: ["userInfo", data._id]});
+        navigate("/publications"); 
       }
     },
   });

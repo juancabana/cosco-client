@@ -1,6 +1,6 @@
 import {
   updateUser,
-  type PayloadUpdateUser,
+  type UpdateUserPayload,
   type UserResponse,
 } from "@/services/actions";
 import { useMutation } from "@tanstack/react-query";
@@ -10,7 +10,7 @@ import { toast } from "@/components/shadcn/ui/use-toast";
 const useUpdateUserMutation = () => {
   const { setUser } = useAuth();
 
-  const mutation = useMutation<UserResponse, unknown, PayloadUpdateUser>({
+  const mutation = useMutation<UserResponse, unknown, UpdateUserPayload>({
     mutationKey: ["updateUser"],
     mutationFn: updateUser,
     retry: 0,

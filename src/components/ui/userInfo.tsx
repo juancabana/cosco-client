@@ -14,12 +14,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu";
-import { useAuth } from "@/providers/auth/index";
+import { useAuth } from "@/providers/auth";
 import { navigate } from "gatsby";
 
 export const UserInfo = () => {
-  const { removeToken, removeUser, user } = useAuth();
+  const { user, closeSession } = useAuth();
 
+  const getInitials = () => {
+    if (user?.firstName && user?.lastName) {
+      return user.firstName[0] + user.lastName[0]!.toUpperCase();
+    }
+    return "";
+  };
   return (
     <div className="flex items-center space-x-4">
       <DropdownMenu>
@@ -28,12 +34,10 @@ export const UserInfo = () => {
             <div className="flex items-center space-x-2">
               <Avatar className="h-8 w-8">
                 <AvatarImage
-                  src={user?.image ?? "/placeholder.svg?height=32&width=32"}
+                  src={user?.image}
                   alt="CabanaJuan"
                 />
-                <AvatarFallback>{`${user?.firstName[0] ?? "U"}${
-                  user?.lastName[0] ?? "D"
-                }`}</AvatarFallback>
+                <AvatarFallback>{getInitials()}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
                 <span className="text-sm font-medium">{`${user?.firstName} ${user?.lastName}`}</span>
@@ -55,12 +59,7 @@ export const UserInfo = () => {
             <span>Configuración</span>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => {
-              removeUser();
-              removeToken();
-            }}
-          >
+          <DropdownMenuItem onClick={() => closeSession()}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Cerrar sesión</span>
           </DropdownMenuItem>

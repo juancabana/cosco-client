@@ -2,11 +2,11 @@
  * Shared UI Components
  */
 
-import React, { type FC } from 'react';
+import React, { type FC } from "react";
 
-import imgLogoSpinner from '@/assets/img_logoSpinner.svg';
+import imgLogoSpinner from "@/assets/img_logoSpinner.svg";
 
-import Screen from './screen';
+import Screen from "./screen";
 
 interface Props {
   isVisible?: boolean;
