@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "gatsby";
 import logo from "@/assets/cosco.svg";
 
@@ -11,27 +11,15 @@ const options = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleScroll = () => {
-    setHasScrolled(window.scrollY > 0);
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <>
       <header
-        className={`bg-white fixed inset-x-0 top-0 z-30 transition-shadow ${
-          hasScrolled ? "shadow-md" : "shadow-none"
-        }`}
+        className="sticky top-0 z-30 bg-white bg-opacity-15 backdrop-filter backdrop-blur-2xl transition-colors duration-300 ease-in-out"
       >
         <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-5 sm:px-10 lg:px-5">
           <Link className="block text-teal-600" to="/">
@@ -56,7 +44,7 @@ const Header = () => {
 
           <div className="flex items-center gap-4">
             <Link
-              className="hidden xl:block rounded-full bg-transparent text-emerald-900 border-2 font-semibold border-emerald-900 px-5 py-2.5 text-sm transition hover:bg-emerald-100"
+              className="hidden xl:block rounded-full bg-white text-emerald-900 border-2 font-semibold border-emerald-900 px-5 py-2.5 text-base transition hover:bg-emerald-100"
               to="/auth/login"
             >
               Iniciar sesión
@@ -64,7 +52,7 @@ const Header = () => {
 
             <div className="hidden xl:block">
               <Link
-                className="hidden rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
+                className="hidden rounded-full bg-emerald-900 px-5 py-2.5 text-base font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
                 to="/auth/register"
               >
                 Registrarme
