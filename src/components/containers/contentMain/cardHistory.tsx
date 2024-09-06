@@ -6,7 +6,7 @@ const CardHistory = () => (
       <h1 className="text-center max-w-2xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-cosco-primary leading-tight sm:leading-[4rem] md:leading-[5rem] lg:leading-[6rem]">
         Conoce nuestra historia
       </h1>
-      <p className="text-center max-w-2xl text-base sm:text-lg md:text-xl font-normal text-cosco-secondary">
+      <p className="text-center text-base sm:text-lg md:text-2xl font-normal text-cosco-secondary">
         Descubre cómo comenzó nuestra plataforma y la inspiradora historia
         detrás de su creación. Desde los primeros pasos hasta convertirse en una
         comunidad en crecimiento, "Nuestra Historia" te llevará a través del
@@ -16,7 +16,7 @@ const CardHistory = () => (
       </p>
       <div className="flex justify-center xl:justify-start mt-12">
           <a
-            className="rounded-full w-fit bg-cosco-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
+            className="rounded-full w-fit bg-[#134E4A] px-8 py-3 text-lg font-semibold text-white transition hover:bg-emerald-200 hover:text-emerald-900"
             href="/"
           >
             Explorar
