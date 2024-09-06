@@ -15,15 +15,17 @@ import useUploadCropMutation from "@/hooks/mutations/useUploadCropMutation";
 import { useAuth } from "@/providers/auth";
 import ScreenLoader from "@/components/ui/screenLoader";
 import { useErrorModal } from "@/components/ui/ErrorModal";
+import locations from "./locations.json";
+
+interface LocationType {
+  id: number;
+  departamento: string;
+  ciudades: string[];
+}
+
+const typedLocations: LocationType[] = locations;
 
 const tiposProducto = ["Fruta", "Verdura", "Grano", "Otro"];
-const ciudades = ["Medellín", "Bogotá", "Cali", "Barranquilla"];
-const departamentos = {
-  Medellín: ["Antioquia"],
-  Bogotá: ["Cundinamarca"],
-  Cali: ["Valle del Cauca"],
-  Barranquilla: ["Atlántico"],
-};
 
 const initialFormData = {
   title: "",
@@ -41,9 +43,10 @@ interface Props {
   setActiveTab: (tab: string) => void;
 }
 
-const UploadForm: FC<Props> = ({setActiveTab}) => {
+const UploadForm: FC<Props> = ({ setActiveTab }) => {
   const { mutate, isPending, error, data } = useUploadCropMutation();
   const { openModal, RenderedModal } = useErrorModal();
+  const [ciudades, setCiudades] = useState<string[]>([]);
 
   const { user } = useAuth();
   const [isFormValid, setIsFormValid] = useState(false);
@@ -64,6 +67,9 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
       setFormData((prev) => ({ ...prev, department: "" }));
     }
   };
+
+  const utf8String = (str: string) => decodeURIComponent(str);
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
@@ -93,7 +99,7 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      mutate({ ...formData, images, id: user?._id!  });
+      mutate({ ...formData, images, id: user?._id! });
     }
   };
 
@@ -102,9 +108,38 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
     setImages([]);
   };
 
+  // Función para manejar cambios en los selects
+  const handleSelectChangeLocation = (
+    field: "city" | "department",
+    value: string
+  ) => {
+    if (field === "city") {
+      const department =
+        typedLocations.find((d) => d.ciudades.includes(value))?.departamento ||
+        "";
+      setFormData({ ...formData, city: value, department });
+      // console.log(value);
+    } else {
+      setFormData({ ...formData, department: value });
+      setCiudades(
+        typedLocations.find((d) => utf8String(d.departamento) === value)
+          ?.ciudades || []
+      );
+    }
+  };
+
   useEffect(() => {
-    const { title, product, city, department, price, category, massUnit, stock, description  } =
-      formData;
+    const {
+      title,
+      product,
+      city,
+      department,
+      price,
+      category,
+      massUnit,
+      stock,
+      description,
+    } = formData;
     const isValid =
       title !== "" &&
       product !== "" &&
@@ -214,9 +249,7 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
               <Label htmlFor="category">Tipo producto</Label>
               <Select
                 value={formData.category}
-                onValueChange={(value) =>
-                  handleSelectChange("category", value)
-                }
+                onValueChange={(value) => handleSelectChange("category", value)}
                 required
               >
                 <SelectTrigger id="category">
@@ -234,44 +267,48 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="city">Ciudad - Departamento</Label>
-              <Select
-                value={formData.city}
-                onValueChange={(value) => handleSelectChange("city", value)}
-                required
-              >
-                <SelectTrigger id="city">
-                  <SelectValue placeholder="Seleccionar" />
-                </SelectTrigger>
-                <SelectContent>
-                  {ciudades.map((ciudad) => (
-                    <SelectItem key={ciudad} value={ciudad}>
-                      {ciudad}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="department">&nbsp;</Label>
+              <Label htmlFor="department">Departamento</Label>
               <Select
                 value={formData.department}
                 onValueChange={(value) =>
-                  handleSelectChange("department", value)
+                  handleSelectChangeLocation("department", value)
                 }
-                disabled={!formData.city}
                 required
               >
                 <SelectTrigger id="department">
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
                 <SelectContent>
-                  {formData.city &&
-                    departamentos[
-                      formData.city as keyof typeof departamentos
-                    ].map((depto) => (
-                      <SelectItem key={depto} value={depto}>
-                        {depto}
+                  {typedLocations.map((department) => (
+                    <SelectItem
+                      key={department.id}
+                      value={department.departamento}
+                    >
+                      {department.departamento}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <Label htmlFor="city">Departamento</Label>
+              <Select
+                value={formData.city}
+                onValueChange={(value) =>
+                  handleSelectChangeLocation("city", value)
+                }
+                disabled={!formData.department}
+                required
+              >
+                <SelectTrigger id="city">
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {formData.department &&
+                    ciudades.map((city) => (
+                      <SelectItem key={city} value={city}>
+                        {city}
                       </SelectItem>
                     ))}
                 </SelectContent>
@@ -289,18 +326,7 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
                 onChange={handleInputChange}
                 required
               />
-            </div>
-            <div>
-              <Label htmlFor="stock">Stock</Label>
-              <Input
-                id="stock"
-                name="stock"
-                type="number"
-                value={formData.stock}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
+            </div>{" "}
             <div>
               <Label htmlFor="massUnit">Unidad</Label>
               <Select
@@ -317,6 +343,17 @@ const UploadForm: FC<Props> = ({setActiveTab}) => {
                   <SelectItem value="arroba">arroba</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div>
+              <Label htmlFor="stock">Stock</Label>
+              <Input
+                id="stock"
+                name="stock"
+                type="number"
+                value={formData.stock}
+                onChange={handleInputChange}
+                required
+              />
             </div>
           </div>
           <div>

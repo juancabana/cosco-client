@@ -17,37 +17,6 @@ interface Props {
   setActiveTab: (tab: string) => void;
 }
 
-// const CardCrop: FC<UserCropResponse> = ({
-//   title,
-//   price,
-//   massUnit,
-//   product,
-// }) => (
-//   <Card>
-//     <CardHeader>
-//       <CardTitle>{title}</CardTitle>
-//     </CardHeader>
-//     <CardContent>
-//       {/* <Image src={pub.image} alt={pub.title} width={300} height={200} className="w-full h-48 object-cover rounded-md mb-4" /> */}
-//       <img src="./../../../assets/img_login.jpg" alt="" />
-//       <p className="text-sm text-muted-foreground">Producto: {product}</p>
-//       <p className="text-sm font-semibold mt-2">
-//         Precio: {price} COP / {massUnit}
-//       </p>
-//     </CardContent>
-//     <CardFooter className="flex justify-between">
-//       <Button variant="outline" size="sm">
-//         <Eye className="h-4 w-4 mr-2" />
-//         Ver
-//       </Button>
-//       <Button variant="outline" size="sm">
-//         <Edit className="h-4 w-4 mr-2" />
-//         Editar
-//       </Button>
-//     </CardFooter>
-//   </Card>
-// );
-
 const CardUpload: FC<Props> = ({ setActiveTab }) => (
   <Card className="mt-6">
     <CardHeader>
@@ -81,7 +50,6 @@ const ActiveCrops: FC<Props> = ({ setActiveTab }) => {
       {data?.length && data.length > 0 ? (
         <div className="grid items-center justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           {data.map((crop) => (
-            // <CardCrop key={crop._id} {...crop} />
             <ProductCard key={crop._id} {...crop} />
           ))}
         </div>
