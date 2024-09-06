@@ -11,7 +11,7 @@ const useGetUserCropsQuery = () => {
     retry: 0,
     staleTime: 1000 * 60 * 60 * 24,
     // enabled: !!userId,
-    enabled: true,
+    enabled: !!userId,
   });
 
     return { ...query };

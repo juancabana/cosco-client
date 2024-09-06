@@ -8,7 +8,7 @@ interface AuthContextType {
   token: string | null;
   isLogged: boolean;
   user: UserResponse | null;
-  userId: string | null;
+  userId: string | null | undefined;
 
   removeToken: () => void;
   removeUser: () => void;
@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const [user, setUserState] = useState<UserResponse | null>(
     localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null
   );
-  const [userId, setUserId] = useState<string | null>(null);
+  const [userId, setUserId] = useState<string | null | undefined>(user?._id);
 
   const isLogged = !!token;
 

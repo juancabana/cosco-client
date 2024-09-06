@@ -11,6 +11,7 @@ import {
 import useGetUserCropsQuery from "@/hooks/querys/useGetUserCropsQuery";
 import { useAuth } from "@/providers/auth";
 import type { UserCropResponse } from "@/services/actions";
+import { ProductCard } from "@/components/ui/product-card";
 
 interface Props {
   setActiveTab: (tab: string) => void;
@@ -78,9 +79,10 @@ const ActiveCrops: FC<Props> = ({ setActiveTab }) => {
   return (
     <>
       {data?.length && data.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+        <div className="grid items-center justify-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           {data.map((crop) => (
-            <CardCrop key={crop._id} {...crop} />
+            // <CardCrop key={crop._id} {...crop} />
+            <ProductCard key={crop._id} {...crop} />
           ))}
         </div>
       ) : (
