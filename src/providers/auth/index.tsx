@@ -6,30 +6,29 @@ import { Toaster } from "@/components/shadcn/ui/toaster";
 
 interface AuthContextType {
   token: string | null;
-  setToken: (token: string) => void;
-  removeToken: () => void;
   isLogged: boolean;
   user: UserResponse | null;
-  setUser: (user: UserResponse) => void;
   userId: string | null;
-  setIdUser: (id: string) => void;
+
+  removeToken: () => void;
   removeUser: () => void;
   closeSession: () => void;
+  setUser: (user: UserResponse) => void;
+  setToken: (token: string) => void;
+  setIdUser: (id: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const queryClient = useQueryClient();
-
-  const [token, setTokenState] = useState<string | null>(() =>
-    localStorage.getItem("token")
-  );
-
-  const [user, setUserState] = useState<UserResponse | null>(() =>
-    JSON.parse(localStorage.getItem("user") ?? "null")
+  const [token, setTokenState] = useState<string | null>(localStorage.getItem("token"));
+  const [user, setUserState] = useState<UserResponse | null>(
+    localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null
   );
   const [userId, setUserId] = useState<string | null>(null);
+
+  const isLogged = !!token;
 
   const setToken = (newToken: string) => {
     setTokenState(newToken);
@@ -42,14 +41,14 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   };
 
   const setUser = (data: UserResponse) => {
-    localStorage.setItem("user", JSON.stringify(data));
     setUserState(data);
+    localStorage.setItem("user", JSON.stringify(data));
     queryClient.invalidateQueries({ queryKey: ["userInfo", data._id] });
   };
 
   const removeUser = () => {
-    localStorage.removeItem("user");
     setUserState(null);
+    localStorage.removeItem("user");
   };
 
   const closeSession = () => {
@@ -61,17 +60,17 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const contextValue = useMemo(
     () => ({
       token,
+      isLogged,
+      user,
+      userId,
       setToken,
       removeToken,
-      isLogged: !!token,
-      user,
       setUser,
-      userId,
-      setIdUser: setUserId,
       removeUser,
       closeSession,
+      setIdUser: setUserId,
     }),
-    [token, user, userId] // Dependencias que cambian el contexto
+    [token, isLogged, user, userId]
   );
 
   return (

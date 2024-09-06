@@ -11,6 +11,10 @@ import {
 import { Textarea } from "@/components/shadcn/ui/textarea";
 import { Button } from "@/components/shadcn/ui/button";
 import { Label } from "@/components/shadcn/ui/label";
+import useUploadCropMutation from "@/hooks/mutations/useUploadCropMutation";
+import { useAuth } from "@/providers/auth";
+import ScreenLoader from "@/components/ui/screenLoader";
+import { useErrorModal } from "@/components/ui/ErrorModal";
 
 const tiposProducto = ["Fruta", "Verdura", "Grano", "Otro"];
 const ciudades = ["Medellín", "Bogotá", "Cali", "Barranquilla"];
@@ -24,16 +28,24 @@ const departamentos = {
 const initialFormData = {
   title: "",
   product: "",
-  productType: "",
+  category: "",
   city: "",
   department: "",
-  price: "",
-  unit: "",
+  price: 0,
+  massUnit: "",
   description: "",
+  stock: 0,
 };
 
-const UploadForm: FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface Props {
+  setActiveTab: (tab: string) => void;
+}
+
+const UploadForm: FC<Props> = ({setActiveTab}) => {
+  const { mutate, isPending, error, data } = useUploadCropMutation();
+  const { openModal, RenderedModal } = useErrorModal();
+
+  const { user } = useAuth();
   const [isFormValid, setIsFormValid] = useState(false);
 
   const [images, setImages] = useState<string[]>([]);
@@ -81,10 +93,7 @@ const UploadForm: FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      console.log({ ...formData, images });
-      setIsModalOpen(false);
-      resetForm();
-      //   setActiveTab("publicaciones");
+      mutate({ ...formData, images, id: user?._id!  });
     }
   };
 
@@ -94,19 +103,34 @@ const UploadForm: FC = () => {
   };
 
   useEffect(() => {
-    const { title, product, productType, city, department, price, unit } =
+    const { title, product, city, department, price, category, massUnit, stock, description  } =
       formData;
     const isValid =
       title !== "" &&
       product !== "" &&
-      productType !== "" &&
+      category !== "" &&
       city !== "" &&
       department !== "" &&
-      price !== "" &&
-      unit !== "" &&
+      price !== 0 &&
+      massUnit !== "" &&
+      stock !== 0 &&
+      description !== "" &&
       images.length > 0;
     setIsFormValid(isValid);
   }, [formData, images]);
+
+  useEffect(() => {
+    if (error) {
+      openModal();
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (data) {
+      resetForm();
+      setActiveTab("publicaciones");
+    }
+  }, [data]);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -187,15 +211,15 @@ const UploadForm: FC = () => {
               />
             </div>
             <div>
-              <Label htmlFor="productType">Tipo producto</Label>
+              <Label htmlFor="category">Tipo producto</Label>
               <Select
-                value={formData.productType}
+                value={formData.category}
                 onValueChange={(value) =>
-                  handleSelectChange("productType", value)
+                  handleSelectChange("category", value)
                 }
                 required
               >
-                <SelectTrigger id="productType">
+                <SelectTrigger id="category">
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
                 <SelectContent>
@@ -267,13 +291,24 @@ const UploadForm: FC = () => {
               />
             </div>
             <div>
-              <Label htmlFor="unit">Unidad</Label>
+              <Label htmlFor="stock">Stock</Label>
+              <Input
+                id="stock"
+                name="stock"
+                type="number"
+                value={formData.stock}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+            <div>
+              <Label htmlFor="massUnit">Unidad</Label>
               <Select
-                value={formData.unit}
-                onValueChange={(value) => handleSelectChange("unit", value)}
+                value={formData.massUnit}
+                onValueChange={(value) => handleSelectChange("massUnit", value)}
                 required
               >
-                <SelectTrigger id="unit">
+                <SelectTrigger id="massUnit">
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
                 <SelectContent>
@@ -310,6 +345,11 @@ const UploadForm: FC = () => {
           Añadir publicación
         </Button>
       </div>
+      <ScreenLoader isVisible={isPending} />
+      <RenderedModal
+        title="¡Ups!"
+        errorMessage="Algo salió mal, por favor inténtalo de nuevo"
+      />
     </form>
   );
 };

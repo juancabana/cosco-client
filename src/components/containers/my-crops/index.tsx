@@ -26,7 +26,7 @@ const MyCrops: FC = () => {
           <ActiveCrops setActiveTab={setActiveTab} />
         </TabsContent>
         <TabsContent value="nueva">
-          <NewCrop />
+          <NewCrop setActiveTab={setActiveTab} />
         </TabsContent>
       </Tabs>
     </div>

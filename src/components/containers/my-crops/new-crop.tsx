@@ -8,14 +8,18 @@ import {
 } from "@/components/shadcn/ui/card";
 import UploadForm from "./upload-form";
 
-const NewCrop: FC = () => {
+interface Props {
+  setActiveTab: (tab: string) => void;
+}
+
+const NewCrop: FC<Props> = ({ setActiveTab }) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-cosco-850">Nueva Publicación</CardTitle>
       </CardHeader>
       <CardContent>
-        <UploadForm />
+        <UploadForm setActiveTab={setActiveTab} />
       </CardContent>
     </Card>
   );
