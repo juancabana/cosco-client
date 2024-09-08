@@ -15,6 +15,7 @@ import { useAuth } from "@/providers/auth";
 import useUpdateUserMutation from "@/hooks/mutations/useUpdateUserMutation";
 import TrashIcon from "@/assets/img_trash.svg";
 import { useErrorModal } from "@/components/ui/ErrorModal";
+import ScreenLoader from "@/components/ui/screenLoader";
 
 interface FormValues {
   image: string | null;
@@ -230,6 +231,7 @@ const MyPerfilForm: FC = () => {
           </button>
         </form>
       </CardContent>
+      <ScreenLoader isVisible={isPending} />
       <RenderedModal
         title="¡Ups!"
         errorMessage="Algo salió mal, por favor inténtalo de nuevo"
