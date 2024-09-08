@@ -15,6 +15,8 @@ import { es } from "date-fns/locale";
 import categories from "@/assets/categories.json";
 import { useAuth } from "@/providers/auth";
 import ContactSellerModal from "./contact-seller-modal";
+import { useErrorModal } from "@/providers/error";
+import plurales from "plurales";
 
 interface IsOpen {
   isModalOpen: boolean;
@@ -26,6 +28,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
   const [modalCurrentImage, setModalCurrentImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isModalContactOpen, setIsModalContactOpen] = useState(false);
+  const {showError} = useErrorModal()
 
   const formattedDate = format(
     new Date(crop.createdAt),
@@ -37,6 +40,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
 
   const badgeColor =
     categories.find((cat) => cat.category === crop.category)?.color ?? "gray";
+
 
   return (
     <>
@@ -133,7 +137,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                   <strong className="text-base font-semibold text-cosco-800">
                     Stock disponible:
                   </strong>{" "}
-                  {crop.stock} {crop.massUnit}
+                  {crop.stock} {plurales(crop.massUnit)}
                 </p>
                 <p className="text-base text-cosco-700">
                   <strong className="text-base font-semibold text-cosco-800">
@@ -158,7 +162,18 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
               {userId !== crop.owner._id && (
                 <Button
                   className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-                  onClick={() => setIsModalContactOpen(true)}
+                  onClick={() => {
+                    // Solo si esta logueado
+                    if (!userId) {
+                      showError(
+                        '!Ups!',
+                        'No puedes contactar al vendedor si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.',
+                        true
+                      )
+                      return
+                    }
+                    setIsModalContactOpen(true)
+                  }}
                 >
                   Contactar con el vendedor
                 </Button>

@@ -9,7 +9,7 @@ import { useAuth } from "@/providers/auth";
 import { useErrorModal } from "@/providers/error";
 
 const useLoginMutation = () => {
-  const { setToken, setIdUser } = useAuth();
+  const { setTokenState, setIdUser } = useAuth();
   const queryCache = useQueryClient();
   const { showError } = useErrorModal();
 
@@ -19,7 +19,7 @@ const useLoginMutation = () => {
     retry: 0,
     onSuccess: (data, error) => {
       if (data) {
-        setToken(data.token);
+        setTokenState(data.token);
         setIdUser(data._id);
         queryCache.invalidateQueries({ queryKey: ["userInfo", data._id] });
         navigate("/publications");

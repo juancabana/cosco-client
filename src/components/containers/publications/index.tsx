@@ -3,7 +3,7 @@ import useGetAllCropsQuery from "@/hooks/querys/useGetAllCropsQuery";
 import React, { type FC } from "react";
 
 const Publications: FC = () => {
-  const { data, error } = useGetAllCropsQuery();
+  const { data } = useGetAllCropsQuery();
 
   return (
     <div className="max-w-screen-xl w-full mx-auto px-4 py-8">

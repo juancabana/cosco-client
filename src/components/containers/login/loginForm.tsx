@@ -1,5 +1,5 @@
 import { Link } from "gatsby";
-import React, { useEffect, type FC } from "react";
+import React, { type FC } from "react";
 
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { type LoginPayload } from "@/services/actions";
@@ -7,11 +7,9 @@ import ScreenLoader from "@/components/ui/screenLoader";
 import TextField from "@/components/ui/textField";
 
 import useLoginMutation from "@/hooks/mutations/useLoginMutation";
-// import { useErrorModal } from "@/components/ui/ErrorModal";
 
 const LoginForm: FC = () => {
-  const { mutate, isPending, error } = useLoginMutation();
-  // const { openModal, RenderedModal } = useErrorModal();
+  const { mutate, isPending } = useLoginMutation();
 
   const methods = useForm<LoginPayload>();
 
@@ -21,12 +19,6 @@ const LoginForm: FC = () => {
       document.activeElement.blur();
     }
   };
-
-  // useEffect(() => {
-  //   if (error) {
-  //     openModal();
-  //   }
-  // }, [error]);
 
   return (
     <>
@@ -84,10 +76,6 @@ const LoginForm: FC = () => {
         .
       </p>
       <ScreenLoader isVisible={isPending} />
-      {/* <RenderedModal
-        title="¡Ups!"
-        errorMessage="Algo salió mal, por favor inténtalo de nuevo"
-      /> */}
     </>
   );
 };

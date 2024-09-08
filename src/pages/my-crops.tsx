@@ -8,7 +8,7 @@ import { useAuth } from "@/providers/auth";
 
 export const Head: HeadFC = () => <Seo />;
 
-const myCropsPage: FC<PageProps> = () => {
+const MyCropsPage: FC<PageProps> = () => {
   const { user, isLogged } = useAuth();
 
   if (!user && !isLogged) {
@@ -23,4 +23,4 @@ const myCropsPage: FC<PageProps> = () => {
   );
 };
 
-export default myCropsPage;
+export default MyCropsPage;

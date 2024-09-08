@@ -1,5 +1,5 @@
-import React, { useState, type FC } from "react";
-import { Plus, Edit, Eye } from "lucide-react";
+import React, { type FC } from "react";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import {
   Card,
@@ -9,8 +9,6 @@ import {
   CardTitle,
 } from "@/components/shadcn/ui/card";
 import useGetUserCropsQuery from "@/hooks/querys/useGetUserCropsQuery";
-import { useAuth } from "@/providers/auth";
-import type { UserCropResponse } from "@/services/actions";
 import { ProductCard } from "@/components/ui/product-card";
 
 interface Props {
@@ -42,7 +40,6 @@ const CardUpload: FC<Props> = ({ setActiveTab }) => (
 );
 
 const ActiveCrops: FC<Props> = ({ setActiveTab }) => {
-  const { userId } = useAuth();
   const { data } = useGetUserCropsQuery();
 
   return (

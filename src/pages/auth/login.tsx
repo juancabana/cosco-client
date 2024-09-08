@@ -14,6 +14,8 @@ const LoginPage: FC<PageProps> = () => {
   }
 
   if (!isSSR()) return <Login />;
+
+  return null;
 };
 
 export default LoginPage;

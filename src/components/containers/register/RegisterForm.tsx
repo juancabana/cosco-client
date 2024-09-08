@@ -1,4 +1,4 @@
-import React, { useEffect, type FC } from "react";
+import React, { type FC } from "react";
 import { Link } from "gatsby";
 
 import ScreenLoader from "@/components/ui/screenLoader";
@@ -7,11 +7,9 @@ import TextField from "@/components/ui/textField";
 import { type RegisterPayload } from "@/services/actions";
 
 import useRegisterMutation from "@/hooks/mutations/useRegisterMutation";
-import { useErrorModal } from "@/components/ui/ErrorModal";
 
 const RegisterForm: FC = () => {
-  const { mutate, isPending, error } = useRegisterMutation();
-  const { openModal, RenderedModal } = useErrorModal();
+  const { mutate, isPending } = useRegisterMutation();
 
   const methods = useForm<RegisterPayload>();
 
@@ -23,12 +21,6 @@ const RegisterForm: FC = () => {
     }
     mutate(data);
   };
-
-  useEffect(() => {
-    if (error) {
-      openModal();
-    }
-  }, [error]);
 
   return (
     <>
@@ -128,7 +120,6 @@ const RegisterForm: FC = () => {
         .
       </p>
       <ScreenLoader isVisible={isPending} />
-      <RenderedModal title="¡Ups!" errorMessage="Error al registrar usuario" />
     </>
   );
 };

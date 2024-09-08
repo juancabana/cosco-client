@@ -14,6 +14,8 @@ const RegisterPage: FC<PageProps> = () => {
   }
 
   if (!isSSR()) return <Register />;
+
+  return null;
 };
 
 export default RegisterPage;

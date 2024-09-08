@@ -14,10 +14,11 @@ import { Label } from "@/components/shadcn/ui/label";
 import useUploadCropMutation from "@/hooks/mutations/useUploadCropMutation";
 import { useAuth } from "@/providers/auth";
 import ScreenLoader from "@/components/ui/screenLoader";
-import { useErrorModal } from "@/components/ui/ErrorModal";
 import locations from "./locations.json";
 import categories from "@/assets/categories.json";
 import massUnits from "./mass-unit.json";
+import plurales from "plurales";
+import { capitalizeFirstLetter } from "@/lib/utils";
 
 const initialFormData = {
   title: "",
@@ -36,8 +37,7 @@ interface Props {
 }
 
 const UploadForm: FC<Props> = ({ setActiveTab }) => {
-  const { mutate, isPending, error, data } = useUploadCropMutation();
-  const { openModal, RenderedModal } = useErrorModal();
+  const { mutate, isPending, data } = useUploadCropMutation();
   const [ciudades, setCiudades] = useState<string[]>([]);
 
   const { user } = useAuth();
@@ -143,12 +143,6 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
       images.length > 0;
     setIsFormValid(isValid);
   }, [formData, images]);
-
-  useEffect(() => {
-    if (error) {
-      openModal();
-    }
-  }, [error]);
 
   useEffect(() => {
     if (data) {
@@ -311,17 +305,21 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label htmlFor="price">Precio</Label>
-                <Input
-                  id="price"
-                  name="price"
-                  type="number"
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  required
-                />
-              </div>{" "}
+                <div className="flex items-center gap-2">
+                  <Input
+                    id="price"
+                    name="price"
+                    type="number"
+                    value={formData.price}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <p className="text-cosco-600">cada</p>
+                </div>
+              </div>
               <div>
-                <Label htmlFor="massUnit">Unidad</Label>
+                <Label htmlFor="massUnit">Unidad de medida</Label>
+
                 <Select
                   value={formData.massUnit}
                   onValueChange={(value) =>
@@ -343,14 +341,21 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
               </div>
               <div>
                 <Label htmlFor="stock">Stock disponible</Label>
-                <Input
-                  id="stock"
-                  name="stock"
-                  type="number"
-                  value={formData.stock}
-                  onChange={handleInputChange}
-                  required
-                />
+                <div className="flex items-center gap-2">
+                  <Input
+                    id="stock"
+                    name="stock"
+                    type="number"
+                    value={formData.stock}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  {formData.massUnit && (
+                    <p className=" text-cosco-600 ">
+                      {capitalizeFirstLetter(plurales(formData.massUnit))}
+                    </p>
+                  )}
+                </div>
               </div>
             </div>
             <div>
@@ -381,10 +386,6 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
         </div>
       </form>
       <ScreenLoader isVisible={isPending} />
-      <RenderedModal
-        title="¡Ups!"
-        errorMessage="Algo salió mal, por favor inténtalo de nuevo"
-      />
     </>
   );
 };

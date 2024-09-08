@@ -1,20 +1,15 @@
 import React, { useState, type FC, useEffect } from "react";
 import { CardContent } from "@/components/shadcn/ui/card";
-// import { Input } from "@/components/shadcn/ui/input"
-// import { Label } from "@/components/shadcn/ui/label";
-// import { Textarea } from "@/components/shadcn/ui/textarea"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/shadcn/ui/avatar";
-import { toast } from "@/components/shadcn/ui/use-toast";
 import { TextField } from "@/components/ui/textField";
 import { FormProvider, useForm, type SubmitHandler } from "react-hook-form";
 import { useAuth } from "@/providers/auth";
 import useUpdateUserMutation from "@/hooks/mutations/useUpdateUserMutation";
 import TrashIcon from "@/assets/img_trash.svg";
-import { useErrorModal } from "@/components/ui/ErrorModal";
 import ScreenLoader from "@/components/ui/screenLoader";
 
 interface FormValues {
@@ -27,7 +22,6 @@ interface FormValues {
 }
 
 const MyPerfilForm: FC = () => {
-  const { openModal, RenderedModal } = useErrorModal();
   const [fileDataURL, setFileDataURL] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
 
@@ -44,7 +38,7 @@ const MyPerfilForm: FC = () => {
     },
   });
 
-  const { mutate, isPending, error, isSuccess } = useUpdateUserMutation();
+  const { mutate, isPending, isSuccess } = useUpdateUserMutation();
 
   const { isDirty, dirtyFields } = methods.formState;
 
@@ -82,10 +76,8 @@ const MyPerfilForm: FC = () => {
   const handleImageRemove = () => {
     setFile(null);
     setFileDataURL(null);
-
-    // Resetear el campo "image" a su valor inicial (null) y eliminarlo de dirtyFields
+    // Se resetea el campo "image" a su valor inicial (null) y eliminarlo de dirtyFields
     methods.resetField("image", { defaultValue: null });
-
     // Se fuerza la validación para recalcular dirtyFields y actualizar isDirty
     methods.trigger("image");
   };
@@ -120,12 +112,6 @@ const MyPerfilForm: FC = () => {
       setFileDataURL(null);
     }
   }, [isSuccess]);
-
-  useEffect(() => {
-    if (error) {
-      openModal();
-    }
-  }, [error]);
 
   return (
     <FormProvider {...methods}>
@@ -232,10 +218,6 @@ const MyPerfilForm: FC = () => {
         </form>
       </CardContent>
       <ScreenLoader isVisible={isPending} />
-      <RenderedModal
-        title="¡Ups!"
-        errorMessage="Algo salió mal, por favor inténtalo de nuevo"
-      />
     </FormProvider>
   );
 };

@@ -7,10 +7,10 @@ import type { HeadFC, PageProps } from "gatsby";
 
 export const Head: HeadFC = () => <Seo />;
 
-const publicationsPage: FC<PageProps> = () => (
+const PublicationsPage: FC<PageProps> = () => (
   <Layout>
     <Publications />
   </Layout>
 );
 
-export default publicationsPage;
+export default PublicationsPage;

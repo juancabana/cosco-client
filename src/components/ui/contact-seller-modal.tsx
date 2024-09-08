@@ -22,7 +22,6 @@ import {
 } from "@/components/shadcn/ui/dialog";
 import { ScrollArea } from "@/components/shadcn/ui/scroll-area";
 import {
-  Star,
   Mail,
   Phone,
   MapPin,

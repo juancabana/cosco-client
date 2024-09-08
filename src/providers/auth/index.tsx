@@ -14,8 +14,8 @@ interface AuthContextType {
   removeToken: () => void;
   removeUser: () => void;
   closeSession: () => void;
-  setUser: (user: UserResponse) => void;
-  setToken: (token: string) => void;
+  setUserState: (user: UserResponse) => void;
+  setTokenState: (token: string) => void;
   setIdUser: (id: string) => void;
 }
 
@@ -23,10 +23,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const queryClient = useQueryClient();
-  const [token, setTokenState] = useState<string | null>(
+  const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
-  const [user, setUserState] = useState<UserResponse | null>(
+  const [user, setUser] = useState<UserResponse | null>(
     localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")!)
       : null
@@ -35,24 +35,25 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const isLogged = !!token;
 
-  const setToken = (newToken: string) => {
-    setTokenState(newToken);
+  const setTokenState = (newToken: string) => {
+    setToken(newToken);
     localStorage.setItem("token", newToken);
   };
 
   const removeToken = () => {
-    setTokenState(null);
+    setToken(null);
     localStorage.removeItem("token");
   };
 
-  const setUser = (data: UserResponse) => {
-    setUserState(data);
+  const setUserState = (data: UserResponse) => {
+    setUser(data);
     localStorage.setItem("user", JSON.stringify(data));
     queryClient.invalidateQueries({ queryKey: ["userInfo", data._id] });
   };
 
   const removeUser = () => {
-    setUserState(null);
+    setUser(null);
+    setUserId(null);
     localStorage.removeItem("user");
   };
 
@@ -68,9 +69,9 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
       isLogged,
       user,
       userId,
-      setToken,
+      setTokenState,
       removeToken,
-      setUser,
+      setUserState,
       removeUser,
       closeSession,
       setIdUser: setUserId,

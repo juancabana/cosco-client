@@ -16,9 +16,10 @@ import {
   DialogFooter,
 } from "@/components/shadcn/ui/dialog";
 import { Button } from "@/components/shadcn/ui/button";
+import { navigate } from "gatsby";
 
 interface ErrorModalContextType {
-  showError: (title: string, message: string) => void;
+  showError: (title: string, message: string, isLoggedError?: boolean) => void;
   hideError: () => void;
 }
 
@@ -32,15 +33,26 @@ export const ErrorModalProvider: FC<{ children: ReactNode }> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [errorTitle, setErrorTitle] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoggedError, setIsLoggedError] = useState(false);
 
-  const showError = (title: string, message: string) => {
+  const showError = (
+    title: string,
+    message: string,
+    isLoggedError: boolean = false
+  ) => {
     setErrorTitle(title);
     setErrorMessage(message);
+    setIsLoggedError(isLoggedError);
     setIsOpen(true);
   };
 
   const hideError = () => {
     setIsOpen(false);
+  };
+
+  const goToLogin = () => {
+    hideError();
+    navigate("/auth/login");
   };
 
   const contextValue = useMemo(
@@ -58,18 +70,30 @@ export const ErrorModalProvider: FC<{ children: ReactNode }> = ({
               {errorTitle}
             </DialogTitle>
           </DialogHeader>
-          <CircleAlertIcon className="h-16 w-16 text-red-500" />
-
+          {!isLoggedError && (
+            <CircleAlertIcon className={`h-16 w-16 text-red-500`} />
+          )}
           <DialogDescription className="text-muted-foreground text-cosco-700 text-lg text-center">
             {errorMessage}
           </DialogDescription>
           <DialogFooter>
             <Button
               onClick={hideError}
-              className="w-full bg-red-500 text-white hover:bg-red-600"
+              // className="w-full bg-red-500 text-white hover:bg-red-600"
+              className={`w-full bg-${
+                isLoggedError ? "cosco" : "red"
+              }-500 text-white hover:bg-${isLoggedError ? "cosco" : "red"}-600`}
             >
               Cerrar
-            </Button>
+            </Button>{" "}
+            {isLoggedError && (
+              <Button
+                onClick={() => goToLogin()}
+                className="w-full bg-slate-50 text-cosco-550 hover:bg-slate-100"
+              >
+                Iniciar sesión
+              </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
