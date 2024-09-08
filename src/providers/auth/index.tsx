@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import type { UserResponse } from "@/services/actions";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/shadcn/ui/toaster";
+import { ErrorModalProvider } from "../error";
 
 interface AuthContextType {
   token: string | null;
@@ -22,9 +23,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const queryClient = useQueryClient();
-  const [token, setTokenState] = useState<string | null>(localStorage.getItem("token"));
+  const [token, setTokenState] = useState<string | null>(
+    localStorage.getItem("token")
+  );
   const [user, setUserState] = useState<UserResponse | null>(
-    localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")!) : null
+    localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")!)
+      : null
   );
   const [userId, setUserId] = useState<string | null | undefined>(user?._id);
 
@@ -75,9 +80,11 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   return (
     <AuthContext.Provider value={contextValue}>
-      {children}
-      <ReactQueryDevtools />
-      <Toaster />
+      <ErrorModalProvider>
+        {children}
+        <ReactQueryDevtools />
+        <Toaster />
+      </ErrorModalProvider>
     </AuthContext.Provider>
   );
 };

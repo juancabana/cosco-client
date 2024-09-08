@@ -107,14 +107,13 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
   ) => {
     if (field === "city") {
       const department =
-        locations.find((d) => d.ciudades.includes(value))?.departamento ||
-        "";
+        locations.find((d) => d.ciudades.includes(value))?.departamento ?? "";
       setFormData({ ...formData, city: value, department });
     } else {
       setFormData({ ...formData, department: value, city: "" });
       setCiudades(
-        locations.find((d) => utf8String(d.departamento) === value)
-          ?.ciudades || []
+        locations.find((d) => utf8String(d.departamento) === value)?.ciudades ||
+          []
       );
     }
   };

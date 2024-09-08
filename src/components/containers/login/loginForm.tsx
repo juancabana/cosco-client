@@ -7,11 +7,11 @@ import ScreenLoader from "@/components/ui/screenLoader";
 import TextField from "@/components/ui/textField";
 
 import useLoginMutation from "@/hooks/mutations/useLoginMutation";
-import { useErrorModal } from "@/components/ui/ErrorModal";
+// import { useErrorModal } from "@/components/ui/ErrorModal";
 
 const LoginForm: FC = () => {
   const { mutate, isPending, error } = useLoginMutation();
-  const { openModal, RenderedModal } = useErrorModal();
+  // const { openModal, RenderedModal } = useErrorModal();
 
   const methods = useForm<LoginPayload>();
 
@@ -22,11 +22,11 @@ const LoginForm: FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (error) {
-      openModal();
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     openModal();
+  //   }
+  // }, [error]);
 
   return (
     <>
@@ -84,10 +84,10 @@ const LoginForm: FC = () => {
         .
       </p>
       <ScreenLoader isVisible={isPending} />
-      <RenderedModal
+      {/* <RenderedModal
         title="¡Ups!"
         errorMessage="Algo salió mal, por favor inténtalo de nuevo"
-      />
+      /> */}
     </>
   );
 };

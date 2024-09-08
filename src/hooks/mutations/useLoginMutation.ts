@@ -6,10 +6,12 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { navigate } from "gatsby";
 import { useAuth } from "@/providers/auth";
+import { useErrorModal } from "@/providers/error";
 
 const useLoginMutation = () => {
   const { setToken, setIdUser } = useAuth();
-  const queryCache= useQueryClient();
+  const queryCache = useQueryClient();
+  const { showError } = useErrorModal();
 
   const mutation = useMutation<LoginResponse, unknown, LoginPayload>({
     mutationKey: ["login"],
@@ -19,9 +21,15 @@ const useLoginMutation = () => {
       if (data) {
         setToken(data.token);
         setIdUser(data._id);
-        queryCache.invalidateQueries({queryKey: ["userInfo", data._id]});
-        navigate("/publications"); 
+        queryCache.invalidateQueries({ queryKey: ["userInfo", data._id] });
+        navigate("/publications");
       }
+    },
+    onError: (error) => {
+      showError(
+        "Ups! Algo salió mal",
+        "Por favor, verifica tus credenciales e intenta de nuevo"
+      );
     },
   });
 
