@@ -1,17 +1,24 @@
 import React, { useState, type FC } from "react";
 import { Heart, ChevronLeft, MapPin } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
-import { Dialog, DialogContent } from "@/components/shadcn/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/shadcn/ui/dialog";
 import { Badge } from "@/components/shadcn/ui/badge";
 import type { UserCropResponse } from "@/services/actions";
 import { useAuth } from "@/providers/auth";
 import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import categories from '@/assets/categories.json';
 
 interface isOpen {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
+  isOwner?: boolean;
 }
 
 const CropModal: FC<UserCropResponse & isOpen> = ({
@@ -29,6 +36,7 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
   product,
   stock,
   title,
+  isOwner = false,
 }) => {
   const { user } = useAuth();
   const [modalCurrentImage, setModalCurrentImage] = useState(0);
@@ -38,9 +46,14 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
     locale: es,
   });
 
+  const badgeColor = categories.find(cat => cat.category === category)?.color ?? 'gray'
+
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
       <DialogContent className="sm:max-w-[900px] p-0">
+        <DialogTitle className="hidden">{title}</DialogTitle>
+        <DialogDescription className="hidden">{description}</DialogDescription>
+
         <div className="flex flex-col md:flex-row">
           <div className="w-full md:w-1/2 p-6">
             <div className="relative mb-4">
@@ -60,17 +73,22 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
             </div>
             <div className="flex space-x-2 overflow-x-auto">
               {images.map((image, index) => (
-                <img
-                  key={index}
-                  src={image}
-                  alt={`${title} thumbnail ${index + 1}`}
-                  className={`w-20 h-20 object-cover rounded-md cursor-pointer ${
+                <button
+                  key={image.slice(-5)}
+                  onClick={() => setModalCurrentImage(index)}
+                  className={`w-20 h-20 rounded-md cursor-pointer focus:outline-none ${
                     modalCurrentImage === index
                       ? "border-2 border-teal-600"
                       : ""
                   }`}
-                  onClick={() => setModalCurrentImage(index)}
-                />
+                  aria-label={`Thumbnail ${index + 1}`}
+                >
+                  <img
+                    src={image}
+                    alt={`${title} thumbnail ${index + 1}`}
+                    className="w-full h-full object-cover rounded-md"
+                  />
+                </button>
               ))}
             </div>
           </div>
@@ -80,14 +98,18 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
                 <h2 className="text-3xl font-bold text-teal-800">{title}</h2>
                 <h3 className="text-xl text-teal-600">{product}</h3>
               </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className={`${isLiked ? "text-red-500" : "text-gray-500"}`}
-                onClick={() => setIsLiked(!isLiked)}
-              >
-                <Heart className={`h-6 w-6 ${isLiked ? "fill-current" : ""}`} />
-              </Button>
+              {isOwner && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className={`${isLiked ? "text-red-500" : "text-gray-500"}`}
+                  onClick={() => setIsLiked(!isLiked)}
+                >
+                  <Heart
+                    className={`h-6 w-6 ${isLiked ? "fill-current" : ""}`}
+                  />
+                </Button>
+              )}
             </div>
             <div className="flex items-center justify-between space-x-2 mb-4">
               <div className="flex items-center text-gray-600">
@@ -98,7 +120,7 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
               </div>
               <Badge
                 variant="secondary"
-                className="bg-red-100 text-red-800 rounded-md py-1 px-2"
+                className={`bg-${badgeColor}-100 text-${badgeColor}-800 rounded-md py-1 px-2`}
               >
                 {category}
               </Badge>

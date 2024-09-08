@@ -151,7 +151,6 @@ export const getUser = async (
 ): Promise<UserResponse> => {
   const { data } = await coscoApi.get<UserResponse>(`/user/${id}`);
   callback(data);
-  console.log(data);
   return data;
 };
 

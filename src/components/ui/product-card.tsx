@@ -18,6 +18,7 @@ import type { UserCropResponse } from "@/services/actions";
 import { useAuth } from "@/providers/auth";
 import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import CropModal from "./crop-modal";
+import categories from "@/assets/categories.json";
 
 export const ProductCard: FC<UserCropResponse> = (crop) => {
   const { user } = useAuth();
@@ -25,19 +26,17 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const nextImage = () => {
-    console.log(currentImageIndex);
+  const badgeColor = categories.find(cat => cat.category === crop.category)?.color ?? 'gray'
+
+  const nextImage = () =>
     setCurrentImageIndex(
       currentImageIndex === crop.images.length - 1 ? 0 : currentImageIndex + 1
     );
-    console.log(currentImageIndex);
-  };
 
-  const prevImage = () => {
+  const prevImage = () =>
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? crop.images.length - 1 : prevIndex - 1
     );
-  };
 
   return (
     <>
@@ -105,7 +104,8 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
             </div>
             <Badge
               variant="secondary"
-              className="bg-teal-100 text-teal-800 rounded-md py-1 px-2"
+              // className={`bg-${badgeColor}-100 text-${badgeColor}-800 rounded-md py-1 px-2`}
+              className={`bg-${badgeColor}-100 text-${badgeColor}-800 rounded-md py-1 px-2`}
             >
               {crop.category}
             </Badge>
@@ -127,7 +127,7 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
           </div>
         </CardFooter>
       </Card>
-      <CropModal {...{...crop, isModalOpen, setIsModalOpen}} />
+      <CropModal {...{ ...crop, isModalOpen, setIsModalOpen }} />
       {/* {isPersonalPost && (
           <Button
             variant="outline"

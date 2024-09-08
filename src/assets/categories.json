@@ -1,0 +1,63 @@
+[
+    {
+      "category": "Tubérculos",
+      "color": "amber"
+    },
+    {
+      "category": "Frutas",
+      "color": "red"
+    },
+    {
+      "category": "Verduras",
+      "color": "green"
+    },
+    {
+      "category": "Legumbres",
+      "color": "emerald"
+    },
+    {
+      "category": "Cereales",
+      "color": "yellow"
+    },
+    {
+      "category": "Hortalizas",
+      "color": "lime"
+    },
+    {
+      "category": "Granos",
+      "color": "orange"
+    },
+    {
+      "category": "Hierbas Aromáticas",
+      "color": "teal"
+    },
+    {
+      "category": "Frutos Secos",
+      "color": "cyan"
+    },
+    {
+      "category": "Setas y Hongos",
+      "color": "indigo"
+    },
+    {
+      "category": "Plantas Medicinales",
+      "color": "violet"
+    },
+    {
+      "category": "Flores Comestibles",
+      "color": "purple"
+    },
+    {
+      "category": "Aceites Vegetales",
+      "color": "fuchsia"
+    },
+    {
+      "category": "Cítricos",
+      "color": "rose"
+    },
+    {
+      "category": "Raíces",
+      "color": "pink"
+    }
+  ]
+  
