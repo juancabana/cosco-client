@@ -9,11 +9,11 @@ import {
 } from "@/components/shadcn/ui/dialog";
 import { Badge } from "@/components/shadcn/ui/badge";
 import type { UserCropResponse } from "@/services/actions";
-import { useAuth } from "@/providers/auth";
 import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import categories from '@/assets/categories.json';
+import categories from "@/assets/categories.json";
+import { useAuth } from "@/providers/auth";
 
 interface isOpen {
   isModalOpen: boolean;
@@ -36,9 +36,9 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
   product,
   stock,
   title,
-  isOwner = false,
+  isOwner,
 }) => {
-  const { user } = useAuth();
+  const {userId} = useAuth();
   const [modalCurrentImage, setModalCurrentImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -46,7 +46,8 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
     locale: es,
   });
 
-  const badgeColor = categories.find(cat => cat.category === category)?.color ?? 'gray'
+  const badgeColor =
+    categories.find((cat) => cat.category === category)?.color ?? "gray";
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -98,7 +99,7 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
                 <h2 className="text-3xl font-bold text-teal-800">{title}</h2>
                 <h3 className="text-xl text-teal-600">{product}</h3>
               </div>
-              {isOwner && (
+              {userId !== owner._id && (
                 <Button
                   variant="ghost"
                   size="icon"
@@ -149,16 +150,20 @@ const CropModal: FC<UserCropResponse & isOpen> = ({
             </div>
             <div className="flex items-center space-x-4 mb-6">
               <Avatar className="h-8 w-8 bg-cosco-100">
-                <AvatarImage src={user?.image} alt="CabanaJuan" />
+                <AvatarImage src={owner.image} alt="CabanaJuan" />
               </Avatar>{" "}
               <div>
-                <p className="font-semibold">{`${user?.firstName} ${user?.lastName}`}</p>
-                <p className="text-sm text-gray-600">Propietario</p>
+                <p className="font-semibold">{`${owner.firstName} ${owner.lastName}`}</p>
+                <p className="text-sm text-gray-600">
+                  {userId !== owner._id ? "propietario" : "Eres el propietario"}
+                </p>
               </div>
             </div>
-            <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white">
-              Contactar con el vendedor
-            </Button>
+            {userId !== owner._id && (
+              <Button className="w-full bg-teal-600 hover:bg-teal-700 text-white">
+                Contactar con el vendedor
+              </Button>
+            )}
           </div>
         </div>
       </DialogContent>

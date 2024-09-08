@@ -1,5 +1,4 @@
 import { coscoApi } from "@/api/cosco.api";
-import { useAuth } from "@/providers/auth";
 
 type Role = "CUSTOMER" | "OWNER";
 export interface LoginPayload {
@@ -14,6 +13,7 @@ export interface LoginResponse {
   lastName: string;
   secondLastName: string;
   email: string;
+  image: string;
   isActive: boolean;
   token: string;
 }
@@ -40,7 +40,6 @@ export interface RegisterResponse {
   isActive: boolean;
   roles: Role[];
   _id: string;
-  __v: number;
   id: string;
 }
 
@@ -57,7 +56,6 @@ export interface UserResponse {
   description: string;
   isActive: boolean;
   roles: Role[];
-  __v: number;
 }
 
 export interface UpdateUserPayload {
@@ -83,7 +81,6 @@ export interface UpdateUserResponse {
   description: string;
   isActive: boolean;
   roles: Role[];
-  __v: number;
 }
 export interface UploadPostPayload {
   id: string;
@@ -113,12 +110,11 @@ export interface UploadPostResponse {
   images: string[];
   _id: string;
   createdAt: Date;
-  __v: number;
 }
 
 export interface UserCropResponse {
   _id: string;
-  owner: string;
+  owner: Owner;
   title: string;
   product: string;
   department: string;
@@ -130,7 +126,35 @@ export interface UserCropResponse {
   description: string;
   images: string[];
   createdAt: Date;
-  __v: number;
+}
+
+export interface PostResponse {
+  _id: string;
+  owner: Owner;
+  title: string;
+  product: string;
+  department: string;
+  city: string;
+  stock: number;
+  massUnit: string;
+  price: number;
+  category: string;
+  description: string;
+  images: string[];
+  createdAt: Date;
+}
+
+export interface Owner {
+  _id: string;
+  firstName: string;
+  secondName: string;
+  lastName: string;
+  secondLastName: string;
+  email: string;
+  phoneNumber: string;
+  image: string;
+  description: string;
+  roles: Role[];
 }
 
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
@@ -178,5 +202,10 @@ export const uploadCrop = async (
 
 export const getUserCrops = async (id: string): Promise<UserCropResponse[]> => {
   const { data } = await coscoApi.get<UserCropResponse[]>(`/post/user/${id}`);
+  return data;
+};
+
+export const getAllCrops = async (): Promise<PostResponse[]> => {
+  const { data } = await coscoApi.get<PostResponse[]>(`/post`);
   return data;
 };

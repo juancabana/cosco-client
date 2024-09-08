@@ -19,12 +19,14 @@ import { useAuth } from "@/providers/auth";
 import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import CropModal from "./crop-modal";
 import categories from "@/assets/categories.json";
+import { type PostResponse } from '../../services/actions';
 
-export const ProductCard: FC<UserCropResponse> = (crop) => {
-  const { user } = useAuth();
+export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
+  const { userId } = useAuth();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const badgeColor = categories.find(cat => cat.category === crop.category)?.color ?? 'gray'
 
@@ -44,11 +46,13 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
         <CardHeader className="flex flex-row items-center justify-between p-4">
           <div className="flex items-center space-x-2">
             <Avatar className="h-8 w-8 bg-cosco-100">
-              <AvatarImage src={user?.image} alt="CabanaJuan" />
+              {/* <AvatarImage src={user?.image} alt="CabanaJuan" /> */}
+              <AvatarImage src={crop.owner.image} alt="CabanaJuan" />
             </Avatar>{" "}
-            <span className="font-semibold text-sm text-cosco-700">{`${user?.firstName} ${user?.lastName}`}</span>
+            {/* <span className="font-semibold text-sm text-cosco-700">{`${user?.firstName} ${user?.lastName}`}</span> */}
+            <span className="font-semibold text-sm text-cosco-700">{`${crop.owner.firstName} ${crop.owner.lastName}`}</span>
           </div>
-          {/* <Button
+          {crop.owner._id !== userId && <Button
           variant="ghost"
           size="icon"
           className={`transition-all duration-300 ${
@@ -57,7 +61,7 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
           onClick={() => setIsLiked(!isLiked)}
         >
           <Heart className={`${isLiked ? "fill-current" : ""}`} />
-        </Button> */}
+        </Button> }
         </CardHeader>
         <div className="relative">
           <img
@@ -104,7 +108,6 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
             </div>
             <Badge
               variant="secondary"
-              // className={`bg-${badgeColor}-100 text-${badgeColor}-800 rounded-md py-1 px-2`}
               className={`bg-${badgeColor}-100 text-${badgeColor}-800 rounded-md py-1 px-2`}
             >
               {crop.category}
@@ -128,7 +131,7 @@ export const ProductCard: FC<UserCropResponse> = (crop) => {
         </CardFooter>
       </Card>
       <CropModal {...{ ...crop, isModalOpen, setIsModalOpen }} />
-      {/* {isPersonalPost && (
+      {/* {crop.isOwner && (
           <Button
             variant="outline"
             size="icon"
