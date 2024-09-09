@@ -157,6 +157,28 @@ export interface Owner {
   roles: Role[];
 }
 
+export interface FavoriteResponse {
+  _id: string;
+  owner: Owner;
+  title: string;
+  product: string;
+  department: string;
+  city: string;
+  stock: number;
+  massUnit: string;
+  price: number;
+  category: string;
+  description: string;
+  images: string[];
+  createdAt: Date;
+  __v: number;
+}
+
+export interface SetFavoritePayload {
+  userId: string;
+  postId: string;
+}
+
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
   const { data } = await coscoApi.post<LoginResponse>("/auth/login", payload);
   return data;
@@ -207,5 +229,27 @@ export const getUserCrops = async (id: string): Promise<UserCropResponse[]> => {
 
 export const getAllCrops = async (): Promise<PostResponse[]> => {
   const { data } = await coscoApi.get<PostResponse[]>(`/post`);
+  return data;
+};
+
+export const setFavorite = async ({
+  postId,
+  userId,
+}: SetFavoritePayload): Promise<string> => {
+  const { data } = await coscoApi.post<string>(
+    `/user/favorite/${userId}/${postId}`,
+    {
+      userId,
+    }
+  );
+  return data;
+};
+
+export const getFavorites = async (
+  userId: string
+): Promise<FavoriteResponse[]> => {
+  const { data } = await coscoApi.get<FavoriteResponse[]>(
+    `/post/favorite/${userId}`
+  );
   return data;
 };

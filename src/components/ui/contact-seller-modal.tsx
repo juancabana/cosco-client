@@ -199,9 +199,9 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
                 <CardHeader className="border-b border-gray-200">
                   <div className="flex justify-between items-center">
                     <CardTitle className="text-cosco-650">{title}</CardTitle>
-                    <Button variant="ghost" size="icon" className="text-gray-400 hover:text-cosco-550">
+                    {/* <Button variant="ghost" size="icon" className="text-gray-400 hover:text-cosco-550">
                       <Heart className="h-6 w-6" />
-                    </Button>
+                    </Button> */}
                   </div>
                   <CardDescription>{category}</CardDescription>
                 </CardHeader>

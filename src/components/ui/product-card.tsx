@@ -64,7 +64,7 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
             </Avatar>{" "}
             <span className="font-semibold text-sm text-cosco-700">{`${crop.owner.firstName} ${crop.owner.lastName}`}</span>
           </div>
-          {crop.owner._id !== userId && <Button
+          {/* {crop.owner._id !== userId && <Button
           variant="ghost"
           size="icon"
           className={`transition-all duration-300 ${
@@ -73,7 +73,7 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
           onClick={() => likeCrop()}
         >
           <Heart className={`${isLiked ? "fill-current" : ""}`} />
-        </Button> }
+        </Button> } */}
         </CardHeader>
         <div className="relative">
           <img

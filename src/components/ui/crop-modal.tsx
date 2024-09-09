@@ -17,6 +17,8 @@ import { useAuth } from "@/providers/auth";
 import ContactSellerModal from "./contact-seller-modal";
 import { useErrorModal } from "@/providers/error";
 import plurales from "plurales";
+import useSetFavoriteMutation from "@/hooks/mutations/useSetFavoriteMutation";
+import { useLocation } from "@reach/router"; // Importa useLocation desde @reach/router
 
 interface IsOpen {
   isModalOpen: boolean;
@@ -25,10 +27,12 @@ interface IsOpen {
 
 const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
   const { userId } = useAuth();
+  const { showError } = useErrorModal();
+  const { mutate } = useSetFavoriteMutation();
   const [modalCurrentImage, setModalCurrentImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isModalContactOpen, setIsModalContactOpen] = useState(false);
-  const { showError } = useErrorModal();
+  const location = useLocation();
 
   const formattedDate = format(
     new Date(crop.createdAt),
@@ -63,6 +67,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
       return;
     }
     setIsLiked(!isLiked);
+    mutate({ postId: crop._id, userId });
   };
 
   return (
@@ -120,18 +125,21 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                   </h2>
                   <h3 className="text-xl text-teal-600">{crop.product}</h3>
                 </div>
-                {userId !== crop.owner._id && (
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className={`${isLiked ? "text-red-500" : "text-gray-500"}`}
-                    onClick={() => likeCrop()}
-                  >
-                    <Heart
-                      className={`h-6 w-6 ${isLiked ? "fill-current" : ""}`}
-                    />
-                  </Button>
-                )}
+                {userId !== crop.owner._id &&
+                  !location.pathname.includes("favorites") && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className={`${
+                        isLiked ? "text-red-500" : "text-gray-500"
+                      }`}
+                      onClick={() => likeCrop()}
+                    >
+                      <Heart
+                        className={`h-6 w-6 ${isLiked ? "fill-current" : ""}`}
+                      />
+                    </Button>
+                  )}
               </div>
               <div className="flex items-center justify-between space-x-2 mb-4">
                 <div className="flex items-center text-gray-600">
