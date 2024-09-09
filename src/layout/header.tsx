@@ -14,6 +14,7 @@ const Header = () => {
     { name: "Mis cosechas", href: "/my-crops", enabled: isLogged },
     { name: "Sobre nosotros", href: "/about-us", enabled: !isLogged },
     { name: "Contactanos", href: "/contact-us", enabled: !isLogged },
+    { name: "Favoritos", href: "/favorites", enabled: isLogged },
   ];
 
   return (
