@@ -28,7 +28,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
   const [modalCurrentImage, setModalCurrentImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isModalContactOpen, setIsModalContactOpen] = useState(false);
-  const {showError} = useErrorModal()
+  const { showError } = useErrorModal();
 
   const formattedDate = format(
     new Date(crop.createdAt),
@@ -41,6 +41,29 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
   const badgeColor =
     categories.find((cat) => cat.category === crop.category)?.color ?? "gray";
 
+  const openSellerContactModal = () => {
+    if (!userId) {
+      showError(
+        "!Ups!",
+        "No puedes contactar al vendedor si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.",
+        true
+      );
+      return;
+    }
+    setIsModalContactOpen(true);
+  };
+
+  const likeCrop = () => {
+    if (!userId) {
+      showError(
+        "!Ups!",
+        "No puedes marcar como favorito si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.",
+        true
+      );
+      return;
+    }
+    setIsLiked(!isLiked);
+  };
 
   return (
     <>
@@ -102,7 +125,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                     variant="ghost"
                     size="icon"
                     className={`${isLiked ? "text-red-500" : "text-gray-500"}`}
-                    onClick={() => setIsLiked(!isLiked)}
+                    onClick={() => likeCrop()}
                   >
                     <Heart
                       className={`h-6 w-6 ${isLiked ? "fill-current" : ""}`}
@@ -162,18 +185,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
               {userId !== crop.owner._id && (
                 <Button
                   className="w-full bg-teal-600 hover:bg-teal-700 text-white"
-                  onClick={() => {
-                    // Solo si esta logueado
-                    if (!userId) {
-                      showError(
-                        '!Ups!',
-                        'No puedes contactar al vendedor si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.',
-                        true
-                      )
-                      return
-                    }
-                    setIsModalContactOpen(true)
-                  }}
+                  onClick={() => openSellerContactModal()}
                 >
                   Contactar con el vendedor
                 </Button>

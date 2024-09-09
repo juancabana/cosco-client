@@ -30,3 +30,8 @@ declare module '*.webp' {
 /////////////////////////////////////////////////////////////////
 
 type Fn = () => void;
+
+declare module 'plurales' {
+  const plurales: (word: string) => string;
+  export default plurales;
+}
