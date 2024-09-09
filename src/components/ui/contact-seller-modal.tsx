@@ -85,11 +85,6 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
 
   return (
     <Dialog open={isModalContactOpen} onOpenChange={setIsModalContactOpen}>
-      {/* <DialogTrigger asChild>
-        <Button className="bg-[#0D7D7E] hover:bg-[#0A6A6A] text-white">
-          Ver detalles
-        </Button>
-      </DialogTrigger> */}
       <DialogContent className="max-w-full h-screen p-0 bg-[#F1F5F9]">
         <ScrollArea className="h-full w-full p-6">
           <div className="container mx-auto">
@@ -212,13 +207,6 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
                 </CardHeader>
                 <CardContent className="space-y-4 pt-6">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
-                    {/* <Image
-                      src={images[imagenActual]}
-                      alt={`${title} - Imagen ${imagenActual + 1}`}
-                      layout="fill"
-                      objectFit="cover"
-                      className="transition-opacity duration-500"
-                    /> */}
                     <img
                       src={images[imagenActual]}
                       alt={`${title} - Imagen ${imagenActual + 1}`}

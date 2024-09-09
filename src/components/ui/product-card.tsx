@@ -20,11 +20,13 @@ import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import CropModal from "./crop-modal";
 import categories from "@/assets/categories.json";
 import { type PostResponse } from '../../services/actions';
+import { useErrorModal } from "@/providers/error";
 
 export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
   const { userId } = useAuth();
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const { showError } = useErrorModal();
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -40,16 +42,26 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
       prevIndex === 0 ? crop.images.length - 1 : prevIndex - 1
     );
 
+    const likeCrop = () => {
+      if (!userId) {
+        showError(
+          "!Ups!",
+          "No puedes marcar como favorito si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.",
+          true
+        );
+        return;
+      }
+      setIsLiked(!isLiked);
+    };
+
   return (
     <>
       <Card className="w-full max-w-sm overflow-hidden border border-gray-200 rounded-lg shadow-sm">
         <CardHeader className="flex flex-row items-center justify-between p-4">
           <div className="flex items-center space-x-2">
             <Avatar className="h-8 w-8 bg-cosco-100">
-              {/* <AvatarImage src={user?.image} alt="CabanaJuan" /> */}
               <AvatarImage src={crop.owner.image} alt="CabanaJuan" />
             </Avatar>{" "}
-            {/* <span className="font-semibold text-sm text-cosco-700">{`${user?.firstName} ${user?.lastName}`}</span> */}
             <span className="font-semibold text-sm text-cosco-700">{`${crop.owner.firstName} ${crop.owner.lastName}`}</span>
           </div>
           {crop.owner._id !== userId && <Button
@@ -58,7 +70,7 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
           className={`transition-all duration-300 ${
             isLiked ? "text-red-500 scale-110" : "text-gray-500"
           }`}
-          onClick={() => setIsLiked(!isLiked)}
+          onClick={() => likeCrop()}
         >
           <Heart className={`${isLiked ? "fill-current" : ""}`} />
         </Button> }

@@ -79,7 +79,6 @@ export const ErrorModalProvider: FC<{ children: ReactNode }> = ({
           <DialogFooter>
             <Button
               onClick={hideError}
-              // className="w-full bg-red-500 text-white hover:bg-red-600"
               className={`w-full bg-${
                 isLoggedError ? "cosco" : "red"
               }-500 text-white hover:bg-${isLoggedError ? "cosco" : "red"}-600`}

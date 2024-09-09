@@ -14,9 +14,9 @@ import { Label } from "@/components/shadcn/ui/label";
 import useUploadCropMutation from "@/hooks/mutations/useUploadCropMutation";
 import { useAuth } from "@/providers/auth";
 import ScreenLoader from "@/components/ui/screenLoader";
-import locations from "./locations.json";
+import locations from "@/assets/locations.json";
 import categories from "@/assets/categories.json";
-import massUnits from "./mass-unit.json";
+import massUnits from "@/assets/mass-unit.json";
 import plurales from "plurales";
 import { capitalizeFirstLetter } from "@/lib/utils";
 

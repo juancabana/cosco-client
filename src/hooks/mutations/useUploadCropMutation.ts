@@ -17,7 +17,7 @@ const useUploadCropMutation = () => {
     onSuccess() {
       queryCache.invalidateQueries({ queryKey: ["userCrops"] });
     },
-    onError(error) {
+    onError() {
       showError(
         "Ups! Algo salió mal",
         "Por favor, verifica tu conexión a internet e intenta de nuevo"

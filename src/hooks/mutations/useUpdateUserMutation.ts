@@ -16,7 +16,7 @@ const useUpdateUserMutation = () => {
     mutationKey: ["updateUser"],
     mutationFn: updateUser,
     retry: 0,
-    onSuccess: (data, error) => {
+    onSuccess: (data) => {
       setUserState(data);
       toast({
         title: "Perfil actualizado",

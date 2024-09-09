@@ -17,7 +17,7 @@ const useLoginMutation = () => {
     mutationKey: ["login"],
     mutationFn: login,
     retry: 0,
-    onSuccess: (data, error) => {
+    onSuccess: (data) => {
       if (data) {
         setTokenState(data.token);
         setIdUser(data._id);
@@ -25,7 +25,7 @@ const useLoginMutation = () => {
         navigate("/publications");
       }
     },
-    onError: (error) => {
+    onError: () => {
       showError(
         "Ups! Algo salió mal",
         "Por favor, verifica tus credenciales e intenta de nuevo"
