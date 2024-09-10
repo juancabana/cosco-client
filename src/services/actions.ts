@@ -253,3 +253,8 @@ export const getFavorites = async (
   );
   return data;
 };
+
+export const deleteCrop = async (id: string): Promise<string> => {
+  const { data } = await coscoApi.delete<string>(`/post/${id}`);
+  return data;
+}

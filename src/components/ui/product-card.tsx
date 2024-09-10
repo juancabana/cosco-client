@@ -19,10 +19,10 @@ import { useAuth } from "@/providers/auth";
 import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import CropModal from "./crop-modal";
 import categories from "@/assets/categories.json";
-import { type PostResponse } from '../../services/actions';
+import { type PostResponse } from "../../services/actions";
 import { useErrorModal } from "@/providers/error";
 
-export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
+export const ProductCard: FC<UserCropResponse | PostResponse> = (crop) => {
   const { userId } = useAuth();
   const { showError } = useErrorModal();
 
@@ -30,7 +30,8 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
-  const badgeColor = categories.find(cat => cat.category === crop.category)?.color ?? 'gray'
+  const badgeColor =
+    categories.find((cat) => cat.category === crop.category)?.color ?? "gray";
 
   const nextImage = () =>
     setCurrentImageIndex(
@@ -42,17 +43,17 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
       prevIndex === 0 ? crop.images.length - 1 : prevIndex - 1
     );
 
-    const likeCrop = () => {
-      if (!userId) {
-        showError(
-          "!Ups!",
-          "No puedes marcar como favorito si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.",
-          true
-        );
-        return;
-      }
-      setIsLiked(!isLiked);
-    };
+  const likeCrop = () => {
+    if (!userId) {
+      showError(
+        "!Ups!",
+        "No puedes marcar como favorito si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.",
+        true
+      );
+      return;
+    }
+    setIsLiked(!isLiked);
+  };
 
   return (
     <>
@@ -127,7 +128,7 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
           </div>
         </CardContent>
         <CardFooter className="p-4">
-          <div className="w-full flex justify-between items-center">
+          <div className="w-full flex flex-col gap-1 justify-between items-center">
             <Button
               className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
               onClick={() => setIsModalOpen(true)}
@@ -139,6 +140,7 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = ( crop ) => {
               <Edit className="h-4 w-4" />
             </Button>
           )} */}
+
           </div>
         </CardFooter>
       </Card>

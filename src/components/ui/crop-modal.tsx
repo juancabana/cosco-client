@@ -1,5 +1,5 @@
 import React, { useState, type FC } from "react";
-import { Heart, ChevronLeft, MapPin } from "lucide-react";
+import { Heart, ChevronLeft, MapPin, Trash2 } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import {
   Dialog,
@@ -19,6 +19,7 @@ import { useErrorModal } from "@/providers/error";
 import plurales from "plurales";
 import useSetFavoriteMutation from "@/hooks/mutations/useSetFavoriteMutation";
 import { useLocation } from "@reach/router"; // Importa useLocation desde @reach/router
+import ConfirmationDeletePost from "./confirmation-delete-post";
 
 interface IsOpen {
   isModalOpen: boolean;
@@ -32,6 +33,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
   const [modalCurrentImage, setModalCurrentImage] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [isModalContactOpen, setIsModalContactOpen] = useState(false);
+  const [isModalDeletePost, setIsModalDeletePost] = useState(false);
   const location = useLocation();
 
   const formattedDate = format(
@@ -198,12 +200,25 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                   Contactar con el vendedor
                 </Button>
               )}
+              {location.pathname.includes("my-crops") &&
+                userId === crop.owner._id && (
+                  <Button
+                    variant="destructive"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white"
+                    onClick={() => setIsModalDeletePost(true)}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" /> Eliminar cosecha
+                  </Button>
+                )}
             </div>
           </div>
         </DialogContent>
       </Dialog>
       <ContactSellerModal
         {...{ ...crop, isModalContactOpen, setIsModalContactOpen }}
+      />
+      <ConfirmationDeletePost
+        {...{ isModalDeletePost, setIsModalDeletePost, postId: crop._id }}
       />
     </>
   );
