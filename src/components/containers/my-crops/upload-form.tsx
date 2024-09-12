@@ -279,7 +279,7 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
               </div>
 
               <div>
-                <Label htmlFor="city">Departamento</Label>
+                <Label htmlFor="city">Ciudad o municipio</Label>
                 <Select
                   value={formData.city}
                   onValueChange={(value) =>
