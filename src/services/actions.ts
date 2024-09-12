@@ -129,20 +129,28 @@ export interface UserCropResponse {
 }
 
 export interface PostResponse {
-  _id: string;
-  owner: Owner;
-  title: string;
-  product: string;
-  department: string;
-  city: string;
-  stock: number;
-  massUnit: string;
-  price: number;
-  category: string;
-  description: string;
-  images: string[];
-  createdAt: Date;
+  posts:       Post[];
+  total:       number;
+  totalPages:  number;
+  currentPage: number;
 }
+
+export interface Post {
+  _id:         string;
+  owner:       Owner;
+  title:       string;
+  product:     string;
+  department:  string;
+  city:        string;
+  stock:       number;
+  massUnit:    string;
+  price:       number;
+  category:    string;
+  description: string;
+  images:      string[];
+  createdAt:   Date;
+}
+
 
 export interface Owner {
   _id: string;
@@ -227,8 +235,16 @@ export const getUserCrops = async (id: string): Promise<UserCropResponse[]> => {
   return data;
 };
 
-export const getAllCrops = async (): Promise<PostResponse[]> => {
-  const { data } = await coscoApi.get<PostResponse[]>(`/post`);
+export const getAllCrops = async (
+  limit: number,
+  offset: number
+): Promise<PostResponse> => {
+  const { data } = await coscoApi.get<PostResponse>(`/post`, {
+    params: {
+      limit,
+      offset,
+    },
+  });
   return data;
 };
 
@@ -257,4 +273,4 @@ export const getFavorites = async (
 export const deleteCrop = async (id: string): Promise<string> => {
   const { data } = await coscoApi.delete<string>(`/post/${id}`);
   return data;
-}
+};
