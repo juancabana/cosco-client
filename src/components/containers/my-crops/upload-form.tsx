@@ -70,7 +70,7 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
           const reader = new FileReader();
           reader.onload = () => resolve(reader.result as string);
           reader.onerror = reject;
-          reader.readAsDataURL(file); // Convierte la imagen a base64
+          reader.readAsDataURL(file);
         });
       });
 
@@ -210,7 +210,7 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
           </div>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">Nombre del producto</Label>
+              <Label htmlFor="title">Titulo de la publicación</Label>
               <Input
                 id="title"
                 name="title"
@@ -221,7 +221,7 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="product">Producto</Label>
+                <Label htmlFor="product">Nombre del producto</Label>
                 <Input
                   id="product"
                   name="product"

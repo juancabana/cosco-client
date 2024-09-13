@@ -68,7 +68,7 @@ const MyPerfilForm: FC = () => {
     reader.onload = () => {
       const result = reader.result as string;
       setFileDataURL(result);
-      methods.setValue("image", result, { shouldDirty: true }); // Aquí se notifica a RHF del cambio
+      methods.setValue("image", result, { shouldDirty: true });
     };
     reader.readAsDataURL(file);
   };

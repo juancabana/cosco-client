@@ -129,28 +129,27 @@ export interface UserCropResponse {
 }
 
 export interface PostResponse {
-  posts:       Post[];
-  total:       number;
-  totalPages:  number;
+  posts: Post[];
+  total: number;
+  totalPages: number;
   currentPage: number;
 }
 
 export interface Post {
-  _id:         string;
-  owner:       Owner;
-  title:       string;
-  product:     string;
-  department:  string;
-  city:        string;
-  stock:       number;
-  massUnit:    string;
-  price:       number;
-  category:    string;
+  _id: string;
+  owner: Owner;
+  title: string;
+  product: string;
+  department: string;
+  city: string;
+  stock: number;
+  massUnit: string;
+  price: number;
+  category: string;
   description: string;
-  images:      string[];
-  createdAt:   Date;
+  images: string[];
+  createdAt: Date;
 }
-
 
 export interface Owner {
   _id: string;
@@ -185,6 +184,15 @@ export interface FavoriteResponse {
 export interface SetFavoritePayload {
   userId: string;
   postId: string;
+}
+
+export interface GetAllCropsPayload {
+  limit: number;
+  offset: number;
+  category?: string;
+  department?: string;
+  city?: string;
+  title?: string;
 }
 
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
@@ -236,13 +244,11 @@ export const getUserCrops = async (id: string): Promise<UserCropResponse[]> => {
 };
 
 export const getAllCrops = async (
-  limit: number,
-  offset: number
+  payload: GetAllCropsPayload
 ): Promise<PostResponse> => {
   const { data } = await coscoApi.get<PostResponse>(`/post`, {
     params: {
-      limit,
-      offset,
+      ...payload,
     },
   });
   return data;
