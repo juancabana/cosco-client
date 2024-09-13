@@ -1,0 +1,41 @@
+[33m50277f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/landing-responsive[m[33m, [m[1;31morigin/feature/landing-responsive[m[33m)[m HEAD@{0}: checkout: moving from aboutUs-page to feature/landing-responsive
+[33m2898b8f[m[33m ([m[1;31morigin/aboutUs-page[m[33m, [m[1;32maboutUs-page[m[33m)[m HEAD@{1}: commit: updating:aboutUs-page
+[33m1d0badd[m HEAD@{2}: checkout: moving from Landing-page to aboutUs-page
+[33mdac5411[m[33m ([m[1;31morigin/Landing-page[m[33m, [m[1;32mLanding-page[m[33m)[m HEAD@{3}: commit: updating:Landing-page
+[33m12ab091[m HEAD@{4}: checkout: moving from contact-page to Landing-page
+[33m2950818[m[33m ([m[1;31morigin/contact-page[m[33m, [m[1;32mcontact-page[m[33m)[m HEAD@{5}: commit: updating:contact-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{6}: checkout: moving from feature/landing-responsive to contact-page
+[33m50277f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/landing-responsive[m[33m, [m[1;31morigin/feature/landing-responsive[m[33m)[m HEAD@{7}: checkout: moving from contact-page to feature/landing-responsive
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{8}: checkout: moving from contact-page to contact-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{9}: checkout: moving from master to contact-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{10}: checkout: moving from Landing-page to master
+[33m12ab091[m HEAD@{11}: checkout: moving from aboutUs-page to Landing-page
+[33m1d0badd[m HEAD@{12}: commit: updating: aboutUs-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{13}: checkout: moving from aboutUs-page to aboutUs-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{14}: checkout: moving from aboutUs-page to aboutUs-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{15}: checkout: moving from master to aboutUs-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{16}: checkout: moving from Landing-page to master
+[33m12ab091[m HEAD@{17}: commit: upload: Landing-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{18}: checkout: moving from feature/landing-responsive to Landing-page
+[33m50277f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/landing-responsive[m[33m, [m[1;31morigin/feature/landing-responsive[m[33m)[m HEAD@{19}: checkout: moving from Landing-page to feature/landing-responsive
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{20}: checkout: moving from master to Landing-page
+[33me7a3ccd[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{21}: pull origin master: Fast-forward
+[33m9233f39[m HEAD@{22}: checkout: moving from feature/landing-responsive to master
+[33m50277f8[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/landing-responsive[m[33m, [m[1;31morigin/feature/landing-responsive[m[33m)[m HEAD@{23}: commit: feature/landing-responsive
+[33mf1e6c21[m HEAD@{24}: pull --tags origin feature/landing-responsive: Fast-forward
+[33mabfde1d[m HEAD@{25}: commit (merge): feature/landing-responsive
+[33m27e6730[m HEAD@{26}: commit: feature/contactUs-page
+[33ma111340[m HEAD@{27}: commit: feature/landing-respondive
+[33m5cd4dfa[m HEAD@{28}: commit: feature/landing-responsive
+[33md4178fc[m HEAD@{29}: pull: Fast-forward
+[33m0fab2cc[m HEAD@{30}: reset: moving to HEAD
+[33m0fab2cc[m HEAD@{31}: reset: moving to HEAD
+[33m0fab2cc[m HEAD@{32}: checkout: moving from feature/landing-responsive to feature/landing-responsive
+[33m0fab2cc[m HEAD@{33}: commit: feature/landing-responsive
+[33m48eab64[m HEAD@{34}: reset: moving to HEAD
+[33m48eab64[m HEAD@{35}: reset: moving to HEAD
+[33m48eab64[m HEAD@{36}: reset: moving to HEAD
+[33m48eab64[m HEAD@{37}: commit: feature/landing-responsive
+[33m5206bd2[m HEAD@{38}: pull origin feature/authentication: Fast-forward
+[33m9233f39[m HEAD@{39}: checkout: moving from master to feature/landing-responsive
+[33m9233f39[m HEAD@{40}: clone: from https://github.com/juancabana/cosco-client.git

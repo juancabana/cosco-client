@@ -2,11 +2,11 @@
  * Shared UI Components
  */
 
-import React, { type FC } from 'react';
+import React, { type FC } from "react";
 
-import imgLogoSpinner from '@/assets/img_logoSpinner.svg';
+import imgLogoSpinner from "@/assets/img_logoSpinner.svg";
 
-import Screen from './screen';
+import Screen from "./screen";
 
 interface Props {
   isVisible?: boolean;
@@ -15,7 +15,6 @@ interface Props {
 /**
  * Renders a customizable screenLoader component.
  */
-// TODO: Quitar bg-mundial
 const ScreenLoader: FC<Props> = ({ isVisible }) => (
   <Screen isVisible={isVisible}>
     <div className="fixed h-full w-full bg-cosco-500 opacity-30" />

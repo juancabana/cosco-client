@@ -2,8 +2,8 @@
  * Shared UI Components
  */
 
-import React, { type FC, type PropsWithChildren } from 'react';
-import { createPortal } from 'react-dom';
+import React, { type FC, type PropsWithChildren } from "react";
+import { createPortal } from "react-dom";
 
 interface Props {
   isVisible?: boolean;
@@ -22,7 +22,7 @@ const Screen: FC<PropsWithChildren<Props>> = ({ children, isVisible }) =>
         >
           {children}
         </dialog>,
-        document.body,
+        document.body
       )
     : null;
 

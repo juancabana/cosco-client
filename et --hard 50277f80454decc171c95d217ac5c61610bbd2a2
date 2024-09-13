@@ -1,0 +1,180 @@
+[33mcommit 50277f80454decc171c95d217ac5c61610bbd2a2[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/landing-responsive[m[33m, [m[1;31morigin/feature/landing-responsive[m[33m)[m
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Fri Sep 6 15:52:03 2024 -0500
+
+    feature/landing-responsive
+
+[33mcommit f1e6c218ddbbabf0addb54b989a9fab586012786[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Wed Sep 4 23:44:22 2024 -0500
+
+    Fix: Ellipsis distribution changed
+
+[33mcommit abfde1d91400924316543bf1f8d87485b73c5850[m
+Merge: 27e6730 131a859
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Sun Sep 1 12:11:30 2024 -0500
+
+    feature/landing-responsive
+
+[33mcommit 27e673068860efe8123421f406eb088a40b29960[m
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Thu Aug 29 12:57:06 2024 -0500
+
+    feature/contactUs-page
+
+[33mcommit 131a8594f22a8caf8a1d28a51b209052a218131f[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Wed Aug 28 14:00:42 2024 -0500
+
+    .env removed
+
+[33mcommit f507fec59ec398df2ab93260f77bf7c952df4586[m
+Merge: 9233f39 fd570b6
+Author: juancabana <61552339+juancabana@users.noreply.github.com>
+Date:   Wed Aug 28 13:27:07 2024 -0500
+
+    Merge pull request #4 from juancabana/feature/authentication
+    
+    Feature/authentication
+
+[33mcommit fd570b6d742a36ab4159e4c8d5875ca75be920c3[m[33m ([m[1;31morigin/feature/authentication[m[33m)[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Wed Aug 28 13:25:34 2024 -0500
+
+    git ignore
+
+[33mcommit cb5910606ca4bea22e5a5edcd8f7ab3b117553b0[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Wed Aug 28 13:23:20 2024 -0500
+
+    Registration integrated
+
+[33mcommit a1113409da3794b90727c9c13bc6ef7af98bb486[m
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Wed Aug 28 12:11:15 2024 -0500
+
+    feature/landing-respondive
+
+[33mcommit 5cd4dfa237debe31500d776bebcbd80310d79b27[m
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Wed Aug 28 12:01:51 2024 -0500
+
+    feature/landing-responsive
+
+[33mcommit aa5910859e7997c700a5bf3d4f1168d69b553cca[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Tue Aug 27 23:26:17 2024 -0500
+
+    Feature: formulario register implemented
+
+[33mcommit ce740975c6dfa20217a6ba944e4d55329a94dbdd[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Mon Aug 26 16:13:33 2024 -0500
+
+    feature: Input component
+
+[33mcommit 6104e24a848945805a2466fcae29674e93056e73[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Sun Aug 25 19:45:26 2024 -0500
+
+    Feature: Fetch login query implemented
+
+[33mcommit d4178fc3d36c2ec622f0c46ccdd1d1dec0682c3b[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Sun Aug 25 12:56:31 2024 -0500
+
+    chore: Fontawesome library removed
+
+[33mcommit c811d70929d73224793daeecf33eb12bbf567b2f[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Sun Aug 25 12:33:32 2024 -0500
+
+    Advantages in Services provider
+
+[33mcommit 0fab2cc0821c928e52ec5bb38c561cb9e3dfdfc1[m
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Sun Aug 25 12:02:30 2024 -0500
+
+    feature/landing-responsive
+
+[33mcommit f19330e8a4299b725e35d43a2d19c262392876c4[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Sat Aug 24 21:48:03 2024 -0500
+
+    Form behaviors
+
+[33mcommit 02666500ca54f0ee4f43cbca0d7b647ea707d6ab[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Sat Aug 24 19:55:52 2024 -0500
+
+    Advantages in form
+
+[33mcommit 48eab64230055098a33a7e8ae03c50ce808d9546[m
+Author: Alejandro Castro <alejandro.castro@unac.edu.co>
+Date:   Fri Aug 23 22:23:40 2024 -0500
+
+    feature/landing-responsive
+
+[33mcommit 53c7748fd940489f6e038c8f08a14aa9ea28ddf4[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Fri Aug 23 17:31:53 2024 -0500
+
+    advantages in styles
+
+[33mcommit 5206bd24478e46bd44578ffe270cdf2728b6b542[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Thu Aug 22 21:30:02 2024 -0500
+
+    feature: login maquetation
+
+[33mcommit 9233f396a33549e9f1354d383ca0a90c9ed14dea[m
+Merge: 2b93114 5fcc203
+Author: juancabana <61552339+juancabana@users.noreply.github.com>
+Date:   Thu Aug 22 11:13:41 2024 -0500
+
+    Merge pull request #3 from juancabana/feature/landing-page
+    
+    feature: landing page maquetation
+
+[33mcommit 5fcc203104609ecb27cfe0f1846c38bb9113ac51[m[33m ([m[1;31morigin/feature/landing-page[m[33m)[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Thu Aug 22 11:11:43 2024 -0500
+
+    feature: landing page maquetation
+
+[33mcommit 2b9311440da7b7a72146e396637fb5b97173fac5[m
+Merge: 7106802 ad081fa
+Author: juancabana <61552339+juancabana@users.noreply.github.com>
+Date:   Thu Aug 22 11:03:34 2024 -0500
+
+    Merge pull request #2 from juancabana/feature/landing-page
+    
+    feature: Background figure
+
+[33mcommit ad081fa2de91aeb7c7ad692adf78969a9877d587[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Wed Aug 14 22:30:45 2024 -0500
+
+    feature: Background figure
+
+[33mcommit 71068023ee68833789dd119083cbe76418eee742[m
+Merge: f91a092 afcd96f
+Author: juancabana <61552339+juancabana@users.noreply.github.com>
+Date:   Sun Aug 11 08:01:47 2024 -0500
+
+    Merge pull request #1 from juancabana/feature/architecture
+    
+    feature: COSCO architecture
+
+[33mcommit afcd96fa057c646656764201091cdb8e257cfcfc[m[33m ([m[1;31morigin/feature/architecture[m[33m)[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Mon Jul 29 16:50:03 2024 -0500
+
+    feature: COSCO architecture
+
+[33mcommit f91a092d3c6c5dbcd40e430156fe380adf756242[m
+Author: Juan Cabana <juan.cabana@pragma.com.co>
+Date:   Fri Jul 26 14:11:03 2024 -0500
+
+    Initial commit from gatsby
