@@ -9,7 +9,12 @@ interface PaginationProps {
   nextPage: () => void;
 }
 
-const Pagination: FC<PaginationProps> = ({ currentPage, totalPages, nextPage, previousPage }) => {
+const Pagination: FC<PaginationProps> = ({
+  currentPage,
+  totalPages,
+  nextPage,
+  previousPage,
+}) => {
   return (
     <div className="flex items-center justify-center space-x-6 mt-8">
       <Button

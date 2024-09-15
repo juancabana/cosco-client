@@ -1,5 +1,5 @@
 import React, { useEffect, useState, type FC } from "react";
-import { Trash2, RefreshCw, Plus, Upload } from "lucide-react";
+import { Trash2, Plus, Upload } from "lucide-react";
 import { Input } from "@/components/shadcn/ui/input";
 import {
   Select,
@@ -18,7 +18,7 @@ import locations from "@/assets/locations.json";
 import categories from "@/assets/categories.json";
 import massUnits from "@/assets/mass-unit.json";
 import plurales from "plurales";
-import { capitalizeFirstLetter } from "@/lib/utils";
+import { capitalizeFirstLetter } from "@/utils";
 
 const initialFormData = {
   title: "",
@@ -371,10 +371,6 @@ const UploadForm: FC<Props> = ({ setActiveTab }) => {
           </div>
         </div>
         <div className="flex justify-between">
-          <Button type="button" variant="outline" onClick={resetForm}>
-            <RefreshCw className="mr-2 h-4 w-4" />
-            Resetear formulario
-          </Button>
           <Button
             type="submit"
             disabled={!isFormValid}

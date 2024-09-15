@@ -1,4 +1,8 @@
-import { getAllCrops, type GetAllCropsPayload, type PostResponse } from "@/services/actions";
+import {
+  getAllCrops,
+  type GetAllCropsPayload,
+  type PostResponse,
+} from "@/services/actions";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import useDebounce from "../useDebounce";
@@ -9,24 +13,31 @@ const useGetAllCropsQuery = (filters: {
   city?: string;
   title?: string;
 }) => {
-  const limit = 4;
+  const limit = 20;
   const [offset, setOffset] = useState(0);
   const debouncedSearchTerm = useDebounce(filters.title, 200);
 
+  useEffect(() => {
+    setOffset(0);
+  }, [filters.title]);
+
   const offsetValue = debouncedSearchTerm ? 0 : offset;
 
-  const query = useQuery<PostResponse, unknown, PostResponse, [string, GetAllCropsPayload]>({
-    queryKey: ["allCrops", { limit, offset: offsetValue, ...filters, title: debouncedSearchTerm }],
+  const query = useQuery<
+    PostResponse,
+    unknown,
+    PostResponse,
+    [string, GetAllCropsPayload]
+  >({
+    queryKey: [
+      "allCrops",
+      { limit, offset: offsetValue, ...filters, title: debouncedSearchTerm },
+    ],
     queryFn: () => getAllCrops({ limit, offset, ...filters }),
     retry: 0,
     staleTime: 1000 * 60 * 60 * 24,
     enabled: true,
   });
-  useEffect(() => {
-    // query.refetch();
-    console.log("query", filters);
-
-  }, [filters, offset]);
 
   const previousPage = () => {
     if (query.data?.currentPage === 1) return;

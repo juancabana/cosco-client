@@ -3,7 +3,7 @@ import { getUser, type UserResponse } from "@/services/actions";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetUserQuery = () => {
-  const {setUserState, userId, user} = useAuth();
+  const { setUserState, userId, user } = useAuth();
 
   const query = useQuery<unknown, unknown, UserResponse>({
     queryKey: ["userInfo", userId],

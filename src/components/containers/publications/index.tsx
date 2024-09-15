@@ -1,3 +1,9 @@
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/shadcn/ui/card";
 import { FilterAndSearch } from "@/components/ui/filter-search";
 import Pagination from "@/components/ui/paginations";
 import { ProductCard } from "@/components/ui/product-card";
@@ -18,7 +24,10 @@ const Publications: FC = () => {
   });
   const [title, setTitle] = useState("");
 
-  const { data, previousPage, nextPage } = useGetAllCropsQuery({...filters, title});
+  const { data, previousPage, nextPage, isFetching } = useGetAllCropsQuery({
+    ...filters,
+    title,
+  });
 
   return (
     <div className="max-w-screen-xl w-full mx-auto px-4 py-8">
@@ -35,13 +44,39 @@ const Publications: FC = () => {
           ))}
         </div>
       )}
-      {data && data.posts.length > 0 && (
+      {data && data.posts.length > 0 ? (
         <Pagination
           currentPage={data?.currentPage ?? 1}
           totalPages={data?.totalPages ?? 1}
           previousPage={previousPage}
           nextPage={nextPage}
         />
+      ) : isFetching ? (
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle className="text-cosco-850">
+              Cargando publicaciones...
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground text-cosco-750">
+              Por favor espera un momento mientras cargamos las publicaciones.
+            </p>
+          </CardContent>
+        </Card>
+      ) : (
+        <Card className="mt-6">
+          <CardHeader>
+            <CardTitle className="text-cosco-850">
+              No se encontraron publicaciones con los filtros seleccionados
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground text-cosco-750">
+              Prueba con otros filtros o busca publicaciones sin filtros.
+            </p>
+          </CardContent>
+        </Card>
       )}
     </div>
   );

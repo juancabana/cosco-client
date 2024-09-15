@@ -20,6 +20,7 @@ import { Badge } from "@/components/shadcn/ui/badge";
 import { Filter, X } from "lucide-react";
 import locationsData from "@/assets/locations.json";
 import type { Filters } from "../containers/publications";
+import categories from "@/assets/categories.json";
 
 export interface Location {
   id: number;
@@ -28,8 +29,6 @@ export interface Location {
 }
 
 const locations: Location[] = locationsData as Location[];
-
-const productTypes = ["Frutas", "Verduras", "Hortalizas", "Tubérculos"];
 
 interface FilterAndSearchProps {
   filters: Filters;
@@ -129,17 +128,15 @@ const FilterAndSearch: FC<FilterAndSearchProps> = ({
               </Select>
               <Select
                 value={filters.category}
-                onValueChange={(value) =>
-                  handleFilterChange("category", value)
-                }
+                onValueChange={(value) => handleFilterChange("category", value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecciona un tipo de producto" />
                 </SelectTrigger>
                 <SelectContent>
-                  {productTypes.map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
+                  {categories.map((type) => (
+                    <SelectItem key={type.category} value={type.category}>
+                      {type.category}
                     </SelectItem>
                   ))}
                 </SelectContent>
