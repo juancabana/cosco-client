@@ -25,10 +25,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const queryClient = useQueryClient();
   const [token, setToken] = useState<string | null>(
-    isSSR() ? null : localStorage.getItem("token")
+    !isSSR() ? null : localStorage.getItem("token")
   );
   const [user, setUser] = useState<UserResponse | null>(
-    isSSR() && localStorage.getItem("user")
+    !isSSR() && localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")!)
       : null
   );
