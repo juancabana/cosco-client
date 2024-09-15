@@ -23,38 +23,49 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const queryClient = useQueryClient();
+  
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token")
+    typeof window !== "undefined" ? localStorage.getItem("token") : null
   );
+
   const [user, setUser] = useState<UserResponse | null>(
-    localStorage.getItem("user")
+    typeof window !== "undefined" && localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user")!)
       : null
   );
+  
   const [userId, setUserId] = useState<string | null | undefined>(user?._id);
 
   const isLogged = !!token;
 
   const setTokenState = (newToken: string) => {
     setToken(newToken);
-    localStorage.setItem("token", newToken);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("token", newToken);
+    }
   };
 
   const removeToken = () => {
     setToken(null);
-    localStorage.removeItem("token");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+    }
   };
 
   const setUserState = (data: UserResponse) => {
     setUser(data);
-    localStorage.setItem("user", JSON.stringify(data));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("user", JSON.stringify(data));
+    }
     queryClient.invalidateQueries({ queryKey: ["userInfo", data._id] });
   };
 
   const removeUser = () => {
     setUser(null);
     setUserId(null);
-    localStorage.removeItem("user");
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("user");
+    }
   };
 
   const closeSession = () => {
@@ -89,6 +100,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     </AuthContext.Provider>
   );
 };
+
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
