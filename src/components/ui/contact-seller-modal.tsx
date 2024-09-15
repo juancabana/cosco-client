@@ -27,13 +27,14 @@ import {
   MapPin,
   Calendar,
   MessageCircle,
-  Heart,
   ChevronLeft,
   ChevronRight,
   X,
+  Link,
 } from "lucide-react";
 import type { UserCropResponse } from "@/services/actions";
-import plurales from 'plurales';
+import plurales from "plurales";
+import { navigate } from "gatsby";
 
 interface IsOpen {
   isModalContactOpen: boolean;
@@ -57,7 +58,7 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
   title,
 }) => {
   const [mostrarTelefono, setMostrarTelefono] = useState(false);
-  const [imagenActual, setImagenActual] = useState(0)
+  const [imagenActual, setImagenActual] = useState(0);
 
   const abrirWhatsApp = () => {
     const mensaje = encodeURIComponent(
@@ -74,14 +75,22 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
     });
   };
 
-
   const siguienteImagen = () => {
-    setImagenActual((prev) => (prev + 1) % images.length)
-  }
+    setImagenActual((prev) => (prev + 1) % images.length);
+  };
 
   const imagenAnterior = () => {
-    setImagenActual((prev) => (prev - 1 + images.length) % images.length)
-  }
+    setImagenActual((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const enviarCorreoElectronico = () => {
+    const subject = encodeURIComponent(`Consulta sobre ${title} en COSCO`);
+    const body = encodeURIComponent(
+      `Hola,\n\nEstoy interesado en el producto ${title} de la categoría ${category}.\n\nGracias.`
+    );
+    const mailtoLink = `mailto:${owner.email}?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+  };
 
   return (
     <Dialog open={isModalContactOpen} onOpenChange={setIsModalContactOpen}>
@@ -121,7 +130,8 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
                         <Badge
                           variant="secondary"
                           className="bg-[#E2E8F0] text-[#0D7D7E]"
-                        >Vendedor
+                        >
+                          Vendedor
                         </Badge>
                       </CardDescription>
                     </div>
@@ -162,7 +172,9 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
                         </div>
                         <div className="flex items-center space-x-2">
                           <Calendar className="h-5 w-5 text-cosco-600" />
-                          <span>Publicado el {formatearFecha(createdAt.toString())}</span>
+                          <span>
+                            Publicado el {formatearFecha(createdAt.toString())}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -189,6 +201,7 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
                   <Button
                     variant="outline"
                     className="w-full sm:w-auto border-[#0D7D7E] text-[#0D7D7E] hover:text-cosco-700 hover:bg-[#E2E8F0]"
+                    onClick={enviarCorreoElectronico}
                   >
                     <Mail className="mr-2 h-4 w-4" /> Enviar correo electrónico
                   </Button>
@@ -240,17 +253,26 @@ const ContactSellerModal: FC<UserCropResponse & IsOpen> = ({
                         variant="ghost"
                         size="sm"
                         className={`w-2 h-2 rounded-full p-0 ${
-                          index === imagenActual ? 'bg-[#0D7D7E]' : 'bg-gray-300'
+                          index === imagenActual
+                            ? "bg-[#0D7D7E]"
+                            : "bg-gray-300"
                         }`}
                         onClick={() => setImagenActual(index)}
                       />
                     ))}
                   </div>
-                  <h2 className="text-xl font-semibold text-[#0D7D7E]">{product}</h2>
+                  <h2 className="text-xl font-semibold text-[#0D7D7E]">
+                    {product}
+                  </h2>
                   <p className="text-sm text-muted-foreground">{description}</p>
                   <div className="flex justify-between items-center">
-                    <span className="text-lg font-bold text-[#0D7D7E]">${price} / {massUnit}</span>
-                    <Badge variant="secondary" className="bg-[#E2E8F0] text-[#0D7D7E]">
+                    <span className="text-lg font-bold text-[#0D7D7E]">
+                      ${price} / {massUnit}
+                    </span>
+                    <Badge
+                      variant="secondary"
+                      className="bg-[#E2E8F0] text-[#0D7D7E]"
+                    >
                       Disponible: {stock} {plurales(massUnit)}
                     </Badge>
                   </div>

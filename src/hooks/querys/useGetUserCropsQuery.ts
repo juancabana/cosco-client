@@ -3,7 +3,7 @@ import { getUserCrops, type UserCropResponse } from "@/services/actions";
 import { useQuery } from "@tanstack/react-query";
 
 const useGetUserCropsQuery = () => {
-  const {userId} = useAuth();
+  const { userId } = useAuth();
 
   const query = useQuery<unknown, unknown, UserCropResponse[]>({
     queryKey: ["userCrops"],
@@ -13,7 +13,7 @@ const useGetUserCropsQuery = () => {
     enabled: !!userId,
   });
 
-    return { ...query };
+  return { ...query };
 };
 
 export default useGetUserCropsQuery;

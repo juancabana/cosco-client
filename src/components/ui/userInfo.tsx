@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ChevronDown, LogOut, Settings, User } from "lucide-react";
+import { ChevronDown, LogOut, User } from "lucide-react";
 import {
   Avatar,
   AvatarFallback,
@@ -33,10 +33,7 @@ export const UserInfo = () => {
           <Button variant="ghost" className="p-1 h-auto">
             <div className="flex items-center space-x-2">
               <Avatar className="h-8 w-8">
-                <AvatarImage
-                  src={user?.image}
-                  alt="CabanaJuan"
-                />
+                <AvatarImage src={user?.image} alt="CabanaJuan" />
                 <AvatarFallback>{getInitials()}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col items-start">
@@ -54,10 +51,7 @@ export const UserInfo = () => {
             <User className="mr-2 h-4 w-4" />
             <span>Perfil</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Configuración</span>
-          </DropdownMenuItem>
+
           <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => closeSession()}>
             <LogOut className="mr-2 h-4 w-4" />

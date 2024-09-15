@@ -13,26 +13,26 @@ import { useAuth } from "@/providers/auth";
 import useDeleteCropMutation from "@/hooks/mutations/useDeleteCropMutation";
 
 interface IsOpen {
-    isModalDeletePost: boolean;
-    setIsModalDeletePost: (isOpen: boolean) => void;
-    postId: string;
+  isModalDeletePost: boolean;
+  setIsModalDeletePost: (isOpen: boolean) => void;
+  postId: string;
 }
 
 const ConfirmationDeletePost: FC<IsOpen> = ({
-    isModalDeletePost,
-    setIsModalDeletePost,
-    postId,
+  isModalDeletePost,
+  setIsModalDeletePost,
+  postId,
 }) => {
   const { userId } = useAuth();
-    const {mutate} = useDeleteCropMutation();
+  const { mutate } = useDeleteCropMutation();
 
-    const handleDeleteConfirm = () => {
-        if (!userId) {
-            return;
-        }
-        mutate(postId);
-        setIsModalDeletePost(false);
-    };
+  const handleDeleteConfirm = () => {
+    if (!userId) {
+      return;
+    }
+    mutate(postId);
+    setIsModalDeletePost(false);
+  };
 
   return (
     <AlertDialog open={isModalDeletePost} onOpenChange={setIsModalDeletePost}>

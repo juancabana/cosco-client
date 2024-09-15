@@ -1,11 +1,5 @@
 import React, { useState, type FC } from "react";
-import {
-  Heart,
-  ChevronLeft,
-  ChevronRight,
-  MapPin,
-  DollarSign,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, MapPin, DollarSign } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import {
   Card,
@@ -15,20 +9,13 @@ import {
 } from "@/components/shadcn/ui/card";
 import { Badge } from "@/components/shadcn/ui/badge";
 import type { UserCropResponse } from "@/services/actions";
-import { useAuth } from "@/providers/auth";
 import { Avatar, AvatarImage } from "@/components/shadcn/ui/avatar";
 import CropModal from "./crop-modal";
 import categories from "@/assets/categories.json";
-import { type PostResponse } from "../../services/actions";
-import { useErrorModal } from "@/providers/error";
 
-export const ProductCard: FC<UserCropResponse | PostResponse> = (crop) => {
-  const { userId } = useAuth();
-  const { showError } = useErrorModal();
-
+export const ProductCard: FC<UserCropResponse> = (crop) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
 
   const badgeColor =
     categories.find((cat) => cat.category === crop.category)?.color ?? "gray";
@@ -43,18 +30,6 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = (crop) => {
       prevIndex === 0 ? crop.images.length - 1 : prevIndex - 1
     );
 
-  const likeCrop = () => {
-    if (!userId) {
-      showError(
-        "!Ups!",
-        "No puedes marcar como favorito si no has iniciado sesión. Por favor, inicia sesión o crea una cuenta.",
-        true
-      );
-      return;
-    }
-    setIsLiked(!isLiked);
-  };
-
   return (
     <>
       <Card className="w-full max-w-sm overflow-hidden border border-gray-200 rounded-lg shadow-sm">
@@ -65,16 +40,6 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = (crop) => {
             </Avatar>{" "}
             <span className="font-semibold text-sm text-cosco-700">{`${crop.owner.firstName} ${crop.owner.lastName}`}</span>
           </div>
-          {/* {crop.owner._id !== userId && <Button
-          variant="ghost"
-          size="icon"
-          className={`transition-all duration-300 ${
-            isLiked ? "text-red-500 scale-110" : "text-gray-500"
-          }`}
-          onClick={() => likeCrop()}
-        >
-          <Heart className={`${isLiked ? "fill-current" : ""}`} />
-        </Button> } */}
         </CardHeader>
         <div className="relative">
           <img
@@ -135,25 +100,10 @@ export const ProductCard: FC<UserCropResponse | PostResponse> = (crop) => {
             >
               Mas información
             </Button>
-            {/* {isPersonalPost && (
-            <Button variant="outline" size="icon" className="ml-2 border-teal-600 text-teal-600">
-              <Edit className="h-4 w-4" />
-            </Button>
-          )} */}
-
           </div>
         </CardFooter>
       </Card>
       <CropModal {...{ ...crop, isModalOpen, setIsModalOpen }} />
-      {/* {crop.isOwner && (
-          <Button
-            variant="outline"
-            size="icon"
-            className="ml-2 border-teal-600 text-teal-600"
-          >
-            <Edit className="h-4 w-4" />
-          </Button>
-        )} */}
     </>
   );
 };

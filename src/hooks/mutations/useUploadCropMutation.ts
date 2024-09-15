@@ -16,6 +16,7 @@ const useUploadCropMutation = () => {
     retry: 0,
     onSuccess() {
       queryCache.invalidateQueries({ queryKey: ["userCrops"] });
+      queryCache.invalidateQueries({ queryKey: ["allCrops"] });
     },
     onError() {
       showError(

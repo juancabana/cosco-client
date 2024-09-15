@@ -10,7 +10,7 @@ import { useErrorModal } from "@/providers/error";
 
 const useUpdateUserMutation = () => {
   const { setUserState } = useAuth();
-  const {showError} = useErrorModal();
+  const { showError } = useErrorModal();
 
   const mutation = useMutation<UserResponse, unknown, UpdateUserPayload>({
     mutationKey: ["updateUser"],
@@ -28,8 +28,7 @@ const useUpdateUserMutation = () => {
         "Ups! Algo salió mal",
         "Por favor, verifica tu conexión a internet e intenta de nuevo"
       );
-    }
-    
+    },
   });
 
   return { ...mutation };
