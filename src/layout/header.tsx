@@ -19,22 +19,22 @@ const Header = () => {
 
   return (
     <header className="bg-white">
-      <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <Link className="block text-teal-600" to="/">
+      <div className="mx-auto flex h-16 max-w-screen-xl justify-between items-center md:gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8">
+        <Link className="block text-teal-600 min-w-24" to="/">
           <span className="sr-only">Home</span>
           <img src={logo} alt="" />
         </Link>
 
-        <div className="flex flex-1 items-center justify-end md:justify-between">
+        <div className="flex justify-between md:w-full">
           {/* Pages */}
-          <nav aria-label="Global" className="hidden md:block">
-            <ul className="flex items-center gap-8 text-sm">
+          <nav aria-label="Global" className="hidden md:flex">
+            <ul className="flex items-center gap-2 lg:gap-4 xl:gap-6 2xl:gap-8 md:gap-2  text-sm">
               {options.map(
                 ({ name, enabled, href }) =>
                   enabled && (
                     <li key={name}>
                       <Link
-                        className="text-emerald-900 font-medium text-base leading-6 hover:font-bold px-2"
+                        className="text-emerald-900 font-medium md:text-sm lg:text-base xl:text-base leading-6 hover:font-bold px-1 lg:px-2 text-nowrap"
                         activeClassName="border-b-2 border-emerald-800"
                         to={href}
                       >
@@ -45,27 +45,9 @@ const Header = () => {
               )}
             </ul>
           </nav>
-
+ 
           <div className="flex items-center gap-4">
-            {isLogged ? (
               <UserInfo />
-            ) : (
-              <div className="sm:flex sm:gap-4">
-                <Link
-                  className="block rounded-full bg-transparent text-emerald-900 border-2 font-semibold  border-emerald-900 px-5 py-2.5 text-sm transition hover:bg-emerald-100"
-                  to="/auth/login"
-                >
-                  Iniciar sesión
-                </Link>
-
-                <Link
-                  className="hidden rounded-full bg-emerald-900 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-                  to="/auth/register"
-                >
-                  Registrarme
-                </Link>
-              </div>
-            )}
           </div>
         </div>
       </div>
