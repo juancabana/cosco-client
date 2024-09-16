@@ -6,7 +6,7 @@ const CardMain = () => (
   <section className="flex w-full justify-center bg-white h-section relative overflow-hidden">
     <div className="hidden xl:block absolute h-full w-max">
       <StaticImage
-        src="src/assets/Shapes.webp"
+        src="../../../assets/Shapes.webp"
         alt="Lineas"
         loading="eager"
         className="h-full"
@@ -38,7 +38,7 @@ const CardMain = () => (
       </div>
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
         <StaticImage
-          src="src/assets/img_section1.webp"
+          src="../../../assets/img_section1.webp"
           alt="imagen principal"
           loading="eager"
           className="h-full max-w-md max-h-[620px] rounded-3xl"
