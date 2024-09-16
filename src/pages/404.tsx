@@ -3,7 +3,10 @@ import { Link, type HeadFC, type PageProps } from "gatsby";
 import Seo from "@/layout/seo";
 import Layout from "@/layout";
 
-export const Head: HeadFC = () => <Seo />;
+export const Head: HeadFC = () => <Seo
+  title="Página no encontrada"
+  description="La página que buscas no existe"
+ />;
 
 const NotFoundPage: FC<PageProps> = () => {
   return (

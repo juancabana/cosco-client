@@ -4,8 +4,14 @@ import Seo from "@/layout/seo";
 import Layout from "@/layout";
 import isSSR from "@/utils/isSSR";
 
-export const Head: HeadFC = () => <Seo />;
+export const Head: HeadFC = () => (
+  <Seo
+    title="Contáctanos"
+    description="¿Tienes alguna duda o sugerencia? Contáctanos y te responderemos lo más pronto posible"
+  />
+);
 
-const ContactUsPage: FC<PageProps> = () => !isSSR() && <Layout>Contact Us page</Layout>;
+const ContactUsPage: FC<PageProps> = () =>
+  !isSSR() && <Layout>Contact Us page</Layout>;
 
 export default ContactUsPage;

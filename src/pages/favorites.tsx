@@ -7,7 +7,12 @@ import { useAuth } from "@/providers/auth";
 import Favorites from "@/components/containers/favorites";
 import isSSR from "@/utils/isSSR";
 
-export const Head: HeadFC = () => <Seo />;
+export const Head: HeadFC = () => (
+  <Seo
+    title="Mis favoritos"
+    description="Aquí podrás ver todos los productos que has marcado como favoritos"
+  />
+);
 
 const FavoritesPage: FC<PageProps> = () => {
   const { user, isLogged } = useAuth();

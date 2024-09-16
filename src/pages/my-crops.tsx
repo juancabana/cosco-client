@@ -7,7 +7,12 @@ import Layout from "@/layout";
 import { useAuth } from "@/providers/auth";
 import isSSR from "@/utils/isSSR";
 
-export const Head: HeadFC = () => <Seo />;
+export const Head: HeadFC = () => (
+  <Seo
+    title="Mis productos"
+    description="Aquí podrás ver todos los productos que has subido a la plataforma"
+  />
+);
 
 const MyCropsPage: FC<PageProps> = () => {
   const { user, isLogged } = useAuth();
