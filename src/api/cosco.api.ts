@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const isBrowser = typeof window !== "undefined"
+
 export const coscoApi = axios.create({
   baseURL: process.env.GATSBY_API_URL || "http://localhost:3000/api",
   // baseURL: "http://localhost:3000/api",
@@ -11,7 +13,7 @@ export const coscoApi = axios.create({
 // Interceptor para agregar el token a cada solicitud
 coscoApi.interceptors.request.use(
   (config) => {
-    const token = typeof window === 'undefined' ? "" : localStorage.getItem("token");
+    const token = isBrowser && localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

@@ -12,7 +12,7 @@ export const Head: HeadFC = () => <Seo />;
 const Perfil: FC<PageProps> = () => {
   const { user, isLogged } = useAuth();
   
-  if (!isSSR()) return null;
+  if (isSSR()) return null;
 
   if (!user && !isLogged) {
     navigate("/auth/login");

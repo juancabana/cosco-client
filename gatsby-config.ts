@@ -6,16 +6,12 @@
 import type { GatsbyConfig } from "gatsby";
 
 import dotenv from "dotenv";
-import path from "path";
 
 dotenv.config({
   path: `.env`,
 });
 
-const config: GatsbyConfig = {
-  flags: {
-    DEV_SSR: true,
-  },
+export default {
   plugins: [
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
@@ -24,7 +20,7 @@ const config: GatsbyConfig = {
     {
       options: {
         alias: {
-          "@": path.resolve(__dirname, "src"),
+          "@": "src",
         },
       },
       resolve: "gatsby-plugin-alias-imports",
@@ -40,5 +36,3 @@ const config: GatsbyConfig = {
     title: "Compra y vende tus cosechas en COSCO®",
   },
 } satisfies GatsbyConfig;
-
-export default config;
