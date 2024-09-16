@@ -1,4 +1,4 @@
-import React, { useState, type FC } from "react";
+import React, { useEffect, useState, type FC } from "react";
 import { Heart, ChevronLeft, MapPin, Trash2 } from "lucide-react";
 import { Button } from "@/components/shadcn/ui/button";
 import {
@@ -72,6 +72,20 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
     mutate({ postId: crop._id, userId });
   };
 
+  useEffect(() => {
+    const handlePopState = () => {
+      if (crop.isModalOpen) {
+        crop.setIsModalOpen(false);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [crop]);
+
   return (
     <>
       <Dialog open={crop.isModalOpen} onOpenChange={crop.setIsModalOpen}>
@@ -88,7 +102,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute top-2 left-2 bg-white rounded-full"
+                    className="fixed top-8 left-8 bg-white opacity-70 rounded-full"
                     onClick={() => crop.setIsModalOpen(false)}
                   >
                     <ChevronLeft className="h-4 w-4" />
