@@ -5,11 +5,14 @@ import { navigate, type HeadFC, type PageProps } from "gatsby";
 import MyCrops from "@/components/containers/my-crops";
 import Layout from "@/layout";
 import { useAuth } from "@/providers/auth";
+import isSSR from "@/utils/isSSR";
 
 export const Head: HeadFC = () => <Seo />;
 
 const MyCropsPage: FC<PageProps> = () => {
   const { user, isLogged } = useAuth();
+
+  if (!isSSR()) return null;
 
   if (!user && !isLogged) {
     navigate("/auth/login");

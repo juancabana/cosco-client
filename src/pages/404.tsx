@@ -1,10 +1,14 @@
 import React, { type FC } from "react";
 import { Link, type HeadFC, type PageProps } from "gatsby";
 import Seo from "@/layout/seo";
+import isSSR from "@/utils/isSSR";
 
 export const Head: HeadFC = () => <Seo />;
 
 const NotFoundPage: FC<PageProps> = () => {
+
+  if (!isSSR()) return null;
+  
   return (
     <main className="text-[#232129] p-24 font-sans">
       <h1 className="mt-0 mb-16 max-w-[320px]">Page not found</h1>

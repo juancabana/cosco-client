@@ -6,12 +6,16 @@
 import type { GatsbyConfig } from "gatsby";
 
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config({
   path: `.env`,
 });
 
 const config: GatsbyConfig = {
+  flags: {
+    DEV_SSR: true,
+  },
   plugins: [
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
@@ -20,7 +24,7 @@ const config: GatsbyConfig = {
     {
       options: {
         alias: {
-          "@": "src",
+          "@": path.resolve(__dirname, "src"),
         },
       },
       resolve: "gatsby-plugin-alias-imports",

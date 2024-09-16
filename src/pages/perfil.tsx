@@ -5,11 +5,14 @@ import Seo from "@/layout/seo";
 import MyPerfil from "@/components/containers/my-perfil";
 import Layout from "@/layout";
 import { useAuth } from "@/providers/auth";
+import isSSR from "@/utils/isSSR";
 
 export const Head: HeadFC = () => <Seo />;
 
 const Perfil: FC<PageProps> = () => {
   const { user, isLogged } = useAuth();
+  
+  if (!isSSR()) return null;
 
   if (!user && !isLogged) {
     navigate("/auth/login");

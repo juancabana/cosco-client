@@ -38,24 +38,24 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
 
   const setTokenState = (newToken: string) => {
     setToken(newToken);
-    localStorage.setItem("token", newToken);
+    !isSSR() && localStorage.setItem("token", newToken);
   };
 
   const removeToken = () => {
     setToken(null);
-    localStorage.removeItem("token");
+    !isSSR() && localStorage.removeItem("token");
   };
 
   const setUserState = (data: UserResponse) => {
     setUser(data);
-    localStorage.setItem("user", JSON.stringify(data));
+    !isSSR() && localStorage.setItem("user", JSON.stringify(data));
     queryClient.invalidateQueries({ queryKey: ["userInfo", data._id] });
   };
 
   const removeUser = () => {
     setUser(null);
     setUserId(null);
-    localStorage.removeItem("user");
+    !isSSR() && localStorage.removeItem("user");
   };
 
   const closeSession = () => {
