@@ -23,7 +23,8 @@ export default {
       options: {
         host: process.env.GATSBY_ECOMMERCE_URL,
         sitemap: `${process.env.GATSBY_ECOMMERCE_URL}sitemap-index.xml`,
-        policy: [{userAgent: '*', allow: '/'}]
+        policy: [{userAgent: '*', allow: '/'}],
+        disallow: [],
       }
     },
     {
