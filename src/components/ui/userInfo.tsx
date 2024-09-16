@@ -108,7 +108,7 @@ export const UserInfo = () => {
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
           <nav
-            className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden transition-all duration-200 ease-in-out z-10 ${
+            className={`absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg overflow-hidden transition-all duration-200 ease-in-out z-20 ${
               isOpen ? "max-h-56 opacity-100" : "max-h-0 opacity-0"
             } md:hidden`}
           >

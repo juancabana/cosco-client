@@ -9,7 +9,7 @@ import RegisterForm from "./RegisterForm";
 
 const Register: FC = () => (
   <section className="bg-white h-screen">
-    <div className="flex justify-center h-screen">
+    <div className="flex justify-center h-auto md:h-screen ">
       <div className="hidden lg:block lg:w-2/3 bg-cover bg-center relative">
         <StaticImage
           src="../../../assets/img_register.jpg"
@@ -39,7 +39,7 @@ const Register: FC = () => (
         </div>
       </div>
 
-      <div className="flex items-center w-full h-full max-w-md px-6 mx-auto lg:w-2/6">
+      <div className="flex items-center w-full h-full max-w-md px-6 mx-auto lg:w-2/6 p-4 py-8">
         <div className="flex-1">
           <div className="text-center">
             <Link
