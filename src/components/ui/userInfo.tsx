@@ -30,7 +30,6 @@ import {
 } from "@/components/shadcn/ui/dropdown-menu";
 import { useAuth } from "@/providers/auth";
 import { Link, navigate } from "gatsby";
-import { Toaster } from "@/components/shadcn/ui/toaster";
 
 export const UserInfo = () => {
   const { user, closeSession, isLogged } = useAuth();

@@ -30,11 +30,9 @@ import {
   ChevronLeft,
   ChevronRight,
   X,
-  Link,
 } from "lucide-react";
 import type { UserCropResponse } from "@/services/actions";
 import plurales from "plurales";
-import { navigate } from "gatsby";
 
 interface IsOpen {
   isModalContactOpen: boolean;
