@@ -86,6 +86,12 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
     };
   }, [crop]);
 
+  useEffect(() => {
+    if (crop.isModalOpen) {
+      window.history.pushState(null, '', window.location.href);
+    }
+  }, [crop.isModalOpen]);
+
   return (
     <>
       <Dialog open={crop.isModalOpen} onOpenChange={crop.setIsModalOpen}>
