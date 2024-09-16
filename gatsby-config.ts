@@ -19,6 +19,14 @@ export default {
     "gatsby-transformer-sharp",
     "gatsby-plugin-sitemap",
     {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: process.env.GATSBY_ECOMMERCE_URL,
+        sitemap: `${process.env.GATSBY_ECOMMERCE_URL}sitemap-index.xml`,
+        policy: [{userAgent: '*', allow: '/'}]
+      }
+    },
+    {
       options: {
         alias: {
           "@": "src",
