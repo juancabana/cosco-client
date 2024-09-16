@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import React, { type FC } from "react";
 
-import backgroundImage from "@/assets/img_login.jpg";
+import backgroundImage from "@/assets/img_login.webp";
 import logo from "@/assets/cosco-white.svg";
 import logoWhite from "@/assets/cosco.svg";
 
@@ -20,7 +20,7 @@ const Login: FC = () => {
           }}
         >
           <StaticImage
-            src="../../../assets/img_login.jpg"
+            src="../../../assets/img_login.webp"
             alt="Background"
             loading="eager"
             className="absolute h-full"
@@ -28,7 +28,7 @@ const Login: FC = () => {
           />
           <div className="absolute inset-0 bg-black opacity-15"></div>
 
-          <div className="flex items-center h-full px-20 relative z-10">
+          <div className="absolute flex items-center h-full top-0 left-0 px-20 z-10">
             <div>
               <Link className="block text-teal-600 h-12" to="/">
                 <span className="sr-only">Home</span>

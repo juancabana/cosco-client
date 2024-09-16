@@ -8,7 +8,7 @@ const CardInvitation = () => (
   <section className="flex w-full justify-center bg-emerald-50 h-section relative overflow-hidden">
     <div className="hidden xl:block absolute h-full w-max">
       <StaticImage
-        src="../../../assets/ShapesInverted.png"
+        src="../../../assets/ShapesInverted.webp"
         alt="Lineas"
         loading="lazy"
         className="h-full"
@@ -17,9 +17,9 @@ const CardInvitation = () => (
       />
     </div>
     <div className="flex max-w-screen-xl w-auto xl:w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
-      <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
+      <div className="hidden h-full xl:flex justify-center items-center py-6 z-10 max-h-[620px]">
         <StaticImage
-          src="../../../assets/img_section1.png"
+          src="../../../assets/secondImage.webp"
           alt="imagen principal"
           loading="eager"
           className="h-full max-w-md 2xl:max-h-[620px] rounded-3xl"

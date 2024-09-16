@@ -12,7 +12,7 @@ const Register: FC = () => (
     <div className="flex justify-center h-auto md:h-screen ">
       <div className="hidden lg:block lg:w-2/3 bg-cover bg-center relative">
         <StaticImage
-          src="../../../assets/img_register.jpg"
+          src="../../../assets/img_register.webp"
           alt="Background"
           loading="eager"
           className="absolute h-full"
@@ -20,7 +20,7 @@ const Register: FC = () => (
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
 
-        <div className="flex items-center h-full px-20 relative z-10">
+        <div className="flex items-center h-full px-20 absolute top-0 left-0 z-10">
           <div>
             <Link className="block text-teal-600 h-12" to="/">
               <span className="sr-only">Home</span>
