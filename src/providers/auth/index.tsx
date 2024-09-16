@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import type { UserResponse } from "@/services/actions";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/shadcn/ui/toaster";
 import { ErrorModalProvider } from "../error";
 
@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
     <AuthContext.Provider value={contextValue}>
       <ErrorModalProvider>
         {children}
-        <ReactQueryDevtools />
+        {/* <ReactQueryDevtools /> */}
         <Toaster />
       </ErrorModalProvider>
     </AuthContext.Provider>
