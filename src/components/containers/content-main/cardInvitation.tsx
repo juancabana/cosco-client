@@ -2,6 +2,7 @@ import React from "react";
 
 import Ellipse from "@/assets/Ellipse_2.svg";
 import { StaticImage } from "gatsby-plugin-image";
+import { Link } from "gatsby";
 
 const CardInvitation = () => (
   <section className="flex w-full justify-center bg-emerald-50 h-section relative overflow-hidden">
@@ -15,7 +16,7 @@ const CardInvitation = () => (
         quality={100}
       />
     </div>
-    <div className="flex max-w-screen-xl w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
+    <div className="flex max-w-screen-xl w-auto xl:w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
         <StaticImage
           src="../../../assets/img_section1.png"
@@ -27,8 +28,8 @@ const CardInvitation = () => (
         />
       </div>
       <div className="max-w-md z-10">
-        <h1 className="font-bold text-4xl text-cosco-700 leading-10">
-          Únete a la comunidad
+      <h1 className="font-extrabold text-5xl md:text-7xl text-cosco-700 leading-none md:text-left">
+      Únete a la comunidad
         </h1>
         <p className="text-lg font-normal text-cosco-600 mt-5">
           ¡Sé parte del comienzo de algo grande! "Únete a la Comunidad" te
@@ -38,12 +39,12 @@ const CardInvitation = () => (
           agricultura local y sostenible. Únete ahora y sé un pionero en esta
           emocionante aventura.
         </p>
-        <a
+        <Link
           className="hidden rounded-full w-fit mt-12 bg-cosco-500 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-          href="/"
+          to="auth/register"
         >
-          Explorar
-        </a>
+          Unirme
+        </Link>
       </div>
     </div>
     <img src={Ellipse} alt="" className="absolute -bottom-96 -right-80" />

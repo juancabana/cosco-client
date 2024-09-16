@@ -1,5 +1,6 @@
 import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
+import { Link } from "gatsby";
 
 const CardMain = () => (
   <section className="flex w-full justify-center bg-white h-section relative overflow-hidden">
@@ -13,12 +14,12 @@ const CardMain = () => (
         quality={100}
       />
     </div>
-    <div className="flex max-w-screen-xl w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
+    <div className="flex max-w-screen-xl w-auto xl:w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-xl z-10">
-        <h1 className="font-extrabold text-7xl text-cosco-700 leading-10">
+        <h1 className="font-extrabold text-5xl md:text-7xl text-cosco-700 leading-none md:text-left">
           Publica y compra
-          <small className="text-4xl font-bold"> cosechas </small>
-          <small className="text-4xl font-bold text-cosco-500">
+          <small className="text-3xl md:text-4xl font-bold"> cosechas </small>
+          <small className="text-3xl md:text-4xl font-bold text-cosco-500">
             o productos agrícolas
           </small>
         </h1>
@@ -28,19 +29,19 @@ const CardMain = () => (
           de quienes los cultivan. Únete a nuestra comunidad y apoya el comercio
           local y sostenible.
         </p>
-        <a
+        <Link
           className="hidden rounded-full w-fit mt-12 bg-cosco-500 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
-          href="/"
+          to="/publications"
         >
           Explorar
-        </a>
+        </Link>
       </div>
       <div className="hidden h-full xl:flex justify-center items-center py-6 z-10">
         <StaticImage
           src="../../../assets/img_section1.png"
           alt="imagen principal"
           loading="eager"
-          className="h-full max-w-md 2xl:max-h-[620px] rounded-3xl"
+          className="h-full max-w-md max-h-[620px] rounded-3xl"
           formats={["webp"]}
           quality={100}
         />
