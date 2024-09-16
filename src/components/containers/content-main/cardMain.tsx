@@ -11,18 +11,18 @@ const CardMain = () => (
         loading="eager"
         className="h-full"
         formats={["webp"]}
-        quality={100}
+        quality={50}
       />
     </div>
     <div className="flex max-w-screen-xl w-auto xl:w-full items-center justify-between gap-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-xl z-10">
-        <h1 className="font-extrabold text-5xl md:text-7xl text-cosco-700 leading-none md:text-left">
+        <h1 className="font-extrabold text-5xl md:text-7xl text-cosco-700 leading-none md:text-left mb-2">
           Publica y compra
-          <small className="text-3xl md:text-4xl font-bold"> cosechas </small>
-          <small className="text-3xl md:text-4xl font-bold text-cosco-500">
-            o productos agrícolas
-          </small>
         </h1>
+        <small className="text-3xl md:text-4xl font-bold text-cosco-500"> cosechas </small>
+        <small className="text-3xl md:text-4xl font-bold text-cosco-500">
+          o productos agrícolas
+        </small>
         <p className="text-lg font-normal text-cosco-600 mt-5">
           Descubre la plataforma que conecta agricultores y consumidores.
           Publica y compra cosechas y productos agrícolas frescos directamente
