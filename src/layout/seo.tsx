@@ -2,9 +2,9 @@ import { graphql, useStaticQuery } from "gatsby";
 import React, { type FC } from "react";
 
 interface Props {
-  author?: string;
-  description?: string;
   title?: string;
+  description?: string;
+  author?: string;
 }
 
 interface SiteMetaData {
@@ -48,7 +48,7 @@ const Seo: FC<Props> = (props) => {
       <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
-        crossOrigin="use-credentials"
+        crossOrigin="anonymous"
       />
       <link
         rel="preload"
@@ -56,7 +56,7 @@ const Seo: FC<Props> = (props) => {
         as="style"
         onLoad={(e) => {
           const target = e.target as HTMLLinkElement;
-          target.rel = "stylesheet";
+          target.rel = 'stylesheet';
         }}
       />
       <noscript>

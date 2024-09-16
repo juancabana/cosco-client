@@ -26,6 +26,12 @@ export default {
       },
       resolve: "gatsby-plugin-alias-imports",
     },
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/assets/img_logoSpinner.svg"
+      }
+    },
   ],
   siteMetadata: {
     author: "COSCO®",
