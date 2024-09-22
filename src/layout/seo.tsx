@@ -44,6 +44,7 @@ const Seo: FC<Props> = (props) => {
       <meta name="twitter:creator" content={author} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      <meta name="google-site-verification" content="s6ioM3wswWxSJ3G7EdxC7gvbyn13gx4eDFjIYMK_eUk" />
     </>
   );
 };
