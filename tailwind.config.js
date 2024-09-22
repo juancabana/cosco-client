@@ -62,6 +62,9 @@ module.exports = {
       height: {
         'section': 'calc(100vh - 4rem)',
       },
+      minHeight: {
+        'section': 'calc(100vh - 4rem)',
+      },
       textColor: {
         'cosco-950': '#00110E',
         'cosco-900': '#011F1B',
