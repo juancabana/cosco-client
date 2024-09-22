@@ -3,6 +3,7 @@ import type { HeadFC, PageProps } from "gatsby";
 import Seo from "@/layout/seo";
 import Layout from "@/layout";
 import isSSR from "@/utils/isSSR";
+import AboutUs from "@/components/containers/about-us";
 
 export const Head: HeadFC = () => (
   <Seo
@@ -12,6 +13,10 @@ export const Head: HeadFC = () => (
 );
 
 const AboutUsPage: FC<PageProps> = () =>
-  !isSSR() && <Layout>About Us page</Layout>;
+  !isSSR() && (
+    <Layout>
+      <AboutUs />
+    </Layout>
+  );
 
 export default AboutUsPage;

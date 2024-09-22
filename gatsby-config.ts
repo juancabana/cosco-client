@@ -11,21 +11,37 @@ dotenv.config({
   path: `.env`,
 });
 
+const excludeSeoPages = ['/favorites', '/my-crops', '/perfil'];
+
 export default {
   plugins: [
     "gatsby-plugin-postcss",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-    "gatsby-plugin-sitemap",
     {
-      resolve: 'gatsby-plugin-robots-txt',
+      resolve: "gatsby-plugin-google-fonts",
+      options: {
+        fonts: [
+          "Poppins:100,200,300,400,500,600,700,800,900",
+        ],
+        display: "swap",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-sitemap",
+      options: {
+        excludes: excludeSeoPages,
+      }
+    },
+    {
+      resolve: "gatsby-plugin-robots-txt",
       options: {
         host: process.env.GATSBY_ECOMMERCE_URL,
         sitemap: `${process.env.GATSBY_ECOMMERCE_URL}sitemap-index.xml`,
-        policy: [{userAgent: '*', allow: '/'}],
-        disallow: [],
-      }
+        policy: [{ userAgent: "*", allow: "/" }],
+        disallow: excludeSeoPages,
+      },
     },
     {
       options: {
@@ -36,10 +52,17 @@ export default {
       resolve: "gatsby-plugin-alias-imports",
     },
     {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: "gatsby-plugin-manifest",
       options: {
-        "icon": "src/assets/img_logoSpinner.svg"
-      }
+        icon: "src/assets/img_logoSpinner.svg",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "images",
+        path: `${__dirname}/src/assets`,
+      },
     },
   ],
   siteMetadata: {
