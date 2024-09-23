@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource/poppins": "^5.1.0",
     "@radix-ui/react-alert-dialog": "1.1.1",
     "@radix-ui/react-avatar": "1.1.0",
     "@radix-ui/react-dialog": "1.1.1",
@@ -37,7 +38,6 @@
     "date-fns": "3.6.0",
     "dotenv": "16.4.5",
     "gatsby": "5.13.5",
-    "gatsby-plugin-google-fonts": "1.0.1",
     "gatsby-plugin-manifest": "5.13.1",
     "gatsby-plugin-robots-txt": "1.8.0",
     "gatsby-plugin-sitemap": "6.13.1",

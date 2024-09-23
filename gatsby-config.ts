@@ -20,18 +20,6 @@ export default {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {
-      resolve: "gatsby-plugin-google-fonts",
-      options: {
-        fonts: [
-          "Poppins:100,200,300,400,500,600,700,800,900",
-        ],
-        display: "swap",
-        attributes: {
-          rel: "stylesheet preload prefetch",
-        },
-      },
-    },
-    {
       resolve: "gatsby-plugin-sitemap",
       options: {
         excludes: excludeSeoPages,
