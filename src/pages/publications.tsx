@@ -8,8 +8,8 @@ import isSSR from "@/utils/isSSR";
 
 export const Head: HeadFC = () => (
   <Seo
-    title="Cosechas colombianas"
-    description="Encuentra las mejores cosechas colombianas directamente desde el campo, contacta directamente con el productor sin intermediarios"
+    title="Publicaciones de Productos Agrícolas | COSCO"
+    description="Explora las publicaciones de productos agrícolas disponibles en COSCO. Filtra por ubicación, tipo de producto y encuentra lo que necesitas directamente de los campesinos."
   />
 );
 

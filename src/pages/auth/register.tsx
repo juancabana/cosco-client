@@ -8,8 +8,8 @@ import Seo from "@/layout/seo";
 
 export const Head: HeadFC = () => (
   <Seo
-    title="Registrarse"
-    description="Regístrate y publica tus cosechas colombianas en un solo lugar, conoce a los productores y sus productos sin intermediarios"
+    title="Regístrate en COSCO"
+    description="Regístrate en COSCO y comienza a vender tus productos agrícolas directamente a compradores. Únete a nuestra comunidad y apoya el comercio justo entre campesinos y consumidores."
   />
 );
 

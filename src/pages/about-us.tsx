@@ -7,8 +7,8 @@ import AboutUs from "@/components/containers/about-us";
 
 export const Head: HeadFC = () => (
   <Seo
-    title="Sobre nosotros"
-    description="Conoce más sobre nosotros y nuestro propósito"
+    title="Sobre Nosotros | COSCO"
+    description="Conoce más sobre COSCO, nuestra misión de conectar a campesinos con compradores, reducir el desperdicio y promover el comercio local justo. Únete a nosotros y sé parte del cambio."
   />
 );
 
