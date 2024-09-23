@@ -2,6 +2,7 @@ import React, { type FC, type PropsWithChildren } from "react";
 
 import Header from "./header";
 import useGetUserQuery from "@/hooks/querys/useGetUserQuery";
+import Footer from "./footer";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   useGetUserQuery();
@@ -28,6 +29,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       <main className="flex min-h-[calc(100vh-72px)] flex-1 flex-col bg-slate-200">
         {children}
       </main>
+      <Footer />
     </div>
   );
 };
