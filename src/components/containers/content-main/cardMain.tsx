@@ -19,15 +19,19 @@ const CardMain = () => (
         <h1 className="font-extrabold text-5xl md:text-7xl text-cosco-700 leading-none md:text-left mb-2">
           Publica y compra
         </h1>
-        <small className="text-3xl md:text-4xl font-bold text-cosco-500"> cosechas </small>
         <small className="text-3xl md:text-4xl font-bold text-cosco-500">
-          o productos agrícolas
+          {" "}
+          cosechas o productos agrícolas
         </small>
         <p className="text-lg font-normal text-cosco-600 mt-5">
           Descubre la plataforma que conecta agricultores y consumidores.
+        </p>
+        <p className="text-lg font-normal text-cosco-600 mt-0">
           Publica y compra cosechas y productos agrícolas frescos directamente
-          de quienes los cultivan. Únete a nuestra comunidad y apoya el comercio
-          local y sostenible.
+          de quienes los cultivan.
+        </p>
+        <p className="text-lg font-normal text-cosco-600 mt-0">
+          Únete a nuestra comunidad y apoya el comercio local y sostenible.
         </p>
         <Link
           className="hidden rounded-full w-fit mt-12 bg-cosco-500 px-5 py-2.5 text-sm font-semibold  text-white transition hover:bg-emerald-200 hover:text-emerald-900 sm:block"
