@@ -8,8 +8,8 @@ import Seo from "@/layout/seo";
 
 export const Head: HeadFC = () => (
   <Seo
-    title="Iniciar sesión"
-    description="Inicia sesión y publica tus cosechas colombianas en un solo lugar, conoce a los productores y sus productos sin intermediarios"
+    title="Iniciar Sesión en COSCO"
+    description="Accede a tu cuenta en COSCO para publicar, vender o comprar productos agrícolas de manera sencilla y rápida. Conéctate con compradores y vendedores de confianza."
   />
 );
 
