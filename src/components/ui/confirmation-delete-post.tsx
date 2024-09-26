@@ -39,11 +39,11 @@ const ConfirmationDeletePost: FC<IsOpen> = ({
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            ¿Estás seguro de que quieres eliminar esta cosecha?
+            ¿Estás seguro de que quieres eliminar este producto?
           </AlertDialogTitle>
           <AlertDialogDescription>
             Esta acción no se puede deshacer. Esto eliminará permanentemente tu
-            cosecha y removerá los datos de nuestros servidores.
+            producto y removerá los datos de nuestros servidores.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

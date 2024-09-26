@@ -79,7 +79,7 @@ export const UserInfo = () => {
 
               <DropdownMenuItem className="flex md:hidden hover:bg-gray-100" onClick={() => navigate("/my-crops")}>
                 <FileText className="mr-2 h-4 w-4" />
-                <span>Mis cosechas</span>
+                <span>Mis productos</span>
               </DropdownMenuItem>
 
               <DropdownMenuItem className="flex md:hidden hover:bg-gray-100" onClick={() => navigate("/favorites")}>

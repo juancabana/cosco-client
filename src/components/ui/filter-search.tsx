@@ -89,7 +89,7 @@ const FilterAndSearch: FC<FilterAndSearchProps> = ({
             <SheetHeader>
               <SheetTitle>Filtros</SheetTitle>
               <SheetDescription>
-                Refina tu búsqueda de cosechas usando los siguientes filtros.
+                Refina tu búsqueda de productos usando los siguientes filtros.
               </SheetDescription>
             </SheetHeader>
             <div className="grid gap-4 py-4">

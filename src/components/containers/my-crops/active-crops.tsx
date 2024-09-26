@@ -19,12 +19,12 @@ const CardUpload: FC<Props> = ({ setActiveTab }) => (
   <Card className="mt-6">
     <CardHeader>
       <CardTitle className="text-cosco-850">
-        No tienes cosechas publicadas
+        No tienes productos publicados
       </CardTitle>
     </CardHeader>
     <CardContent>
       <p className="text-muted-foreground text-cosco-750">
-        Aquí aparecerán tus cosechas una vez que las publiques.
+        Aquí aparecerán tus productos una vez que los publiques.
       </p>
     </CardContent>
     <CardFooter>
@@ -33,7 +33,7 @@ const CardUpload: FC<Props> = ({ setActiveTab }) => (
         onClick={() => setActiveTab("nueva")}
       >
         <Plus className="mr-2 h-4 w-4" />
-        Publicar tu primera cosecha
+        Publicar tu primer producto
       </Button>
     </CardFooter>
   </Card>

@@ -58,7 +58,7 @@ export default {
   siteMetadata: {
     author: "COSCO®",
     description:
-      "Con COSCO, los campesinos pueden vender sus cosechas directamente a compradores interesados. Únete y apoya el comercio local, reduce el desperdicio de alimentos y obtén productos frescos al mejor precio sin intermediarios.",
+      "Con COSCO, los campesinos pueden vender sus cosechas o productos agricolas directamente a compradores interesados. Únete y apoya el comercio local, reduce el desperdicio de alimentos y obtén productos frescos al mejor precio sin intermediarios.",
     facebookId: process.env.FACEBOOK_DOMAIN_VERIFICATION,
     siteUrl: process.env.GATSBY_ECOMMERCE_URL,
     title: "Compra y Venta de Productos Agrícolas | COSCO",

@@ -233,7 +233,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                   className="w-full bg-red-600 hover:bg-red-700 text-white"
                   onClick={() => setIsModalDeletePost(true)}
                 >
-                  <Trash2 className="mr-2 h-4 w-4" /> Eliminar cosecha
+                  <Trash2 className="mr-2 h-4 w-4" /> Eliminar producto
                 </Button>
               )}
           </div>
