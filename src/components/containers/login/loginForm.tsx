@@ -14,7 +14,7 @@ const LoginForm: FC = () => {
   const methods = useForm<LoginPayload>();
 
   const onSubmit: SubmitHandler<LoginPayload> = async (data: LoginPayload) => {
-    mutate(data);
+    mutate({ ...data, email: data.email.toLowerCase() });
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
