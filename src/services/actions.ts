@@ -280,3 +280,14 @@ export const deleteCrop = async (id: string): Promise<string> => {
   const { data } = await coscoApi.delete<string>(`/post/${id}`);
   return data;
 };
+
+export const updateCrop = async (
+  id: string,
+  payload: Partial<UploadPostPayload>
+): Promise<UploadPostResponse> => {
+  const { data } = await coscoApi.patch<UploadPostResponse>(
+    `/post/${id}`,
+    payload
+  );
+  return data;
+};

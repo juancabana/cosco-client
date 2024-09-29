@@ -20,6 +20,7 @@ import plurales from "plurales";
 import useSetFavoriteMutation from "@/hooks/mutations/useSetFavoriteMutation";
 import { useLocation } from "@reach/router"; // Importa useLocation desde @reach/router
 import ConfirmationDeletePost from "./confirmation-delete-post";
+import UpdateCrop from "../containers/my-crops/update-crop";
 
 interface IsOpen {
   isModalOpen: boolean;
@@ -79,16 +80,16 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
       }
     };
 
-    window.addEventListener('popstate', handlePopState);
+    window.addEventListener("popstate", handlePopState);
 
     return () => {
-      window.removeEventListener('popstate', handlePopState);
+      window.removeEventListener("popstate", handlePopState);
     };
   }, [crop]);
 
   useEffect(() => {
     if (crop.isModalOpen) {
-      window.history.pushState(null, '', window.location.href);
+      window.history.pushState(null, "", window.location.href);
     }
   }, [crop.isModalOpen]);
 
@@ -228,13 +229,16 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
             )}
             {location.pathname.includes("my-crops") &&
               userId === crop.owner._id && (
-                <Button
-                  variant="destructive"
-                  className="w-full bg-red-600 hover:bg-red-700 text-white"
-                  onClick={() => setIsModalDeletePost(true)}
-                >
-                  <Trash2 className="mr-2 h-4 w-4" /> Eliminar producto
-                </Button>
+                <div className="flex flex-col md:flex-row gap-4">
+                  <Button
+                    variant="destructive"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white"
+                    onClick={() => setIsModalDeletePost(true)}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" /> Eliminar producto
+                  </Button>
+                  <UpdateCrop {...crop} />
+                </div>
               )}
           </div>
         </DialogContent>
