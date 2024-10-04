@@ -96,7 +96,7 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
   return (
     <>
       <Dialog open={crop.isModalOpen} onOpenChange={crop.setIsModalOpen}>
-        <DialogContent className="max-w-full h-screen p-0 overflow-hidden flex flex-col">
+        <DialogContent className="max-w-full h-screen sm:max-w-[900px] sm:h-auto  p-0 overflow-hidden flex flex-col">
           <DialogTitle className="sr-only">{crop.title}</DialogTitle>
           <DialogDescription className="sr-only">
             {crop.description}
