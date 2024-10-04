@@ -1,6 +1,6 @@
 import { useAuth } from "@/providers/auth";
 import { useErrorModal } from "@/providers/error";
-import { setFavorite, type SetFavoritePayload } from "@/services/actions";
+import { setFavorite, SetFavoriteResponse, type SetFavoritePayload } from "@/services/actions";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useSetFavoriteMutation = () => {
@@ -8,7 +8,7 @@ const useSetFavoriteMutation = () => {
   const { userId } = useAuth();
   const { showError } = useErrorModal();
 
-  const mutation = useMutation<string, unknown, SetFavoritePayload>({
+  const mutation = useMutation<SetFavoriteResponse, unknown, SetFavoritePayload>({
     mutationKey: ["setFavorite"],
     mutationFn: setFavorite,
     retry: 0,
