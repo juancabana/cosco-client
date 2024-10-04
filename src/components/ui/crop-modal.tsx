@@ -149,18 +149,17 @@ const CropModal: FC<UserCropResponse & IsOpen> = (crop) => {
                     </h2>
                     <h3 className="text-xl text-teal-600">{crop.product}</h3>
                   </div>
-                  {userId !== crop.owner._id &&
-                    !location.pathname.includes("favorites") && (
+                  {userId !== crop.owner._id && (
                       <Button
                         variant="ghost"
                         size="icon"
                         className={`${
-                          isLiked ? "text-red-500" : "text-gray-500"
+                          isLiked || location.pathname.includes("favorites") ? "text-red-500" : "text-gray-500"
                         }`}
                         onClick={() => likeCrop()}
                       >
                         <Heart
-                          className={`h-6 w-6 ${isLiked ? "fill-current" : ""}`}
+                          className={`h-6 w-6 ${isLiked || location.pathname.includes("favorites") ? "fill-current" : ""}`}
                         />
                       </Button>
                     )}

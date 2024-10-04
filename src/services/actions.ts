@@ -195,6 +195,14 @@ export interface GetAllCropsPayload {
   title?: string;
 }
 
+// type SetFavoriteResponse = 'Post added to favorites' | 'Post removed from favorites';
+
+export enum SetFavoriteResponse {
+  POST_ADDED = "Post added to favorites",
+  POST_REMOVED = "Post removed from favorites",
+}
+
+
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
   const { data } = await coscoApi.post<LoginResponse>("/auth/login", payload);
   return data;
@@ -257,8 +265,8 @@ export const getAllCrops = async (
 export const setFavorite = async ({
   postId,
   userId,
-}: SetFavoritePayload): Promise<string> => {
-  const { data } = await coscoApi.post<string>(
+}: SetFavoritePayload): Promise<SetFavoriteResponse> => {
+  const { data } = await coscoApi.post<SetFavoriteResponse>(
     `/user/favorite/${userId}/${postId}`,
     {
       userId,
