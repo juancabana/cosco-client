@@ -21,7 +21,7 @@ const CardInvitation = () => (
         <StaticImage
           src="../../../assets/secondImage.webp"
           alt="imagen principal"
-          loading="eager"
+          loading="lazy"
           className="h-full max-w-md 2xl:max-h-[620px] rounded-3xl"
           formats={["webp"]}
           quality={100}
